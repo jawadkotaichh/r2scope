@@ -1,0 +1,23 @@
+What you should focus on first
+
+If your goal is understand the repo enough to reproduce and then modify it, I would focus in this order:
+
+src/config/algs/rode.yaml
+src/main.py
+src/run.py
+src/runners/episode_runner.py
+src/controllers/rode_controller.py
+src/learners/rode_learner.py
+src/modules/agents/rode_agent.py and src/modules/roles/dot_role.py
+src/envs/starcraft2/starcraft2.py
+
+
+
+main.py loads configs and seeds 
+→ run.py builds runner/buffer/controller/learner 
+→ episode_runner.py collects episodes from SC2 
+→ rode_controller.py selects roles and actions 
+→ rode_learner.py samples batches and trains Q-functions/mixers/action encoder
+→ checkpoints get saved in results/models
+
+python3 src/main.py --config=rode --env-config=sc2 with env_args.map_name=3m t_max=2050000
