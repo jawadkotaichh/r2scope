@@ -7,10 +7,38 @@ ENV CUDA_INCLUDE_PATH=/usr/local/cuda/include
 ENV CUDA_LIBRARY_PATH=/usr/local/cuda/lib64
 
 # Ubuntu Packages
-RUN apt-get update -y && apt-get install -y software-properties-common && \
-    add-apt-repository -y multiverse && apt-get update -y && \
-    apt-get install -y apt-utils nano vim man build-essential wget sudo && \
+# RUN apt-get update -y && apt-get install -y software-properties-common && \
+#     add-apt-repository -y multiverse && apt-get update -y && \
+#     apt-get install -y apt-utils nano vim man build-essential wget sudo && \
+#     rm -rf /var/lib/apt/lists/*
+
+# Ubuntu Packages
+RUN rm -f /etc/apt/sources.list.d/cuda.list \
+    /etc/apt/sources.list.d/nvidia-ml.list && \
+    sed -i '/^deb-src /s/^/# /' /etc/apt/sources.list && \
+    apt-get -o Acquire::Retries=5 -o Acquire::ForceIPv4=true update -y && \
+    DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=5 -o Acquire::ForceIPv4=true install -y --no-install-recommends \
+    apt-utils \
+    nano \
+    vim \
+    build-essential \
+    wget \
+    sudo \
+    curl \
+    ca-certificates \
+    libssl-dev \
+    openssl \
+    libopenblas-dev \
+    libhdf5-dev \
+    hdf5-helpers \
+    hdf5-tools \
+    libhdf5-serial-dev \
+    libprotobuf-dev \
+    protobuf-compiler \
+    git \
+    unzip && \
     rm -rf /var/lib/apt/lists/*
+
 
 # Install curl and other dependencies
 RUN apt-get update -y && apt-get install -y curl libssl-dev openssl libopenblas-dev \
@@ -34,6 +62,8 @@ WORKDIR /install
 RUN pip install jsonpickle==0.9.6
 # install Sacred (from OxWhirl fork)
 RUN git clone https://github.com/oxwhirl/sacred.git /install/sacred && cd /install/sacred && python setup.py install
+# Sacred's setup can pull a newer wrapt that is incompatible with Python 3.6.
+RUN pip install --force-reinstall wrapt==1.10.11
 
 #### -------------------------------------------------------------------
 #### install pytorch
