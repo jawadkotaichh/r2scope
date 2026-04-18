@@ -1,0 +1,5 @@
+env_args:
+  map_name: "27m_vs_30m"
+
+t_max: 5050000
+epsilon_anneal_time_exp: 500000

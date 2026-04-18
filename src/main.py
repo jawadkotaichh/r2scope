@@ -81,11 +81,13 @@ if __name__ == '__main__':
             assert False, "default.yaml error: {}".format(exc)
 
     # Load algorithm and env base configs
-    env_config = _get_config(params, "--env-config", "envs")
-    alg_config = _get_config(params, "--config", "algs")
-    # config_dict = {**config_dict, **env_config, **alg_config}
+    env_config = _get_config(params, "--env", "envs")
+    alg_config = _get_config(params, "--alg", "algs")
+    map_config = _get_config(params, "--map", "maps")
+    # config_dict = {**config_dict, **env_config, **alg_config, **map_config}
     config_dict = recursive_dict_update(config_dict, env_config)
     config_dict = recursive_dict_update(config_dict, alg_config)
+    config_dict = recursive_dict_update(config_dict, map_config)
 
     # now add all the config to sacred
     ex.add_config(config_dict)
