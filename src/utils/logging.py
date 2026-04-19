@@ -1,6 +1,8 @@
 from collections import defaultdict
 import logging
 import numpy as np
+import torch as th
+
 
 class Logger:
     def __init__(self, console_logger):
@@ -23,7 +25,22 @@ class Logger:
         self.sacred_info = sacred_run_dict.info
         self.use_sacred = True
 
+    def _to_scalar(self, value):
+        if isinstance(value, th.Tensor):
+            value = value.detach()
+            if value.numel() == 1:
+                return value.cpu().item()
+            return value.float().mean().cpu().item()
+        if isinstance(value, np.ndarray):
+            if value.size == 1:
+                return value.item()
+            return float(value.mean())
+        if isinstance(value, (np.floating, np.integer)):
+            return value.item()
+        return value
+
     def log_stat(self, key, value, t, to_sacred=True):
+        value = self._to_scalar(value)
         self.stats[key].append((t, value))
 
         if self.use_tb:
@@ -45,7 +62,8 @@ class Logger:
                 continue
             i += 1
             window = 5 if k != "epsilon" else 1
-            item = "{:.4f}".format(np.mean([x[1] for x in self.stats[k][-window:]]))
+            vals = [self._to_scalar(x[1]) for x in self.stats[k][-window:]]
+            item = "{:.4f}".format(float(np.mean(vals)))
             log_str += "{:<25}{:>8}".format(k + ":", item)
             log_str += "\n" if i % 4 == 0 else "\t"
         self.console_logger.info(log_str)
@@ -62,4 +80,3 @@ def get_logger():
     logger.setLevel('DEBUG')
 
     return logger
-

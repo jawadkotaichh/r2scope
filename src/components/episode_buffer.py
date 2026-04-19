@@ -103,6 +103,8 @@ class EpisodeBatch:
             if isinstance(v, th.Tensor):
                 v = v.to(device=self.device, dtype=dtype)
             else:
+                if isinstance(v, list) and len(v) > 0 and isinstance(v[0], np.ndarray):
+                    v = np.array(v)
                 v = th.as_tensor(v, dtype=dtype, device=self.device)
             self._check_safe_view(v, target[k][_slices])
             target[k][_slices] = v.view_as(target[k][_slices])
