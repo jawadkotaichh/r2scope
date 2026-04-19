@@ -46,7 +46,7 @@ class RODEMAC:
         # filter out actions infeasible for selected roles; self.selected_roles [bs*n_agents]
         # self.role_action_spaces [n_roles, n_actions]
         role_avail_actions = th.gather(self.role_action_spaces.unsqueeze(0).repeat(self.n_agents, 1, 1), dim=1,
-                                       index=self.selected_roles.unsqueeze(-1).unsqueeze(-1).repeat(1, 1, self.n_actions).long()).squeeze()
+                                       index=self.selected_roles.unsqueeze(-1).unsqueeze(-1).repeat(1, 1, self.n_actions).long()).squeeze(1)
         role_avail_actions = role_avail_actions.int().view(ep_batch.batch_size, self.n_agents, -1)
 
         chosen_actions = self.action_selector.select_action(agent_outputs[bs], avail_actions[bs],
@@ -192,7 +192,7 @@ class RODEMAC:
 
         spaces = []
         for cluster_i in range(self.n_clusters):
-            spaces.append((k_means.labels_ == cluster_i).astype(np.float))
+            spaces.append((k_means.labels_ == cluster_i).astype(np.float64))
 
         o_spaces = copy.deepcopy(spaces)
         spaces = []
@@ -232,7 +232,7 @@ class RODEMAC:
         # for _ in range(self.n_roles, 10):
         #     del self.roles[self.n_roles]
 
-        self.role_action_spaces = th.Tensor(np.array(spaces)).to(self.args.device).float()  # [n_roles, n_actions]
+        self.role_action_spaces = th.as_tensor(np.array(spaces), dtype=th.float32, device=self.args.device)  # [n_roles, n_actions]
         self.role_latent = th.matmul(self.role_action_spaces, action_repr) / self.role_action_spaces.sum(dim=-1,
                                                                                                          keepdim=True)
         self.role_latent = self.role_latent.detach().clone()

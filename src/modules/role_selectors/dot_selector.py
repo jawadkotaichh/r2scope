@@ -28,7 +28,7 @@ class DotSelector(nn.Module):
         x = x.unsqueeze(-1)
         role_latent_reshaped = role_latent.unsqueeze(0).repeat(x.shape[0], 1, 1)
 
-        role_q = th.bmm(role_latent_reshaped, x).squeeze()
+        role_q = th.bmm(role_latent_reshaped, x).squeeze(-1)
         return role_q
 
     def select_role(self, role_qs, test_mode=False, t_env=None):

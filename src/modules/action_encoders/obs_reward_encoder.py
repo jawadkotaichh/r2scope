@@ -53,7 +53,7 @@ class ObsRewardEncoder(nn.Module):
         return no_pred_avg.view(-1, self.n_agents, self.obs_dim), r_pred_avg.view(-1, self.n_agents, 1)
 
     def forward(self):
-        actions = th.Tensor(np.eye(self.n_actions)).to(self.args.device)
+        actions = th.as_tensor(np.eye(self.n_actions), dtype=th.float32, device=self.args.device)
         actions_latent_avg = self.action_encoder(actions)
         return actions_latent_avg
 

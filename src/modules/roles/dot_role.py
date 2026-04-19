@@ -18,9 +18,9 @@ class DotRole(nn.Module):
         role_key = role_key.unsqueeze(-1)
         action_latent_reshaped = action_latent.unsqueeze(0).repeat(role_key.shape[0], 1, 1)
 
-        q = th.bmm(action_latent_reshaped, role_key).squeeze()
+        q = th.bmm(action_latent_reshaped, role_key).squeeze(-1)
 
         return q
 
     def update_action_space(self, new_action_space):
-        self.action_space = th.Tensor(new_action_space).to(self.args.device).float()
+        self.action_space = th.as_tensor(new_action_space, dtype=th.float32, device=self.args.device)

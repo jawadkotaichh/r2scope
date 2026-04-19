@@ -1,4 +1,7 @@
 #!/bin/bash
+set -e
 
-echo 'Building Dockerfile with image name pymarl:1.0'
-docker build -t pymarl:1.0 .
+IMAGE_NAME="rubahoussami/rode-runpod:latest"
+
+echo "Building Docker image: ${IMAGE_NAME}"
+docker build -f docker/Dockerfile -t "${IMAGE_NAME}" .
