@@ -101,11 +101,19 @@ class EpisodeBatch:
 
             dtype = self.scheme[k].get("dtype", th.float32)
             if isinstance(v, th.Tensor):
+                # .to is a no-op when device/dtype already match.
                 v = v.to(device=self.device, dtype=dtype)
             else:
-                if isinstance(v, list) and len(v) > 0 and isinstance(v[0], np.ndarray):
-                    v = np.array(v)
-                v = th.as_tensor(v, dtype=dtype, device=self.device)
+                if isinstance(v, list) and len(v) > 0:
+                    if len(v) == 1 and isinstance(v[0], np.ndarray):
+                        # Fast path: avoid np.array([arr]) re-wrapping.
+                        v = th.from_numpy(np.ascontiguousarray(v[0])).to(dtype=dtype, device=self.device).unsqueeze(0)
+                    elif isinstance(v[0], np.ndarray):
+                        v = th.as_tensor(np.asarray(v), dtype=dtype, device=self.device)
+                    else:
+                        v = th.as_tensor(v, dtype=dtype, device=self.device)
+                else:
+                    v = th.as_tensor(v, dtype=dtype, device=self.device)
             self._check_safe_view(v, target[k][_slices])
             target[k][_slices] = v.view_as(target[k][_slices])
 

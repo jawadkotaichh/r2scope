@@ -73,7 +73,7 @@ class RODELearner:
 
         roles_shape = list(roles_shape_o)
         roles_shape[1] = role_t
-        roles = th.zeros(roles_shape).to(self.device)
+        roles = th.zeros(roles_shape, device=self.device, dtype=batch["roles"].dtype)
         roles[:, :roles_shape_o[1]] = batch["roles"][:, :-1]
         roles = roles.view(batch.batch_size, role_at, self.role_interval, self.n_agents, -1)[:, :, 0]
 
@@ -103,7 +103,7 @@ class RODELearner:
             if t % self.role_interval == 0 and t < batch.max_seq_length - 1:
                 target_role_out.append(target_role_outs)
 
-        target_role_out.append(th.zeros(batch.batch_size, self.n_agents, self.mac.n_roles).to(self.device))
+        target_role_out.append(th.zeros(batch.batch_size, self.n_agents, self.mac.n_roles, device=self.device))
         # We don't need the first timesteps Q-Value estimate for calculating targets
         target_mac_out = th.stack(target_mac_out[1:], dim=1)  # Concat across time
         target_role_out = th.stack(target_role_out[1:], dim=1)
@@ -137,8 +137,8 @@ class RODELearner:
             state_shape_o = batch["state"][:, :-1].shape
             state_shape = list(state_shape_o)
             state_shape[1] = role_t
-            role_states = th.zeros(state_shape).to(self.device)
-            role_states[:, :state_shape_o[1]] = batch["state"][:, :-1].detach().clone()
+            role_states = th.zeros(state_shape, device=self.device, dtype=batch["state"].dtype)
+            role_states[:, :state_shape_o[1]] = batch["state"][:, :-1]
             role_states = role_states.view(batch.batch_size, role_at,
                                            self.role_interval, -1)[:, :, 0]
             chosen_role_qvals = self.role_mixer(chosen_role_qvals, role_states)
@@ -149,16 +149,16 @@ class RODELearner:
         targets = rewards + self.args.gamma * (1 - terminated) * target_max_qvals
         rewards_shape = list(rewards.shape)
         rewards_shape[1] = role_t
-        role_rewards = th.zeros(rewards_shape).to(self.device)
-        role_rewards[:, :rewards.shape[1]] = rewards.detach().clone()
+        role_rewards = th.zeros(rewards_shape, device=self.device, dtype=rewards.dtype)
+        role_rewards[:, :rewards.shape[1]] = rewards
         role_rewards = role_rewards.view(batch.batch_size, role_at,
                                          self.role_interval).sum(dim=-1, keepdim=True)
         # role_terminated
         terminated_shape_o = terminated.shape
         terminated_shape = list(terminated_shape_o)
         terminated_shape[1] = role_t
-        role_terminated = th.zeros(terminated_shape).to(self.device)
-        role_terminated[:, :terminated_shape_o[1]] = terminated.detach().clone()
+        role_terminated = th.zeros(terminated_shape, device=self.device, dtype=terminated.dtype)
+        role_terminated[:, :terminated_shape_o[1]] = terminated
         role_terminated = role_terminated.view(batch.batch_size, role_at, self.role_interval).sum(dim=-1, keepdim=True)
         # role_terminated
         role_targets = role_rewards + self.args.gamma * (1 - role_terminated) * target_role_max_qvals
@@ -170,8 +170,8 @@ class RODELearner:
         mask = mask.expand_as(td_error)
         mask_shape = list(mask.shape)
         mask_shape[1] = role_t
-        role_mask = th.zeros(mask_shape).to(self.device)
-        role_mask[:, :mask.shape[1]] = mask.detach().clone()
+        role_mask = th.zeros(mask_shape, device=self.device, dtype=mask.dtype)
+        role_mask[:, :mask.shape[1]] = mask
         role_mask = role_mask.view(batch.batch_size, role_at, self.role_interval, -1)[:, :, 0]
 
         # 0-out the targets that came from padded data
@@ -202,8 +202,9 @@ class RODELearner:
                 r_pred.append(r_preds)
             no_pred = th.stack(no_pred, dim=1)[:, :-1]  # Concat over time
             r_pred = th.stack(r_pred, dim=1)[:, :-1]
-            no = batch["obs"][:, 1:].detach().clone()
-            repeated_rewards = batch["reward"][:, :-1].detach().clone().unsqueeze(2).repeat(1, 1, self.n_agents, 1)
+            no = batch["obs"][:, 1:]
+            # Broadcast instead of materializing a repeated tensor across the agent axis.
+            repeated_rewards = batch["reward"][:, :-1].unsqueeze(2)
 
             pred_obs_loss = th.sqrt(((no_pred - no) ** 2).sum(dim=-1)).mean()
             pred_r_loss = ((r_pred - repeated_rewards) ** 2).mean()

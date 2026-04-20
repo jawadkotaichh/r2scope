@@ -35,6 +35,13 @@ class ObsRewardEncoder(nn.Module):
             nn.ReLU(),
             nn.Linear(args.state_latent_dim, 1))
 
+        # Precompute index for vectorized other_actions gather: [n_agents, n_agents-1]
+        other_idx = th.tensor(
+            [[j for j in range(self.n_agents) if j != i] for i in range(self.n_agents)],
+            dtype=th.long,
+        )
+        self.register_buffer("_other_idx", other_idx, persistent=False)
+
     def predict(self, obs, actions):
         # used in learners (for training)
         other_actions = self.other_actions(actions)
@@ -53,22 +60,16 @@ class ObsRewardEncoder(nn.Module):
         return no_pred_avg.view(-1, self.n_agents, self.obs_dim), r_pred_avg.view(-1, self.n_agents, 1)
 
     def forward(self):
-        actions = th.as_tensor(np.eye(self.n_actions), dtype=th.float32, device=self.args.device)
+        actions = th.eye(self.n_actions, dtype=th.float32, device=self._other_idx.device)
         actions_latent_avg = self.action_encoder(actions)
         return actions_latent_avg
 
     def other_actions(self, actions):
         # actions: [bs, n_agents, n_actions]
         assert actions.shape[1] == self.n_agents
-
-        other_actions = []
-        for i in range(self.n_agents):
-            _other_actions  = []
-            for j in range(self.n_agents):
-                if i != j:
-                    _other_actions.append(actions[:, j])
-            _other_actions = th.cat(_other_actions, dim=-1)
-            other_actions.append(_other_actions)
-
-        other_actions = th.stack(other_actions, dim=1).contiguous().view(-1, (self.n_agents - 1) * self.n_actions)
-        return other_actions
+        bs = actions.shape[0]
+        # Gather with precomputed index [n_agents, n_agents-1]; order matches the
+        # original python double loop (j in 0..n-1 skipping i).
+        # actions[:, idx] -> [bs, n_agents, n_agents-1, n_actions]
+        gathered = actions[:, self._other_idx]
+        return gathered.reshape(bs * self.n_agents, (self.n_agents - 1) * self.n_actions)
