@@ -65,7 +65,6 @@ class EpisodeRunner:
             if t_episode < 2:
                 save_path = os.path.join(self.args.local_results_path,
                                          "pic_replays",
-                                         self.args.unique_token,
                                          str(t_episode))
                 if os.path.exists(save_path):
                     shutil.rmtree(save_path)

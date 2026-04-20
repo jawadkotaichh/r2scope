@@ -1,7 +1,17 @@
-# Modern GPU-compatible base: PyTorch 2.3 + CUDA 12.1 + cuDNN 8.
-# Required because the original CUDA 9 / PyTorch 0.4 stack does not support
-# modern NVIDIA GPUs (Ampere / Ada / Hopper — SM 8.0+).
-FROM pytorch/pytorch:2.3.0-cuda12.1-cudnn8-devel
+# Blackwell-compatible base: needs CUDA 12.8 + PyTorch built with sm_120.
+# PyTorch 2.3/cu121 (prior base) only shipped kernels up to sm_90, which is
+# why RTX PRO Blackwell cards fail with "no kernel image is available".
+FROM nvidia/cuda:12.8.0-cudnn-devel-ubuntu22.04
+
+RUN apt-get update -y && apt-get install -y --no-install-recommends \
+        python3 python3-pip python3-dev && \
+    rm -rf /var/lib/apt/lists/* && \
+    ln -sf /usr/bin/python3 /usr/bin/python
+
+# PyTorch nightly is currently the only build with sm_120 kernels.
+# Switch back to a stable wheel (cu128) once one is released.
+RUN pip install --pre --upgrade torch \
+        --index-url https://download.pytorch.org/whl/nightly/cu128
 
 LABEL maintainer="RODE+ Runpod"
 
