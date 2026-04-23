@@ -59,9 +59,15 @@ def run(_run, _config, _log):
     run_sequential(args=args, logger=logger)
 
     # Clean up after finishing
-    print("Exiting Main")
+    try:
+        print("Exiting Main")
+    except OSError:
+        pass
 
-    print("Stopping all threads")
+    try:
+        print("Stopping all threads")
+    except OSError:
+        pass
     for t in threading.enumerate():
         if t.name != "MainThread":
             print("Thread {} is alive! Is daemon: {}".format(t.name, t.daemon))
