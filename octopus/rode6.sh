@@ -21,4 +21,4 @@ source .venv6/bin/activate
 pip install -r requirements.txt
 pip install --pre torch --extra-index-url https://download.pytorch.org/whl/nightly/cu121
 [ -d 3rdparty/StarCraftII/Versions ] || bash install_sc2.sh
-python run_parallel.py --alg rode --seed 2 --max-parallel 4 --map sc2_10m_vs_11m sc2_1c3s5z sc2_2s3z sc2_2s_vs_1sc
+python run_parallel.py --alg rode --seed 2 --max-parallel 4 --map sc2_10m_vs_11m sc2_1c3s5z sc2_2s3z sc2_2s_vs_1sc sc2_bane_vs_bane
