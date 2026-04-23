@@ -1,6 +1,5 @@
 # Modern Python 3.10 / PyTorch 2.x / CUDA 12 compatible deps.
-# Torch / torchvision are installed from the pytorch/pytorch:2.3-cuda12.1
-# Docker base image — do NOT pin them here.
+# Install nightly pytorch separately
 
 numpy==1.26.4
 scipy==1.11.4

@@ -58,29 +58,52 @@ def build_cmd(alg, env, map_name, seed, extra, torch_threads, python_exe):
     return cmd
 
 
-def child_env(cpu_threads):
+def child_env(cpu_threads, gpu_id=None):
     # Cap BLAS/OpenMP thread pools per child. Default to all cores otherwise,
     # which wrecks throughput when several processes do it simultaneously.
     env = os.environ.copy()
     for k in ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
               "NUMEXPR_NUM_THREADS", "VECLIB_MAXIMUM_THREADS"):
         env[k] = str(cpu_threads)
+    # Pin this child to a single GPU. Without this, every child defaults to
+    # device 0 and the other allocated GPUs sit idle.
+    if gpu_id is not None:
+        env["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
     return env
 
 
-def run_one(idx, cmd, cpu_threads, stagger_s, log_path):
+def run_one(idx, cmd, cpu_threads, stagger_s, log_path, gpu_id=None, first_wave=0):
     # Stagger SC2 boots: if every subprocess starts at t=0, pysc2 map-load
     # contention and Blizzard license-server calls both slow down markedly.
-    time.sleep(idx * stagger_s)
+    # Only the first wave needs staggering — later runs start when an earlier
+    # one finishes, so there is no concurrent-boot contention to spread out.
+    if idx < first_wave:
+        time.sleep(idx * stagger_s)
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
-    print("[launcher] start  [{}] -> {}".format(idx, " ".join(cmd)), flush=True)
+    gpu_tag = " gpu={}".format(gpu_id) if gpu_id is not None else ""
+    print("[launcher] start  [{}]{} -> {}".format(idx, gpu_tag, " ".join(cmd)), flush=True)
     with open(log_path, "w") as lf:
         lf.write("# cmd: {}\n".format(" ".join(cmd)))
+        if gpu_id is not None:
+            lf.write("# CUDA_VISIBLE_DEVICES={}\n".format(gpu_id))
         lf.flush()
         rc = subprocess.call(cmd, stdout=lf, stderr=subprocess.STDOUT,
-                             env=child_env(cpu_threads), cwd=REPO_ROOT)
+                             env=child_env(cpu_threads, gpu_id), cwd=REPO_ROOT)
     print("[launcher] finish [{}] rc={} log={}".format(idx, rc, log_path), flush=True)
     return rc
+
+
+def resolve_gpus(explicit):
+    # Priority: explicit --gpus > Slurm-set CUDA_VISIBLE_DEVICES > none.
+    # Slurm sets CUDA_VISIBLE_DEVICES to the physical IDs it allocated to the
+    # job (e.g. "0,1" or "3,7"); CUDA honors those IDs at the driver level,
+    # so passing one of them to a child's env pins that child to that GPU.
+    if explicit:
+        return [str(g) for g in explicit]
+    raw = os.environ.get("CUDA_VISIBLE_DEVICES", "").strip()
+    if not raw:
+        return []
+    return [g.strip() for g in raw.split(",") if g.strip()]
 
 
 def load_spec(path):
@@ -126,6 +149,9 @@ def main():
                    help="seconds between subprocess starts (SC2 boot is slow)")
     p.add_argument("--python", default=sys.executable,
                    help="python interpreter for children (default: the one running this launcher)")
+    p.add_argument("--gpus", nargs="*", default=None,
+                   help="GPU ids to round-robin across children (e.g. 0 1). "
+                        "Defaults to parsing CUDA_VISIBLE_DEVICES (set by Slurm).")
     args = p.parse_args()
 
     # subprocess resolves the executable before cwd is applied, so relative
@@ -142,8 +168,10 @@ def main():
     launcher_log_dir = os.path.join(RESULTS_DIR, "_launcher")
     os.makedirs(launcher_log_dir, exist_ok=True)
 
-    print("[launcher] {} runs, max_parallel={}, cpu_threads/child={}, stagger={}s".format(
-        len(runs), args.max_parallel, args.cpu_threads, args.stagger), flush=True)
+    gpus = resolve_gpus(args.gpus)
+    print("[launcher] {} runs, max_parallel={}, cpu_threads/child={}, stagger={}s, gpus={}".format(
+        len(runs), args.max_parallel, args.cpu_threads, args.stagger,
+        gpus if gpus else "none (inherit env)"), flush=True)
 
     jobs = []
     for i, r in enumerate(runs):
@@ -158,12 +186,17 @@ def main():
         tag = "{}_seed{}_{}_{}".format(
             r["alg"], r["seed"], r.get("env", args.env), r.get("map") or "default")
         log_path = os.path.join(launcher_log_dir, tag + ".log")
-        jobs.append((i, cmd, log_path))
+        # Round-robin on submission index so the first wave of max_parallel
+        # runs is evenly split across GPUs.
+        gpu_id = gpus[i % len(gpus)] if gpus else None
+        jobs.append((i, cmd, log_path, gpu_id))
 
+    first_wave = min(args.max_parallel, len(jobs))
     failures = 0
     with ThreadPoolExecutor(max_workers=args.max_parallel) as pool:
-        futs = [pool.submit(run_one, i, cmd, args.cpu_threads, args.stagger, log_path)
-                for (i, cmd, log_path) in jobs]
+        futs = [pool.submit(run_one, i, cmd, args.cpu_threads, args.stagger,
+                            log_path, gpu_id, first_wave)
+                for (i, cmd, log_path, gpu_id) in jobs]
         for f in as_completed(futs):
             if f.result() != 0:
                 failures += 1
