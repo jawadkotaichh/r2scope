@@ -1,5 +1,10 @@
 env_args:
   map_name: "27m_vs_30m"
 
+# The default RODE replay buffer of 5000 episodes is too large for this map
+# because the observation/state tensors are much bigger than the small-map SMAC
+# settings. Keep it smaller so jobs fit within Octopus RAM.
+buffer_size: 256
+
 t_max: 5050000
 epsilon_anneal_time_exp: 500000

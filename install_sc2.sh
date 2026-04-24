@@ -57,4 +57,3 @@ mv SMAC_Maps "$MAP_DIR"
 rm -rf SMAC_Maps.zip
 
 echo 'StarCraft II and SMAC are installed.'
-
