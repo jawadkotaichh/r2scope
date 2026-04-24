@@ -129,6 +129,8 @@ def run_sequential(args, logger):
         "terminated": {"vshape": (1,), "dtype": th.uint8},
         "roles": {"vshape": (1,), "group": "agents", "dtype": th.long}
     }
+    if getattr(args, "use_ices", False):
+        scheme["ices_explore"] = {"vshape": (1,), "group": "agents", "dtype": th.uint8}
     groups = {
         "agents": args.n_agents
     }

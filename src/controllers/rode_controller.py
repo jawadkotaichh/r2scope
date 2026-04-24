@@ -1,6 +1,7 @@
 from modules.agents import REGISTRY as agent_REGISTRY
 from components.action_selectors import REGISTRY as action_REGISTRY
 from modules.action_encoders import REGISTRY as action_encoder_REGISTRY
+from modules.ices import ICESExplorer
 from modules.roles import REGISTRY as role_REGISTRY
 from modules.role_selectors import REGISTRY as role_selector_REGISTRY
 import torch as th
@@ -8,6 +9,7 @@ import torch as th
 from sklearn.cluster import KMeans
 import numpy as np
 import copy
+import os
 
 
 # This multi-agent controller shares parameters between agents
@@ -36,6 +38,10 @@ class RODEMAC:
 
         self.role_latent = th.ones(self.n_roles, self.args.action_latent_dim).to(args.device)
         self.action_repr = th.ones(self.n_actions, self.args.action_latent_dim).to(args.device)
+        self.use_ices = getattr(args, "use_ices", False)
+        self.ices_explorer = ICESExplorer(args) if self.use_ices else None
+        self.last_ices_explore = None
+        self.last_ices_alpha = 0.0
 
         self._agent_id_eye = None
         self._agent_id_eye_bs = None
@@ -50,8 +56,13 @@ class RODEMAC:
             0, self.selected_roles.long().view(-1)
         ).to(th.int32).view(ep_batch.batch_size, self.n_agents, -1)
 
-        chosen_actions = self.action_selector.select_action(agent_outputs[bs], avail_actions[bs],
-                                                            role_avail_actions[bs], t_env, test_mode=test_mode)
+        if self.use_ices:
+            chosen_actions = self._select_actions_with_ices(
+                ep_batch, t_ep, t_env, bs, agent_outputs, avail_actions, role_avail_actions, test_mode
+            )
+        else:
+            chosen_actions = self.action_selector.select_action(agent_outputs[bs], avail_actions[bs],
+                                                                role_avail_actions[bs], t_env, test_mode=test_mode)
         return chosen_actions, self.selected_roles, role_avail_actions
 
     def forward(self, ep_batch, t, test_mode=False, t_env=None):
@@ -81,6 +92,9 @@ class RODEMAC:
     def init_hidden(self, batch_size):
         self.hidden_states = self.agent.init_hidden().unsqueeze(0).expand(batch_size, self.n_agents, -1)  # bav
         self.role_hidden_states = self.role_agent.init_hidden().unsqueeze(0).expand(batch_size, self.n_agents, -1)  # bav
+        if self.use_ices:
+            self.last_ices_explore = th.zeros(batch_size, self.n_agents, 1, dtype=th.uint8, device=self.args.device)
+            self.last_ices_alpha = 0.0
 
     def parameters(self):
         params = list(self.agent.parameters())
@@ -106,6 +120,8 @@ class RODEMAC:
         self.role_action_spaces = copy.deepcopy(other_mac.role_action_spaces)
         self.role_latent = copy.deepcopy(other_mac.role_latent)
         self.action_repr = copy.deepcopy(other_mac.action_repr)
+        if self.use_ices and other_mac.ices_explorer is not None:
+            self.ices_explorer.load_state_dict(other_mac.ices_explorer.state_dict())
 
     def cuda(self):
         self.agent.cuda()
@@ -114,6 +130,8 @@ class RODEMAC:
             self.roles[role_i].cuda()
         self.role_selector.cuda()
         self.action_encoder.cuda()
+        if self.use_ices:
+            self.ices_explorer.cuda()
 
     def save_models(self, path):
         th.save(self.agent.state_dict(), "{}/agent.th".format(path))
@@ -126,6 +144,8 @@ class RODEMAC:
         th.save(self.role_action_spaces, "{}/role_action_spaces.pt".format(path))
         th.save(self.role_latent, "{}/role_latent.pt".format(path))
         th.save(self.action_repr, "{}/action_repr.pt".format(path))
+        if self.use_ices:
+            th.save(self.ices_explorer.state_dict(), "{}/ices_explorer.th".format(path))
 
     def load_models(self, path):
         self.role_action_spaces = th.load("{}/role_action_spaces.pt".format(path),
@@ -151,6 +171,12 @@ class RODEMAC:
                                    map_location=lambda storage, loc: storage).to(self.args.device)
         self.action_repr = th.load("{}/action_repr.pt".format(path),
                                    map_location=lambda storage, loc: storage).to(self.args.device)
+        if self.use_ices:
+            explorer_path = "{}/ices_explorer.th".format(path)
+            if os.path.exists(explorer_path):
+                self.ices_explorer.load_state_dict(
+                    th.load(explorer_path, map_location=lambda storage, loc: storage)
+                )
 
     def _build_agents(self, input_shape):
         self.agent = agent_REGISTRY[self.args.agent](input_shape, self.args)
@@ -247,3 +273,51 @@ class RODEMAC:
 
     def action_repr_forward(self, ep_batch, t):
         return self.action_encoder.predict(ep_batch["obs"][:, t], ep_batch["actions_onehot"][:, t])
+
+    def ices_alpha(self, t_env):
+        if not self.use_ices:
+            return 0.0
+
+        anneal_time = int(getattr(self.args, "ices_alpha_anneal_time", 0))
+        if anneal_time <= 0:
+            return float(self.args.ices_alpha_finish)
+
+        progress = min(max(float(t_env or 0), 0.0) / float(anneal_time), 1.0)
+        return float(self.args.ices_alpha_start + progress * (self.args.ices_alpha_finish - self.args.ices_alpha_start))
+
+    def _select_actions_with_ices(self, ep_batch, t_ep, t_env, bs, agent_outputs, avail_actions, role_avail_actions,
+                                  test_mode):
+        selected_roles = self.selected_roles.view(ep_batch.batch_size, self.n_agents)[bs]
+        exploit_actions = self._select_greedy_actions(agent_outputs[bs], avail_actions[bs], role_avail_actions[bs])
+
+        self.action_selector.epsilon = 0.0
+        self.last_ices_alpha = 0.0
+        self.last_ices_explore = th.zeros(
+            exploit_actions.shape[0], self.n_agents, 1, dtype=th.uint8, device=exploit_actions.device
+        )
+
+        if test_mode:
+            return exploit_actions
+
+        alpha = self.ices_alpha(t_env)
+        self.last_ices_alpha = alpha
+        explore_mask = (th.rand_like(exploit_actions.float()) < alpha).long()
+
+        with th.no_grad():
+            explorer_actions, _, _, _, _ = self.ices_explorer.sample_actions(
+                self.hidden_states.detach().view(ep_batch.batch_size, self.n_agents, -1)[bs],
+                ep_batch["state"][:, t_ep][bs],
+                selected_roles.long(),
+                role_avail_actions[bs].float(),
+                avail_actions[bs].float(),
+            )
+
+        chosen_actions = explore_mask * explorer_actions + (1 - explore_mask) * exploit_actions
+        self.last_ices_explore = explore_mask.unsqueeze(-1).to(th.uint8)
+        return chosen_actions
+
+    def _select_greedy_actions(self, agent_outputs, avail_actions, role_avail_actions):
+        safe_mask = ICESExplorer.build_safe_action_mask(avail_actions, role_avail_actions)
+        masked_q_values = agent_outputs.clone()
+        masked_q_values[safe_mask <= 0] = -float("inf")
+        return masked_q_values.max(dim=2)[1]

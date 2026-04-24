@@ -1,1 +1,60 @@
-# TODO: add the config for RODE-ICES
+# --- RODE + ICES specific parameters ---
+
+# use epsilon greedy action/role selector
+action_selector: "soft_epsilon_greedy"
+action_encoder: "obs_reward"
+epsilon_start: 1.0
+epsilon_finish: 0.05
+role_epsilon_finish: 0.05
+
+# paper-wide default; only 3 maps override epsilon_anneal_time_exp to 500000
+epsilon_anneal_time: 50000
+epsilon_anneal_time_exp: 50000
+
+runner: "episode"
+
+buffer_size: 5000
+
+# update the target network every {} episodes
+target_update_interval: 200
+
+# use the Q_Learner to train
+agent_output_type: "q"
+learner: "rode_learner"
+double_q: True
+mixer: "qmix"
+role_mixer: "qmix"
+mixing_embed_dim: 32
+hypernet_layers: 2
+hypernet_embed: 64
+
+name: "rode_ices"
+mac: "rode_mac"
+agent: "rode"
+role: "dot"
+role_selector: "dot"
+bi_opt: False
+
+# algorithm defaults only
+n_role_clusters: 3
+role_interval: 5
+state_latent_dim: 32
+action_latent_dim: 20
+role_action_spaces_update_start: 50000
+
+# for interpretability
+verbose: False
+
+# ICES exploration is enabled here and only changes training-time primitive action sampling.
+use_ices: True
+ices_alpha_start: 0.1
+ices_alpha_finish: 0.05
+ices_alpha_anneal_time: 500000
+ices_beta: 0.1
+ices_scaffold_lr: 0.0001
+ices_explore_lr: 0.001
+ices_grad_clip: 0.1
+ices_latent_dim: 32
+ices_action_embed_dim: 4
+ices_train_interval: 1
+ices_disable_eval: True
