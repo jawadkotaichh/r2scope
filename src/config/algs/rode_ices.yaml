@@ -48,11 +48,11 @@ verbose: False
 # ICES exploration is enabled here and only changes training-time primitive action sampling.
 use_ices: True
 ices_alpha_start: 0.1
-ices_alpha_finish: 0.05
+ices_alpha_finish: 0.1
 ices_alpha_anneal_time: 500000
 ices_beta: 0.1
 ices_scaffold_lr: 0.0001
-ices_explore_lr: 0.001
+ices_explore_lr: 0.01
 ices_grad_clip: 0.1
 ices_latent_dim: 32
 ices_action_embed_dim: 4
