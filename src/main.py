@@ -87,6 +87,26 @@ def _extract_with_override(params, key):
     return None
 
 
+def _parse_boolish(value):
+    if isinstance(value, bool):
+        return value
+    text = str(value).strip().lower()
+    if text in ("1", "true", "yes", "on"):
+        return True
+    if text in ("0", "false", "no", "off"):
+        return False
+    raise ValueError("Cannot parse boolean value: {!r}".format(value))
+
+
+def _has_checkpoint_dirs(models_dir):
+    if not os.path.isdir(models_dir):
+        return False
+    for name in os.listdir(models_dir):
+        if os.path.isdir(os.path.join(models_dir, name)) and name.isdigit():
+            return True
+    return False
+
+
 if __name__ == '__main__':
     params = deepcopy(sys.argv)
 
@@ -118,6 +138,17 @@ if __name__ == '__main__':
     if map_override is not None:
         config_dict.setdefault("env_args", {})["map_name"] = map_override
 
+    # Pull selected Sacred "with key=value" overrides into the pre-Sacred
+    # config so features that depend on them (like auto-resume path
+    # resolution) can act before ex.run_commandline() starts.
+    checkpoint_override = _extract_with_override(params, "checkpoint_path")
+    if checkpoint_override is not None:
+        config_dict["checkpoint_path"] = checkpoint_override
+
+    auto_resume_override = _extract_with_override(params, "auto_resume")
+    if auto_resume_override is not None:
+        config_dict["auto_resume"] = _parse_boolish(auto_resume_override)
+
     alg_name = config_dict.get("name", "alg")
     env_name = config_dict.get("env", "env")
     map_name = config_dict.get("env_args", {}).get("map_name", "map")
@@ -132,6 +163,17 @@ if __name__ == '__main__':
     # Expose the deterministic run directory to the rest of the pipeline.
     config_dict["local_results_path"] = run_dir
     config_dict["run_name"] = run_name
+
+    # Optional convenience mode for rerunning the same seed/map command after a
+    # Slurm timeout: resume from the latest checkpoint already saved under this
+    # run's deterministic results directory.
+    if config_dict.get("auto_resume") and not config_dict.get("checkpoint_path"):
+        candidate = os.path.join(run_dir, "models")
+        if _has_checkpoint_dirs(candidate):
+            config_dict["checkpoint_path"] = candidate
+            logger.info("RESUME READY: auto-resuming from {}".format(candidate))
+        else:
+            logger.info("RESUME NOT AVAILABLE: no checkpoints found in {}".format(candidate))
 
     # Force Sacred to use the exact seed we baked into the folder name,
     # rather than generating its own at run start. Sacred's CLI requires
