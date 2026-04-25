@@ -1,0 +1,5 @@
+env_args:
+  map_name: "6h_vs_8z"
+
+t_max: 5050000
+epsilon_anneal_time_exp: 500000

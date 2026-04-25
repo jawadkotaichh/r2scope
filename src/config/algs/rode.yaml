@@ -6,8 +6,10 @@ action_encoder: "obs_reward"
 epsilon_start: 1.0
 epsilon_finish: 0.05
 role_epsilon_finish: 0.05
-epsilon_anneal_time: 70000
-epsilon_anneal_time_exp: 70000
+
+# paper-wide default; only 3 maps override epsilon_anneal_time_exp to 500000
+epsilon_anneal_time: 50000
+epsilon_anneal_time_exp: 50000
 
 runner: "episode"
 
@@ -29,11 +31,12 @@ hypernet_embed: 64
 name: "rode"
 mac: "rode_mac"
 agent: "rode"
-role: 'dot'
-role_selector: 'dot'
+role: "dot"
+role_selector: "dot"
 bi_opt: False
 
-n_role_clusters: 5
+# algorithm defaults only
+n_role_clusters: 3
 role_interval: 5
 state_latent_dim: 32
 action_latent_dim: 20

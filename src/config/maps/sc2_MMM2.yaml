@@ -1,0 +1,5 @@
+env_args:
+  map_name: "MMM2"
+
+t_max: 2050000
+n_role_clusters: 5

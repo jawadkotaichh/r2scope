@@ -1,0 +1,4 @@
+env_args:
+  map_name: "corridor"
+
+t_max: 5050000

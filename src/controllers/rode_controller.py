@@ -37,17 +37,18 @@ class RODEMAC:
         self.role_latent = th.ones(self.n_roles, self.args.action_latent_dim).to(args.device)
         self.action_repr = th.ones(self.n_actions, self.args.action_latent_dim).to(args.device)
 
+        self._agent_id_eye = None
+        self._agent_id_eye_bs = None
+
     def select_actions(self, ep_batch, t_ep, t_env, bs=slice(None), test_mode=False):
         # Only select actions for the selected batch elements in bs
         avail_actions = ep_batch["avail_actions"][:, t_ep]
         agent_outputs, role_outputs = self.forward(ep_batch, t_ep, test_mode=test_mode, t_env=t_env)
-        # the function forward returns q values of each agent, the roles are indicated by self.selected_roles
 
-        # filter out actions infeasible for selected roles; self.selected_roles [bs*n_agents]
-        # self.role_action_spaces [n_roles, n_actions]
-        role_avail_actions = th.gather(self.role_action_spaces.unsqueeze(0).repeat(self.n_agents, 1, 1), dim=1,
-                                       index=self.selected_roles.unsqueeze(-1).unsqueeze(-1).repeat(1, 1, self.n_actions).long()).squeeze()
-        role_avail_actions = role_avail_actions.int().view(ep_batch.batch_size, self.n_agents, -1)
+        # role_action_spaces [n_roles, n_actions]; selected_roles [bs*n_agents]
+        role_avail_actions = self.role_action_spaces.index_select(
+            0, self.selected_roles.long().view(-1)
+        ).to(th.int32).view(ep_batch.batch_size, self.n_agents, -1)
 
         chosen_actions = self.action_selector.select_action(agent_outputs[bs], avail_actions[bs],
                                                             role_avail_actions[bs], t_env, test_mode=test_mode)
@@ -170,7 +171,10 @@ class RODEMAC:
             else:
                 inputs.append(batch["actions_onehot"][:, t-1])
         if self.args.obs_agent_id:
-            inputs.append(th.eye(self.n_agents, device=batch.device).unsqueeze(0).expand(bs, -1, -1))
+            if self._agent_id_eye is None or self._agent_id_eye_bs != bs or self._agent_id_eye.device != batch.device:
+                self._agent_id_eye = th.eye(self.n_agents, device=batch.device).unsqueeze(0).expand(bs, -1, -1).contiguous()
+                self._agent_id_eye_bs = bs
+            inputs.append(self._agent_id_eye)
 
         inputs = th.cat([x.reshape(bs*self.n_agents, -1) for x in inputs], dim=1)
         return inputs
@@ -192,7 +196,7 @@ class RODEMAC:
 
         spaces = []
         for cluster_i in range(self.n_clusters):
-            spaces.append((k_means.labels_ == cluster_i).astype(np.float))
+            spaces.append((k_means.labels_ == cluster_i).astype(np.float64))
 
         o_spaces = copy.deepcopy(spaces)
         spaces = []
@@ -232,7 +236,7 @@ class RODEMAC:
         # for _ in range(self.n_roles, 10):
         #     del self.roles[self.n_roles]
 
-        self.role_action_spaces = th.Tensor(np.array(spaces)).to(self.args.device).float()  # [n_roles, n_actions]
+        self.role_action_spaces = th.as_tensor(np.array(spaces), dtype=th.float32, device=self.args.device)  # [n_roles, n_actions]
         self.role_latent = th.matmul(self.role_action_spaces, action_repr) / self.role_action_spaces.sum(dim=-1,
                                                                                                          keepdim=True)
         self.role_latent = self.role_latent.detach().clone()

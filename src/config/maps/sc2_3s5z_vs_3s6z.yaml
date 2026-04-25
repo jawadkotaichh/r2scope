@@ -1,0 +1,6 @@
+env_args:
+  map_name: "3s5z_vs_3s6z"
+
+t_max: 5050000
+n_role_clusters: 5
+epsilon_anneal_time_exp: 500000

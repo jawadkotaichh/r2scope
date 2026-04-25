@@ -18,4 +18,4 @@ class QRole(nn.Module):
         return q
 
     def update_action_space(self, new_action_space):
-        self.action_space = th.Tensor(new_action_space).to(self.args.device).float()
+        self.action_space = th.as_tensor(new_action_space, dtype=th.float32, device=self.args.device)

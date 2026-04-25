@@ -65,7 +65,6 @@ class EpisodeRunner:
             if t_episode < 2:
                 save_path = os.path.join(self.args.local_results_path,
                                          "pic_replays",
-                                         self.args.unique_token,
                                          str(t_episode))
                 if os.path.exists(save_path):
                     shutil.rmtree(save_path)
@@ -94,7 +93,8 @@ class EpisodeRunner:
             # Receive the actions for each agent at this timestep in a batch of size 1
             actions, roles, role_avail_actions = self.mac.select_actions(self.batch, t_ep=self.t,
                                                                          t_env=self.t_env, test_mode=test_mode)
-            self.batch.update({"role_avail_actions": role_avail_actions.tolist()}, ts=self.t)
+            # Pass tensor directly to avoid GPU->CPU->GPU round-trip via .tolist().
+            self.batch.update({"role_avail_actions": role_avail_actions}, ts=self.t)
 
             if self.verbose:
                 roles_detach = roles.detach().cpu().squeeze().numpy()
@@ -158,14 +158,10 @@ class EpisodeRunner:
         }
         self.batch.update(last_data, ts=self.t)
 
-        # if self.verbose:
-        #     # These outputs are designed for SMAC
-        #     ally_info, enemy_info = self.env.get_structured_state()
-        #     replay_data.append([ally_info, enemy_info])
-
-        # Select actions in the last stored state
-        actions, roles, role_avail_actions = self.mac.select_actions(self.batch, t_ep=self.t, t_env=self.t_env, test_mode=test_mode)
-        self.batch.update({"actions": actions, "roles": roles, "role_avail_actions": role_avail_actions}, ts=self.t)
+        # The final select_actions call (actions/roles at position T) was removed:
+        # positions at index T are never read by the learner (actions/roles/role_avail_actions
+        # are all sliced [:, :-1]; actions_onehot[T] is unused since t-1 is capped at T-1),
+        # so the forward + action selection here was wasted work.
 
         cur_stats = self.test_stats if test_mode else self.train_stats
         cur_returns = self.test_returns if test_mode else self.train_returns

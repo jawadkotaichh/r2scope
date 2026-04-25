@@ -26,6 +26,14 @@ def run(_run, _config, _log):
     args = SN(**_config)
     args.device = "cuda" if args.use_cuda else "cpu"
 
+    # Cap intra-op CPU threads so N parallel runs don't oversubscribe the box.
+    # SC2/pysc2 is the CPU hog; BLAS threads beyond 1-2 per run just thrash.
+    torch_threads = int(getattr(args, "torch_num_threads", 1) or 1)
+    try:
+        th.set_num_threads(max(1, torch_threads))
+    except Exception:
+        pass
+
     # setup loggers
     logger = Logger(_log)
 
@@ -35,12 +43,13 @@ def run(_run, _config, _log):
                                        width=1)
     _log.info("\n\n" + experiment_params + "\n")
 
-    # configure tensorboard logger
-    unique_token = "{}__{}".format(args.name, datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # unique_token is the deterministic per-run directory name set in main.py.
+    # All per-run artifacts (tb, models, pic_replays, sacred) sit under args.local_results_path.
+    unique_token = getattr(args, "run_name", None) or "{}__{}".format(
+        args.name, datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     args.unique_token = unique_token
     if args.use_tensorboard:
-        tb_logs_direc = os.path.join(dirname(dirname(abspath(__file__))), "results", "tb_logs")
-        tb_exp_direc = os.path.join(tb_logs_direc, "{}").format(unique_token)
+        tb_exp_direc = os.path.join(args.local_results_path, "tb")
         logger.setup_tb(tb_exp_direc)
 
     # sacred is on by default
@@ -50,9 +59,15 @@ def run(_run, _config, _log):
     run_sequential(args=args, logger=logger)
 
     # Clean up after finishing
-    print("Exiting Main")
+    try:
+        print("Exiting Main")
+    except OSError:
+        pass
 
-    print("Stopping all threads")
+    try:
+        print("Stopping all threads")
+    except OSError:
+        pass
     for t in threading.enumerate():
         if t.name != "MainThread":
             print("Thread {} is alive! Is daemon: {}".format(t.name, t.daemon))
@@ -85,7 +100,6 @@ def evaluate_sequential(args, runner):
         print(role_frequency)
         fre_file = os.path.join(args.local_results_path,
                                 "pic_replays",
-                                args.unique_token,
                                 "role_frequency.pkl")
         with open(fre_file, "wb") as f:
             pickle.dump(role_frequency, f)
@@ -213,9 +227,11 @@ def run_sequential(args, logger):
             for _ in range(n_test_runs):
                 runner.run(test_mode=True)
 
-        if args.save_model and (runner.t_env - model_save_time >= args.save_model_interval or model_save_time == 0):
+        save_periodic = args.save_model and not getattr(args, "save_model_final_only", False) and (
+            runner.t_env - model_save_time >= args.save_model_interval or model_save_time == 0)
+        if save_periodic:
             model_save_time = runner.t_env
-            save_path = os.path.join(args.local_results_path, "models", args.unique_token, str(runner.t_env))
+            save_path = os.path.join(args.local_results_path, "models", str(runner.t_env))
             # "results/models/{}".format(unique_token)
             os.makedirs(save_path, exist_ok=True)
             logger.console_logger.info("Saving models to {}".format(save_path))
@@ -230,6 +246,12 @@ def run_sequential(args, logger):
             logger.log_stat("episode", episode, runner.t_env)
             logger.print_recent_stats()
             last_log_T = runner.t_env
+
+    if args.save_model:
+        final_save_path = os.path.join(args.local_results_path, "models", str(runner.t_env))
+        os.makedirs(final_save_path, exist_ok=True)
+        logger.console_logger.info("Saving final models to {}".format(final_save_path))
+        learner.save_models(final_save_path)
 
     runner.close_env()
     logger.console_logger.info("Finished Training")
