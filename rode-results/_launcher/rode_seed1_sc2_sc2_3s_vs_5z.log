@@ -1,0 +1,893 @@
+# cmd: /home/hhk22/RODE-plus/.venv4/bin/python3 /home/hhk22/RODE-plus/src/main.py --alg=rode --env=sc2 --map=sc2_3s_vs_5z with seed=1 torch_num_threads=1
+/home/hhk22/RODE-plus/.venv4/lib/python3.10/site-packages/sacred/dependencies.py:11: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[DEBUG 07:22:25] git.cmd Popen(['git', 'version'], cwd=/home/hhk22/RODE-plus, stdin=None, shell=False, universal_newlines=False)
+[DEBUG 07:22:25] git.cmd Popen(['git', 'version'], cwd=/home/hhk22/RODE-plus, stdin=None, shell=False, universal_newlines=False)
+[DEBUG 07:22:25] git.util sys.platform='linux', git_executable='git'
+[DEBUG 07:22:25] git.cmd Popen(['git', 'diff', '--cached', '--abbrev=40', '--full-index', '--raw'], cwd=/home/hhk22/RODE-plus, stdin=None, shell=False, universal_newlines=False)
+[DEBUG 07:22:25] git.cmd Popen(['git', 'diff', '--abbrev=40', '--full-index', '--raw'], cwd=/home/hhk22/RODE-plus, stdin=None, shell=False, universal_newlines=False)
+[DEBUG 07:22:25] git.cmd Popen(['git', 'cat-file', '--batch-check'], cwd=/home/hhk22/RODE-plus, stdin=<valid stream>, shell=False, universal_newlines=False)
+[DEBUG 07:22:25] git.util sys.platform='linux', git_executable='git'
+[DEBUG 07:22:25] git.cmd Popen(['git', 'diff', '--cached', '--abbrev=40', '--full-index', '--raw'], cwd=/home/hhk22/RODE-plus, stdin=None, shell=False, universal_newlines=False)
+[DEBUG 07:22:25] git.cmd Popen(['git', 'diff', '--abbrev=40', '--full-index', '--raw'], cwd=/home/hhk22/RODE-plus, stdin=None, shell=False, universal_newlines=False)
+[DEBUG 07:22:25] git.cmd Popen(['git', 'cat-file', '--batch-check'], cwd=/home/hhk22/RODE-plus, stdin=<valid stream>, shell=False, universal_newlines=False)
+[DEBUG 07:22:25] git.util sys.platform='linux', git_executable='git'
+[DEBUG 07:22:25] git.cmd Popen(['git', 'diff', '--cached', '--abbrev=40', '--full-index', '--raw'], cwd=/home/hhk22/RODE-plus, stdin=None, shell=False, universal_newlines=False)
+[DEBUG 07:22:25] git.cmd Popen(['git', 'diff', '--abbrev=40', '--full-index', '--raw'], cwd=/home/hhk22/RODE-plus, stdin=None, shell=False, universal_newlines=False)
+[DEBUG 07:22:25] git.cmd Popen(['git', 'cat-file', '--batch-check'], cwd=/home/hhk22/RODE-plus, stdin=<valid stream>, shell=False, universal_newlines=False)
+[INFO 07:22:25] root Saving to FileStorageObserver in /home/hhk22/RODE-plus/results/rode_seed1_sc2_3s_vs_5z/sacred
+[DEBUG 07:22:25] pymarl Using capture mode "fd"
+[INFO 07:22:25] pymarl Running command 'my_main'
+[INFO 07:22:25] pymarl Started run with ID "1"
+[DEBUG 07:22:25] pymarl Starting Heartbeat
+[DEBUG 07:22:25] my_main Started
+[INFO 07:22:25] my_main Experiment Parameters:
+[INFO 07:22:25] my_main 
+
+{   'action_encoder': 'obs_reward',
+    'action_latent_dim': 20,
+    'action_selector': 'soft_epsilon_greedy',
+    'agent': 'rode',
+    'agent_output_type': 'q',
+    'auto_resume': False,
+    'batch_size': 32,
+    'batch_size_run': 1,
+    'bi_opt': False,
+    'buffer_cpu_only': True,
+    'buffer_size': 5000,
+    'checkpoint_path': '',
+    'critic_lr': 0.0005,
+    'double_q': True,
+    'env': 'sc2',
+    'env_args': {   'continuing_episode': False,
+                    'debug': False,
+                    'difficulty': '7',
+                    'game_version': None,
+                    'heuristic_ai': False,
+                    'heuristic_rest': False,
+                    'map_name': '3s_vs_5z',
+                    'move_amount': 2,
+                    'obs_all_health': True,
+                    'obs_instead_of_state': False,
+                    'obs_last_action': False,
+                    'obs_own_health': True,
+                    'obs_pathing_grid': False,
+                    'obs_terrain_height': False,
+                    'obs_timestep_number': False,
+                    'replay_dir': '',
+                    'replay_prefix': '',
+                    'reward_death_value': 10,
+                    'reward_defeat': 0,
+                    'reward_negative_scale': 0.5,
+                    'reward_only_positive': True,
+                    'reward_scale': True,
+                    'reward_scale_rate': 20,
+                    'reward_sparse': False,
+                    'reward_win': 200,
+                    'seed': 1,
+                    'state_last_action': True,
+                    'state_timestep_number': False,
+                    'step_mul': 8},
+    'epsilon_anneal_time': 50000,
+    'epsilon_anneal_time_exp': 50000,
+    'epsilon_finish': 0.05,
+    'epsilon_start': 1.0,
+    'evaluate': False,
+    'gamma': 0.99,
+    'grad_norm_clip': 10,
+    'hypernet_embed': 64,
+    'hypernet_layers': 2,
+    'label': 'default_label',
+    'learner': 'rode_learner',
+    'learner_log_interval': 10000,
+    'load_step': 0,
+    'local_results_path': '/home/hhk22/RODE-plus/results/rode_seed1_sc2_3s_vs_5z',
+    'log_interval': 10000,
+    'lr': 0.0005,
+    'mac': 'rode_mac',
+    'mixer': 'qmix',
+    'mixing_embed_dim': 32,
+    'n_role_clusters': 3,
+    'name': 'rode',
+    'obs_agent_id': True,
+    'obs_last_action': True,
+    'optim_alpha': 0.99,
+    'optim_eps': 1e-05,
+    'repeat_id': 1,
+    'rnn_hidden_dim': 64,
+    'role': 'dot',
+    'role_action_spaces_update_start': 50000,
+    'role_epsilon_finish': 0.05,
+    'role_interval': 5,
+    'role_mixer': 'qmix',
+    'role_selector': 'dot',
+    'run_name': 'rode_seed1_sc2_3s_vs_5z',
+    'runner': 'episode',
+    'runner_log_interval': 10000,
+    'save_model': True,
+    'save_model_final_only': False,
+    'save_model_interval': 100000,
+    'save_replay': False,
+    'seed': 1,
+    'state_latent_dim': 32,
+    't_max': 2050000,
+    'target_update_interval': 200,
+    'test_greedy': True,
+    'test_interval': 10000,
+    'test_nepisode': 32,
+    'torch_num_threads': 1,
+    'use_cuda': True,
+    'use_tensorboard': True,
+    'verbose': False}
+
+[INFO 07:22:28] my_main Beginning training for 2050000 timesteps
+[INFO 07:22:28] absl Launching SC2: /home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 35079 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-mwuuin3_/ -eglpath libEGL.so
+[INFO 07:22:28] absl Connecting to: ws://127.0.0.1:35079/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 35079 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-mwuuin3_/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 07:22:29] absl Connecting to: ws://127.0.0.1:35079/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7fd2d3815fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 07:22:30] absl Connecting to: ws://127.0.0.1:35079/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:35079
+Startup Phase 3 complete. Ready for commands.
+[INFO 07:22:31] absl Connecting to: ws://127.0.0.1:35079/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:48914 accepted
+ReadyHandler: 127.0.0.1:48914 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/hhk22/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+Deferred error: 536936448 (0x20010000)
+Deferred error details: Bad profiling data. TimeMS: 10796139.000000 Conversion: 1.000000e-03
+/home/hhk22/RODE-plus/src/components/episode_buffer.py:114: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:254.)
+  v = th.as_tensor(v, dtype=dtype, device=self.device)
+[INFO 07:22:39] my_main t_env: 43 / 2050000
+[INFO 07:22:39] my_main Estimated time left: 36 minutes, 58 seconds. Time passed: 10 seconds
+[INFO 07:22:51] my_main Saving models to /home/hhk22/RODE-plus/results/rode_seed1_sc2_3s_vs_5z/models/43
+[INFO 07:30:30] my_main Recent Stats | t_env:      10031 | Episode:      197
+action_encoder_grad_norm:  2.9137	battle_won_mean:           0.0000	ep_length_mean:           43.0000	epsilon:                   1.0000
+grad_norm:                 4.8809	loss:                      0.0776	pred_obs_loss:             1.3059	pred_r_loss:               0.0156
+q_taken_mean:              0.3033	return_mean:               2.7450	return_std:                0.0000	role_loss:                 0.1941
+role_q_taken_mean:        -0.1478	target_mean:               0.3128	td_error_abs:              0.2028	test_battle_won_mean:      0.0000
+test_ep_length_mean:      30.2188	test_return_mean:          0.0000	test_return_std:           0.0000	
+[INFO 07:30:31] my_main t_env: 10064 / 2050000
+[INFO 07:30:31] my_main Estimated time left: 1 days, 2 hours, 42 minutes, 32 seconds. Time passed: 8 minutes, 3 seconds
+[INFO 07:30:47] my_main Updated target network
+[INFO 07:38:20] my_main Updated target network
+[INFO 07:39:12] my_main Recent Stats | t_env:      20032 | Episode:      425
+action_encoder_grad_norm:  2.2343	battle_won_mean:           0.0000	ep_length_mean:           46.9340	epsilon:                   0.8094
+grad_norm:                 2.9015	loss:                      0.0506	pred_obs_loss:             0.8390	pred_r_loss:               0.0098
+q_taken_mean:              0.3077	return_mean:               2.9279	return_std:                0.3742	role_loss:                 0.1215
+role_q_taken_mean:        -0.0490	target_mean:               0.3163	td_error_abs:              0.1534	test_battle_won_mean:      0.0000
+test_ep_length_mean:      30.2344	test_return_mean:          0.0000	test_return_std:           0.0000	
+[INFO 07:39:13] my_main t_env: 20076 / 2050000
+[INFO 07:39:13] my_main Estimated time left: 1 days, 5 hours, 23 minutes, 0 seconds. Time passed: 16 minutes, 44 seconds
+[INFO 07:45:37] my_main Updated target network
+[INFO 07:47:59] my_main Recent Stats | t_env:      30060 | Episode:      671
+action_encoder_grad_norm:  2.0056	battle_won_mean:           0.0000	ep_length_mean:           45.9268	epsilon:                   0.6194
+grad_norm:                 2.1024	loss:                      0.0398	pred_obs_loss:             0.6577	pred_r_loss:               0.0075
+q_taken_mean:              0.3143	return_mean:               2.8525	return_std:                0.4358	role_loss:                 0.0948
+role_q_taken_mean:         0.0267	target_mean:               0.3149	td_error_abs:              0.1376	test_battle_won_mean:      0.0000
+test_ep_length_mean:      30.2292	test_return_mean:          0.0000	test_return_std:           0.0000	
+[INFO 07:48:02] my_main t_env: 30094 / 2050000
+[INFO 07:48:02] my_main Estimated time left: 1 days, 5 hours, 36 minutes, 20 seconds. Time passed: 25 minutes, 33 seconds
+[INFO 07:52:26] my_main Updated target network
+[INFO 07:56:54] my_main Recent Stats | t_env:      40074 | Episode:      950
+action_encoder_grad_norm:  1.8680	battle_won_mean:           0.0000	ep_length_mean:           44.6260	epsilon:                   0.4289
+grad_norm:                 1.7672	loss:                      0.0331	pred_obs_loss:             0.5569	pred_r_loss:               0.0064
+q_taken_mean:              0.3191	return_mean:               2.6968	return_std:                0.4535	role_loss:                 0.0834
+role_q_taken_mean:         0.0980	target_mean:               0.3204	td_error_abs:              0.1235	test_battle_won_mean:      0.0000
+test_ep_length_mean:      30.1953	test_return_mean:          0.0000	test_return_std:           0.0000	
+[INFO 07:56:56] my_main t_env: 40104 / 2050000
+[INFO 07:56:56] my_main Estimated time left: 1 days, 5 hours, 49 minutes, 43 seconds. Time passed: 34 minutes, 28 seconds
+[INFO 07:58:40] my_main Updated target network
+[INFO 08:04:27] my_main Updated target network
+[INFO 08:06:04] my_main Updated target network
+[INFO 08:06:07] my_main t_env: 50105 / 2050000
+[INFO 08:06:07] my_main Estimated time left: 1 days, 6 hours, 36 minutes, 34 seconds. Time passed: 43 minutes, 39 seconds
+[INFO 08:07:29] my_main Recent Stats | t_env:      50105 | Episode:     1264
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           40.6668	epsilon:                   0.9987
+grad_norm:                 1.5835	loss:                      0.0307	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.3277	return_mean:               2.1029	return_std:                0.5650	role_loss:                 0.0779
+role_q_taken_mean:         0.1549	target_mean:               0.3339	td_error_abs:              0.1210	test_battle_won_mean:      0.0000
+test_ep_length_mean:      74.0875	test_return_mean:          0.4294	test_return_std:           0.1416	
+RequestQuit command received.
+DataHandler: unable to parse websocket frame.
+Closing Application...
+CloseHandler: 127.0.0.1:48914 disconnected
+ResponseThread: No connection, dropping the response.
+[INFO 08:08:36] absl Shutdown gracefully.
+[INFO 08:08:36] absl Shutdown with return code: -15
+[INFO 08:08:37] absl Launching SC2: /home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 33035 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-zbi5xd35/ -eglpath libEGL.so
+[INFO 08:08:37] absl Connecting to: ws://127.0.0.1:33035/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 33035 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-zbi5xd35/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 08:08:38] absl Connecting to: ws://127.0.0.1:33035/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f1dd5a6efe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 08:08:39] absl Connecting to: ws://127.0.0.1:33035/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:33035
+Startup Phase 3 complete. Ready for commands.
+[INFO 08:08:40] absl Connecting to: ws://127.0.0.1:33035/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:43204 accepted
+ReadyHandler: 127.0.0.1:43204 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/hhk22/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 08:13:05] my_main Updated target network
+[INFO 08:13:13] my_main t_env: 60142 / 2050000
+[INFO 08:13:13] my_main Estimated time left: 23 hours, 25 minutes, 11 seconds. Time passed: 50 minutes, 44 seconds
+[INFO 08:13:24] my_main Recent Stats | t_env:      60142 | Episode:     1466
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           40.4308	epsilon:                   0.8081
+grad_norm:                 0.6994	loss:                      0.0169	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.3318	return_mean:               2.1351	return_std:                0.5548	role_loss:                 0.0467
+role_q_taken_mean:         0.2365	target_mean:               0.3348	td_error_abs:              0.0945	test_battle_won_mean:      0.0000
+test_ep_length_mean:      73.8187	test_return_mean:          1.2033	test_return_std:           0.1914	
+[INFO 08:18:17] my_main t_env: 70171 / 2050000
+[INFO 08:18:17] my_main Estimated time left: 16 hours, 41 minutes, 35 seconds. Time passed: 55 minutes, 49 seconds
+[INFO 08:18:28] my_main Recent Stats | t_env:      70171 | Episode:     1629
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           43.9539	epsilon:                   0.6216
+grad_norm:                 0.8426	loss:                      0.0142	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.3391	return_mean:               2.2544	return_std:                0.5672	role_loss:                 0.0516
+role_q_taken_mean:         0.2977	target_mean:               0.3394	td_error_abs:              0.0881	test_battle_won_mean:      0.0000
+test_ep_length_mean:      73.5187	test_return_mean:          1.9964	test_return_std:           0.2287	
+[INFO 08:19:42] my_main Updated target network
+[INFO 08:22:51] my_main t_env: 80173 / 2050000
+[INFO 08:22:51] my_main Estimated time left: 14 hours, 59 minutes, 6 seconds. Time passed: 1 hours, 23 seconds
+[INFO 08:23:36] my_main Recent Stats | t_env:      80173 | Episode:     1744
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           53.2040	epsilon:                   0.4273
+grad_norm:                 0.7988	loss:                      0.0119	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.3374	return_mean:               2.4942	return_std:                0.5874	role_loss:                 0.0507
+role_q_taken_mean:         0.3171	target_mean:               0.3418	td_error_abs:              0.0788	test_battle_won_mean:      0.0000
+test_ep_length_mean:      94.5563	test_return_mean:          2.3449	test_return_std:           0.3464	
+[INFO 08:27:35] my_main Updated target network
+[INFO 08:30:54] my_main t_env: 90369 / 2050000
+[INFO 08:30:54] my_main Estimated time left: 1 days, 1 hours, 48 minutes, 5 seconds. Time passed: 1 hours, 8 minutes, 26 seconds
+[INFO 08:31:07] my_main Recent Stats | t_env:      90369 | Episode:     1967
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           55.1727	epsilon:                   0.2378
+grad_norm:                 0.7469	loss:                      0.0115	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.3457	return_mean:               2.7740	return_std:                0.6175	role_loss:                 0.0534
+role_q_taken_mean:         0.3284	target_mean:               0.3520	td_error_abs:              0.0788	test_battle_won_mean:      0.0000
+test_ep_length_mean:      95.1000	test_return_mean:          2.6777	test_return_std:           0.3861	
+[INFO 08:33:55] my_main Updated target network
+[INFO 08:39:06] my_main Saving models to /home/hhk22/RODE-plus/results/rode_seed1_sc2_3s_vs_5z/models/100063
+[INFO 08:39:24] my_main t_env: 100381 / 2050000
+[INFO 08:39:24] my_main Estimated time left: 1 days, 3 hours, 34 minutes, 15 seconds. Time passed: 1 hours, 16 minutes, 56 seconds
+[INFO 08:39:34] my_main Recent Stats | t_env:     100381 | Episode:     2250
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           55.8579	epsilon:                   0.0500
+grad_norm:                 0.6917	loss:                      0.0092	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.3602	return_mean:               3.2625	return_std:                0.6168	role_loss:                 0.0553
+role_q_taken_mean:         0.3266	target_mean:               0.3600	td_error_abs:              0.0710	test_battle_won_mean:      0.0000
+test_ep_length_mean:      50.4188	test_return_mean:          2.9265	test_return_std:           0.2805	
+[INFO 08:39:53] my_main Updated target network
+[INFO 08:45:13] my_main Updated target network
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:43204 disconnected
+[INFO 08:48:10] absl Shutdown gracefully.
+[INFO 08:48:10] absl Shutdown with return code: -15
+[INFO 08:48:10] absl Launching SC2: /home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 41966 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-4nj8w2pa/ -eglpath libEGL.so
+[INFO 08:48:10] absl Connecting to: ws://127.0.0.1:41966/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 41966 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-4nj8w2pa/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 08:48:11] absl Connecting to: ws://127.0.0.1:41966/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7fabaa620fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 08:48:12] absl Connecting to: ws://127.0.0.1:41966/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:41966
+Startup Phase 3 complete. Ready for commands.
+[INFO 08:48:13] absl Connecting to: ws://127.0.0.1:41966/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:40390 accepted
+ReadyHandler: 127.0.0.1:40390 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/hhk22/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 08:49:14] my_main t_env: 110393 / 2050000
+[INFO 08:49:14] my_main Estimated time left: 1 days, 7 hours, 44 minutes, 48 seconds. Time passed: 1 hours, 26 minutes, 45 seconds
+[INFO 08:49:24] my_main Recent Stats | t_env:     110393 | Episode:     2604
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           51.5768	epsilon:                   0.0500
+grad_norm:                 0.6778	loss:                      0.0108	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.3964	return_mean:               3.3003	return_std:                0.5480	role_loss:                 0.0688
+role_q_taken_mean:         0.3715	target_mean:               0.3964	td_error_abs:              0.0735	test_battle_won_mean:      0.0000
+test_ep_length_mean:      49.8563	test_return_mean:          2.8526	test_return_std:           0.2615	
+[INFO 08:50:58] my_main Updated target network
+[INFO 08:56:06] my_main Updated target network
+[INFO 08:58:27] my_main t_env: 120395 / 2050000
+[INFO 08:58:27] my_main Estimated time left: 1 days, 5 hours, 38 minutes, 51 seconds. Time passed: 1 hours, 35 minutes, 59 seconds
+[INFO 08:58:37] my_main Recent Stats | t_env:     120395 | Episode:     2957
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           44.9381	epsilon:                   0.0500
+grad_norm:                 0.4113	loss:                      0.0104	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.4240	return_mean:               3.3437	return_std:                0.4890	role_loss:                 0.0643
+role_q_taken_mean:         0.3822	target_mean:               0.4246	td_error_abs:              0.0714	test_battle_won_mean:      0.0000
+test_ep_length_mean:      49.3875	test_return_mean:          2.7561	test_return_std:           0.2565	
+[INFO 09:01:20] my_main Updated target network
+[INFO 09:06:26] my_main Updated target network
+[INFO 09:07:34] my_main t_env: 130403 / 2050000
+[INFO 09:07:34] my_main Estimated time left: 1 days, 5 hours, 8 minutes, 37 seconds. Time passed: 1 hours, 45 minutes, 6 seconds
+[INFO 09:07:45] my_main Recent Stats | t_env:     130403 | Episode:     3301
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           33.3620	epsilon:                   0.0500
+grad_norm:                 0.5259	loss:                      0.0120	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.4677	return_mean:               3.3797	return_std:                0.4328	role_loss:                 0.0710
+role_q_taken_mean:         0.4401	target_mean:               0.4709	td_error_abs:              0.0783	test_battle_won_mean:      0.0000
+test_ep_length_mean:      28.0625	test_return_mean:          3.1541	test_return_std:           0.1872	
+[INFO 09:11:41] my_main Updated target network
+[INFO 09:15:53] my_main t_env: 140407 / 2050000
+[INFO 09:15:53] my_main Estimated time left: 1 days, 2 hours, 27 minutes, 36 seconds. Time passed: 1 hours, 53 minutes, 25 seconds
+[INFO 09:16:05] my_main Recent Stats | t_env:     140407 | Episode:     3622
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           30.4506	epsilon:                   0.0500
+grad_norm:                 0.5700	loss:                      0.0117	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.4955	return_mean:               3.5465	return_std:                0.3754	role_loss:                 0.0727
+role_q_taken_mean:         0.4648	target_mean:               0.4983	td_error_abs:              0.0771	test_battle_won_mean:      0.0000
+test_ep_length_mean:      27.7688	test_return_mean:          3.6105	test_return_std:           0.2104	
+[INFO 09:17:02] my_main Updated target network
+[INFO 09:21:59] my_main Updated target network
+[INFO 09:23:12] my_main t_env: 150434 / 2050000
+[INFO 09:23:12] my_main Estimated time left: 23 hours, 6 minutes, 3 seconds. Time passed: 2 hours, 44 seconds
+[INFO 09:23:26] my_main Recent Stats | t_env:     150434 | Episode:     3907
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           30.4115	epsilon:                   0.0500
+grad_norm:                 0.5118	loss:                      0.0114	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5217	return_mean:               3.7516	return_std:                0.3629	role_loss:                 0.0676
+role_q_taken_mean:         0.4961	target_mean:               0.5255	td_error_abs:              0.0755	test_battle_won_mean:      0.0000
+test_ep_length_mean:      29.9500	test_return_mean:          3.8403	test_return_std:           0.2400	
+[INFO 09:27:19] my_main Updated target network
+[INFO 09:29:41] my_main t_env: 160445 / 2050000
+[INFO 09:29:41] my_main Estimated time left: 20 hours, 21 minutes, 28 seconds. Time passed: 2 hours, 7 minutes, 12 seconds
+[INFO 09:29:56] my_main Recent Stats | t_env:     160445 | Episode:     4149
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           33.0285	epsilon:                   0.0500
+grad_norm:                 0.5269	loss:                      0.0099	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5207	return_mean:               3.9709	return_std:                0.4168	role_loss:                 0.0567
+role_q_taken_mean:         0.4953	target_mean:               0.5283	td_error_abs:              0.0737	test_battle_won_mean:      0.0000
+test_ep_length_mean:      32.8375	test_return_mean:          4.1197	test_return_std:           0.3269	
+[INFO 09:32:41] my_main Updated target network
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:40390 disconnected
+ResponseThread: No connection, dropping the response.
+[INFO 09:34:42] absl Shutdown gracefully.
+[INFO 09:34:42] absl Shutdown with return code: -15
+[INFO 09:34:42] absl Launching SC2: /home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 36055 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-24a2efkw/ -eglpath libEGL.so
+[INFO 09:34:42] absl Connecting to: ws://127.0.0.1:36055/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 36055 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-24a2efkw/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 09:34:43] absl Connecting to: ws://127.0.0.1:36055/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7ff721003fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 09:34:44] absl Connecting to: ws://127.0.0.1:36055/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:36055
+Startup Phase 3 complete. Ready for commands.
+[INFO 09:34:45] absl Connecting to: ws://127.0.0.1:36055/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:52390 accepted
+ReadyHandler: 127.0.0.1:52390 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/hhk22/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 09:36:14] my_main t_env: 170449 / 2050000
+[INFO 09:36:14] my_main Estimated time left: 20 hours, 32 minutes, 11 seconds. Time passed: 2 hours, 13 minutes, 45 seconds
+[INFO 09:36:29] my_main Recent Stats | t_env:     170449 | Episode:     4386
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           35.8039	epsilon:                   0.0500
+grad_norm:                 0.7554	loss:                      0.0100	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5451	return_mean:               4.2346	return_std:                0.4806	role_loss:                 0.0612
+role_q_taken_mean:         0.5385	target_mean:               0.5544	td_error_abs:              0.0751	test_battle_won_mean:      0.0000
+test_ep_length_mean:      35.4438	test_return_mean:          4.3952	test_return_std:           0.3874	
+[INFO 09:38:27] my_main Updated target network
+[INFO 09:41:49] my_main t_env: 180492 / 2050000
+[INFO 09:41:49] my_main Estimated time left: 17 hours, 19 minutes, 56 seconds. Time passed: 2 hours, 19 minutes, 21 seconds
+[INFO 09:42:07] my_main Recent Stats | t_env:     180492 | Episode:     4580
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           40.3389	epsilon:                   0.0500
+grad_norm:                 0.6826	loss:                      0.0083	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5530	return_mean:               4.5257	return_std:                0.5713	role_loss:                 0.0605
+role_q_taken_mean:         0.5315	target_mean:               0.5588	td_error_abs:              0.0674	test_battle_won_mean:      0.0000
+test_ep_length_mean:      39.2375	test_return_mean:          4.6690	test_return_std:           0.4873	
+[INFO 09:44:24] my_main Updated target network
+[INFO 09:46:37] my_main t_env: 190626 / 2050000
+[INFO 09:46:37] my_main Estimated time left: 14 hours, 40 minutes, 32 seconds. Time passed: 2 hours, 24 minutes, 9 seconds
+[INFO 09:46:58] my_main Recent Stats | t_env:     190626 | Episode:     4729
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           47.7085	epsilon:                   0.0500
+grad_norm:                 0.6998	loss:                      0.0081	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5776	return_mean:               4.8273	return_std:                0.6889	role_loss:                 0.0667
+role_q_taken_mean:         0.5549	target_mean:               0.5825	td_error_abs:              0.0658	test_battle_won_mean:      0.0000
+test_ep_length_mean:      44.0250	test_return_mean:          4.9962	test_return_std:           0.5899	
+[INFO 09:51:03] my_main Saving models to /home/hhk22/RODE-plus/results/rode_seed1_sc2_3s_vs_5z/models/200114
+[INFO 09:51:14] my_main Updated target network
+[INFO 09:51:18] my_main t_env: 200658 / 2050000
+[INFO 09:51:18] my_main Estimated time left: 14 hours, 21 minutes, 58 seconds. Time passed: 2 hours, 28 minutes, 49 seconds
+[INFO 09:51:42] my_main Recent Stats | t_env:     200658 | Episode:     4863
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           55.6452	epsilon:                   0.0500
+grad_norm:                 0.7504	loss:                      0.0081	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5879	return_mean:               5.0458	return_std:                0.7528	role_loss:                 0.0722
+role_q_taken_mean:         0.5778	target_mean:               0.5913	td_error_abs:              0.0658	test_battle_won_mean:      0.0000
+test_ep_length_mean:      50.1000	test_return_mean:          5.1387	test_return_std:           0.6535	
+[INFO 09:56:03] my_main t_env: 210699 / 2050000
+[INFO 09:56:03] my_main Estimated time left: 14 hours, 29 minutes, 56 seconds. Time passed: 2 hours, 33 minutes, 34 seconds
+[INFO 09:56:25] my_main Recent Stats | t_env:     210699 | Episode:     4992
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           62.9391	epsilon:                   0.0500
+grad_norm:                 0.8374	loss:                      0.0079	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5923	return_mean:               5.2387	return_std:                0.8262	role_loss:                 0.0768
+role_q_taken_mean:         0.5906	target_mean:               0.5950	td_error_abs:              0.0642	test_battle_won_mean:      0.0000
+test_ep_length_mean:      54.7563	test_return_mean:          5.2421	test_return_std:           0.6624	
+[INFO 09:58:39] my_main Updated target network
+[INFO 10:01:21] my_main t_env: 220744 / 2050000
+[INFO 10:01:21] my_main Estimated time left: 16 hours, 5 minutes, 25 seconds. Time passed: 2 hours, 38 minutes, 52 seconds
+[INFO 10:01:46] my_main Recent Stats | t_env:     220744 | Episode:     5148
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           67.3751	epsilon:                   0.0500
+grad_norm:                 0.8621	loss:                      0.0079	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5842	return_mean:               5.3505	return_std:                0.8600	role_loss:                 0.0846
+role_q_taken_mean:         0.5909	target_mean:               0.5863	td_error_abs:              0.0642	test_battle_won_mean:      0.0000
+test_ep_length_mean:      61.2125	test_return_mean:          5.3520	test_return_std:           0.7154	
+RequestQuit command received.
+DataHandler: unable to parse websocket frame.
+Closing Application...
+CloseHandler: 127.0.0.1:52390 disconnected
+ResponseThread: No connection, dropping the response.
+[INFO 10:02:32] absl Shutdown gracefully.
+[INFO 10:02:32] absl Shutdown with return code: -15
+[INFO 10:02:32] absl Launching SC2: /home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 45864 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-1xc6rcqf/ -eglpath libEGL.so
+[INFO 10:02:32] absl Connecting to: ws://127.0.0.1:45864/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 45864 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-1xc6rcqf/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 10:02:33] absl Connecting to: ws://127.0.0.1:45864/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f1f00744fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 10:02:34] absl Connecting to: ws://127.0.0.1:45864/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:45864
+Startup Phase 3 complete. Ready for commands.
+[INFO 10:02:35] absl Connecting to: ws://127.0.0.1:45864/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:40110 accepted
+ReadyHandler: 127.0.0.1:40110 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/hhk22/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 10:05:47] my_main Updated target network
+[INFO 10:06:19] my_main t_env: 230763 / 2050000
+[INFO 10:06:19] my_main Estimated time left: 15 hours, 3 minutes, 36 seconds. Time passed: 2 hours, 43 minutes, 51 seconds
+[INFO 10:06:43] my_main Recent Stats | t_env:     230763 | Episode:     5279
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           72.3176	epsilon:                   0.0500
+grad_norm:                 0.8454	loss:                      0.0082	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5754	return_mean:               5.4004	return_std:                0.8954	role_loss:                 0.0864
+role_q_taken_mean:         0.5882	target_mean:               0.5791	td_error_abs:              0.0648	test_battle_won_mean:      0.0000
+test_ep_length_mean:      64.7375	test_return_mean:          5.3898	test_return_std:           0.7285	
+[INFO 10:11:08] my_main t_env: 240777 / 2050000
+[INFO 10:11:08] my_main Estimated time left: 14 hours, 28 minutes, 14 seconds. Time passed: 2 hours, 48 minutes, 39 seconds
+[INFO 10:11:35] my_main Recent Stats | t_env:     240777 | Episode:     5411
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           73.8877	epsilon:                   0.0500
+grad_norm:                 0.8572	loss:                      0.0079	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5649	return_mean:               5.4368	return_std:                0.8780	role_loss:                 0.0824
+role_q_taken_mean:         0.5812	target_mean:               0.5680	td_error_abs:              0.0629	test_battle_won_mean:      0.0000
+test_ep_length_mean:      68.9625	test_return_mean:          5.4964	test_return_std:           0.7227	
+[INFO 10:13:25] my_main Updated target network
+[INFO 10:16:04] my_main t_env: 250833 / 2050000
+[INFO 10:16:04] my_main Estimated time left: 14 hours, 43 minutes, 59 seconds. Time passed: 2 hours, 53 minutes, 36 seconds
+[INFO 10:16:27] my_main Recent Stats | t_env:     250833 | Episode:     5537
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           74.8765	epsilon:                   0.0500
+grad_norm:                 1.0197	loss:                      0.0081	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5658	return_mean:               5.4643	return_std:                0.9045	role_loss:                 0.0869
+role_q_taken_mean:         0.5802	target_mean:               0.5732	td_error_abs:              0.0644	test_battle_won_mean:      0.0000
+test_ep_length_mean:      68.1312	test_return_mean:          5.5845	test_return_std:           0.7635	
+[INFO 10:20:36] my_main Updated target network
+[INFO 10:21:14] my_main t_env: 260864 / 2050000
+[INFO 10:21:14] my_main Estimated time left: 15 hours, 19 minutes, 46 seconds. Time passed: 2 hours, 58 minutes, 45 seconds
+[INFO 10:21:42] my_main Recent Stats | t_env:     260864 | Episode:     5682
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           73.1449	epsilon:                   0.0500
+grad_norm:                 1.0376	loss:                      0.0102	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5884	return_mean:               5.4902	return_std:                0.8570	role_loss:                 0.1046
+role_q_taken_mean:         0.6170	target_mean:               0.5906	td_error_abs:              0.0666	test_battle_won_mean:      0.0000
+test_ep_length_mean:      71.2125	test_return_mean:          5.6653	test_return_std:           0.7772	
+[INFO 10:26:17] my_main t_env: 270916 / 2050000
+[INFO 10:26:17] my_main Estimated time left: 14 hours, 54 minutes, 36 seconds. Time passed: 3 hours, 3 minutes, 48 seconds
+[INFO 10:26:43] my_main Recent Stats | t_env:     270916 | Episode:     5815
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           75.3825	epsilon:                   0.0500
+grad_norm:                 1.0271	loss:                      0.0110	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.5942	return_mean:               5.5930	return_std:                0.8680	role_loss:                 0.1005
+role_q_taken_mean:         0.6251	target_mean:               0.5996	td_error_abs:              0.0702	test_battle_won_mean:      0.0000
+test_ep_length_mean:      71.4375	test_return_mean:          5.7762	test_return_std:           0.8181	
+[INFO 10:28:20] my_main Updated target network
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:40110 disconnected
+[INFO 10:29:21] absl Shutdown gracefully.
+[INFO 10:29:21] absl Shutdown with return code: -15
+[INFO 10:29:21] absl Launching SC2: /home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 38946 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-tpowb0b6/ -eglpath libEGL.so
+[INFO 10:29:21] absl Connecting to: ws://127.0.0.1:38946/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 38946 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-tpowb0b6/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 10:29:22] absl Connecting to: ws://127.0.0.1:38946/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f68d3a75fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 10:29:23] absl Connecting to: ws://127.0.0.1:38946/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:38946
+Startup Phase 3 complete. Ready for commands.
+[INFO 10:29:24] absl Connecting to: ws://127.0.0.1:38946/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:36224 accepted
+ReadyHandler: 127.0.0.1:36224 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/hhk22/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 10:31:41] my_main t_env: 281149 / 2050000
+[INFO 10:31:41] my_main Estimated time left: 15 hours, 33 minutes, 51 seconds. Time passed: 3 hours, 9 minutes, 12 seconds
+[INFO 10:32:07] my_main Recent Stats | t_env:     281149 | Episode:     5951
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           75.1348	epsilon:                   0.0500
+grad_norm:                 1.1792	loss:                      0.0110	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6127	return_mean:               5.7279	return_std:                0.8315	role_loss:                 0.1053
+role_q_taken_mean:         0.6660	target_mean:               0.6156	td_error_abs:              0.0713	test_battle_won_mean:      0.0000
+test_ep_length_mean:      72.9688	test_return_mean:          5.9243	test_return_std:           0.8586	
+[INFO 10:35:48] my_main Updated target network
+[INFO 10:36:28] my_main t_env: 291180 / 2050000
+[INFO 10:36:28] my_main Estimated time left: 13 hours, 59 minutes, 47 seconds. Time passed: 3 hours, 14 minutes, 0 seconds
+[INFO 10:36:52] my_main Recent Stats | t_env:     291180 | Episode:     6081
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           75.3944	epsilon:                   0.0500
+grad_norm:                 1.2325	loss:                      0.0114	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6204	return_mean:               5.8813	return_std:                0.8509	role_loss:                 0.1081
+role_q_taken_mean:         0.7008	target_mean:               0.6201	td_error_abs:              0.0737	test_battle_won_mean:      0.0000
+test_ep_length_mean:      70.8125	test_return_mean:          5.8856	test_return_std:           0.8454	
+[INFO 10:41:15] my_main Saving models to /home/hhk22/RODE-plus/results/rode_seed1_sc2_3s_vs_5z/models/300147
+[INFO 10:41:49] my_main t_env: 301182 / 2050000
+[INFO 10:41:49] my_main Estimated time left: 15 hours, 35 minutes, 44 seconds. Time passed: 3 hours, 19 minutes, 21 seconds
+[INFO 10:42:11] my_main Recent Stats | t_env:     301182 | Episode:     6228
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           73.0407	epsilon:                   0.0500
+grad_norm:                 1.1294	loss:                      0.0124	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6111	return_mean:               5.9900	return_std:                0.8286	role_loss:                 0.1087
+role_q_taken_mean:         0.7079	target_mean:               0.6130	td_error_abs:              0.0781	test_battle_won_mean:      0.0000
+test_ep_length_mean:      69.9062	test_return_mean:          5.8342	test_return_std:           0.7910	
+[INFO 10:43:19] my_main Updated target network
+[INFO 10:47:22] my_main t_env: 311183 / 2050000
+[INFO 10:47:22] my_main Estimated time left: 16 hours, 3 minutes, 30 seconds. Time passed: 3 hours, 24 minutes, 53 seconds
+[INFO 10:47:48] my_main Recent Stats | t_env:     311183 | Episode:     6377
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           72.6290	epsilon:                   0.0500
+grad_norm:                 1.1266	loss:                      0.0114	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6157	return_mean:               6.1316	return_std:                0.8380	role_loss:                 0.0987
+role_q_taken_mean:         0.7166	target_mean:               0.6253	td_error_abs:              0.0815	test_battle_won_mean:      0.0000
+test_ep_length_mean:      68.1500	test_return_mean:          6.0041	test_return_std:           0.7638	
+[INFO 10:50:59] my_main Updated target network
+[INFO 10:52:30] my_main t_env: 321231 / 2050000
+[INFO 10:52:30] my_main Estimated time left: 14 hours, 43 minutes, 35 seconds. Time passed: 3 hours, 30 minutes, 2 seconds
+[INFO 10:52:57] my_main Recent Stats | t_env:     321231 | Episode:     6505
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           73.2132	epsilon:                   0.0500
+grad_norm:                 0.9791	loss:                      0.0111	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6158	return_mean:               6.3104	return_std:                0.8512	role_loss:                 0.0991
+role_q_taken_mean:         0.7258	target_mean:               0.6251	td_error_abs:              0.0793	test_battle_won_mean:      0.0000
+test_ep_length_mean:      68.6688	test_return_mean:          6.2735	test_return_std:           0.8585	
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:36224 disconnected
+[INFO 10:57:16] absl Shutdown gracefully.
+[INFO 10:57:16] absl Shutdown with return code: -15
+[INFO 10:57:16] absl Launching SC2: /home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 34544 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-r2ysb78x/ -eglpath libEGL.so
+[INFO 10:57:16] absl Connecting to: ws://127.0.0.1:34544/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 34544 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-r2ysb78x/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 10:57:17] absl Connecting to: ws://127.0.0.1:34544/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f5ac8a81fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 10:57:18] absl Connecting to: ws://127.0.0.1:34544/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:34544
+Startup Phase 3 complete. Ready for commands.
+[INFO 10:57:19] absl Connecting to: ws://127.0.0.1:34544/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:39718 accepted
+ReadyHandler: 127.0.0.1:39718 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/hhk22/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 10:57:38] my_main t_env: 331241 / 2050000
+[INFO 10:57:38] my_main Estimated time left: 14 hours, 41 minutes, 38 seconds. Time passed: 3 hours, 35 minutes, 10 seconds
+[INFO 10:58:04] my_main Recent Stats | t_env:     331241 | Episode:     6635
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           73.5646	epsilon:                   0.0500
+grad_norm:                 0.9367	loss:                      0.0110	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6218	return_mean:               6.5018	return_std:                0.9338	role_loss:                 0.1101
+role_q_taken_mean:         0.7312	target_mean:               0.6329	td_error_abs:              0.0790	test_battle_won_mean:      0.0000
+test_ep_length_mean:      68.1188	test_return_mean:          6.5274	test_return_std:           0.7903	
+[INFO 10:58:56] my_main Updated target network
+[INFO 11:02:32] my_main t_env: 341281 / 2050000
+[INFO 11:02:32] my_main Estimated time left: 13 hours, 53 minutes, 53 seconds. Time passed: 3 hours, 40 minutes, 4 seconds
+[INFO 11:03:02] my_main Recent Stats | t_env:     341281 | Episode:     6768
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           73.2301	epsilon:                   0.0500
+grad_norm:                 0.8825	loss:                      0.0117	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6435	return_mean:               6.6536	return_std:                0.9676	role_loss:                 0.1163
+role_q_taken_mean:         0.7432	target_mean:               0.6532	td_error_abs:              0.0826	test_battle_won_mean:      0.0000
+test_ep_length_mean:      71.4813	test_return_mean:          6.6786	test_return_std:           0.8920	
+[INFO 11:06:00] my_main Updated target network
+[INFO 11:07:37] my_main t_env: 351295 / 2050000
+[INFO 11:07:37] my_main Estimated time left: 14 hours, 21 minutes, 27 seconds. Time passed: 3 hours, 45 minutes, 8 seconds
+[INFO 11:08:05] my_main Recent Stats | t_env:     351295 | Episode:     6905
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           74.2409	epsilon:                   0.0500
+grad_norm:                 0.9314	loss:                      0.0109	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6492	return_mean:               6.8624	return_std:                1.0767	role_loss:                 0.1160
+role_q_taken_mean:         0.7472	target_mean:               0.6507	td_error_abs:              0.0781	test_battle_won_mean:      0.0000
+test_ep_length_mean:      74.4875	test_return_mean:          7.1833	test_return_std:           0.9058	
+[INFO 11:12:40] my_main t_env: 361301 / 2050000
+[INFO 11:12:40] my_main Estimated time left: 14 hours, 12 minutes, 53 seconds. Time passed: 3 hours, 50 minutes, 12 seconds
+[INFO 11:13:03] my_main Recent Stats | t_env:     361301 | Episode:     7038
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           75.8633	epsilon:                   0.0500
+grad_norm:                 0.9557	loss:                      0.0100	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6522	return_mean:               7.0868	return_std:                1.1706	role_loss:                 0.1155
+role_q_taken_mean:         0.7570	target_mean:               0.6506	td_error_abs:              0.0727	test_battle_won_mean:      0.0000
+test_ep_length_mean:      72.3063	test_return_mean:          7.3069	test_return_std:           1.0086	
+[INFO 11:13:48] my_main Updated target network
+[INFO 11:17:33] my_main t_env: 371306 / 2050000
+[INFO 11:17:33] my_main Estimated time left: 13 hours, 38 minutes, 24 seconds. Time passed: 3 hours, 55 minutes, 4 seconds
+[INFO 11:17:59] my_main Recent Stats | t_env:     371306 | Episode:     7177
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           74.5590	epsilon:                   0.0500
+grad_norm:                 1.0266	loss:                      0.0102	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6749	return_mean:               7.1916	return_std:                1.1974	role_loss:                 0.1223
+role_q_taken_mean:         0.7916	target_mean:               0.6734	td_error_abs:              0.0750	test_battle_won_mean:      0.0000
+test_ep_length_mean:      71.5250	test_return_mean:          7.4765	test_return_std:           0.8843	
+[INFO 11:20:57] my_main Updated target network
+[INFO 11:22:32] my_main t_env: 381346 / 2050000
+[INFO 11:22:32] my_main Estimated time left: 13 hours, 48 minutes, 11 seconds. Time passed: 4 hours, 3 seconds
+[INFO 11:22:59] my_main Recent Stats | t_env:     381346 | Episode:     7309
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           74.3711	epsilon:                   0.0500
+grad_norm:                 1.0624	loss:                      0.0108	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6866	return_mean:               7.2813	return_std:                1.1715	role_loss:                 0.1157
+role_q_taken_mean:         0.8130	target_mean:               0.6872	td_error_abs:              0.0787	test_battle_won_mean:      0.0000
+test_ep_length_mean:      72.0938	test_return_mean:          7.6803	test_return_std:           0.8533	
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:39718 disconnected
+ResponseThread: No connection, dropping the response.
+[INFO 11:23:30] absl Shutdown gracefully.
+[INFO 11:23:30] absl Shutdown with return code: -15
+[INFO 11:23:30] absl Launching SC2: /home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 38428 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-d1766_y5/ -eglpath libEGL.so
+[INFO 11:23:30] absl Connecting to: ws://127.0.0.1:38428/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/hhk22/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 38428 -dataDir /home/hhk22/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-d1766_y5/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 11:23:31] absl Connecting to: ws://127.0.0.1:38428/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f9d967a8fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 11:23:32] absl Connecting to: ws://127.0.0.1:38428/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:38428
+Startup Phase 3 complete. Ready for commands.
+[INFO 11:23:33] absl Connecting to: ws://127.0.0.1:38428/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:35970 accepted
+ReadyHandler: 127.0.0.1:35970 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/hhk22/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 11:27:56] my_main t_env: 391385 / 2050000
+[INFO 11:27:56] my_main Estimated time left: 14 hours, 53 minutes, 56 seconds. Time passed: 4 hours, 5 minutes, 28 seconds
+[INFO 11:28:19] my_main Recent Stats | t_env:     391385 | Episode:     7443
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           74.2570	epsilon:                   0.0500
+grad_norm:                 1.1937	loss:                      0.0099	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.6787	return_mean:               7.4020	return_std:                1.1671	role_loss:                 0.1124
+role_q_taken_mean:         0.8074	target_mean:               0.6832	td_error_abs:              0.0736	test_battle_won_mean:      0.0000
+test_ep_length_mean:      67.6000	test_return_mean:          7.8287	test_return_std:           0.7925	
+[INFO 11:28:57] my_main Updated target network
+[INFO 11:32:31] my_main Saving models to /home/hhk22/RODE-plus/results/rode_seed1_sc2_3s_vs_5z/models/400185
+[INFO 11:33:11] my_main t_env: 401456 / 2050000
+[INFO 11:33:11] my_main Estimated time left: 14 hours, 17 minutes, 36 seconds. Time passed: 4 hours, 10 minutes, 42 seconds
+[INFO 11:33:38] my_main Recent Stats | t_env:     401456 | Episode:     7582
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           74.1287	epsilon:                   0.0500
+grad_norm:                 1.0921	loss:                      0.0101	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.7013	return_mean:               7.5265	return_std:                1.1401	role_loss:                 0.1143
+role_q_taken_mean:         0.8246	target_mean:               0.7118	td_error_abs:              0.0744	test_battle_won_mean:      0.0000
+test_ep_length_mean:      67.3063	test_return_mean:          7.8964	test_return_std:           0.8163	
+[INFO 11:36:35] my_main Updated target network
+[INFO 11:38:23] my_main t_env: 411459 / 2050000
+[INFO 11:38:23] my_main Estimated time left: 14 hours, 13 minutes, 11 seconds. Time passed: 4 hours, 15 minutes, 55 seconds
+[INFO 11:38:46] my_main Recent Stats | t_env:     411459 | Episode:     7711
+action_encoder_grad_norm:  1.8164	battle_won_mean:           0.0000	ep_length_mean:           74.5906	epsilon:                   0.0500
+grad_norm:                 1.0741	loss:                      0.0103	pred_obs_loss:             0.4848	pred_r_loss:               0.0055
+q_taken_mean:              0.7077	return_mean:               7.6052	return_std:                1.0882	role_loss:                 0.1123
+role_q_taken_mean:         0.8059	target_mean:               0.7136	td_error_abs:              0.0761	test_battle_won_mean:      0.0000
+test_ep_length_mean:      67.5563	test_return_mean:          7.9799	test_return_std:           0.8216	
+[INFO 11:43:22] my_main t_env: 421482 / 2050000
+[INFO 11:43:22] my_main Estimated time left: 13 hours, 29 minutes, 45 seconds. Time passed: 4 hours, 20 minutes, 54 seconds
