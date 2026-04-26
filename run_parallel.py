@@ -124,6 +124,12 @@ def load_spec(path):
         return yaml.safe_load(f)
 
 
+def merge_extra(run_extra, cli_extra):
+    merged = list(run_extra or [])
+    merged.extend(cli_extra or [])
+    return merged
+
+
 def runs_from_args(args):
     runs = []
     if args.spec:
@@ -131,6 +137,7 @@ def runs_from_args(args):
         defaults = spec.get("defaults", {}) or {}
         for r in spec.get("runs", []) or []:
             merged = {**defaults, **r}
+            merged["extra"] = merge_extra(merged.get("extra", []), args.extra)
             runs.append(merged)
         return runs
 
