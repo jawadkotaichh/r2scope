@@ -78,11 +78,13 @@ def _slug(s):
     return re.sub(r'[^A-Za-z0-9._-]+', '_', str(s)).strip('_') or "x"
 
 
-def _extract_with_override(params, key):
+def _extract_with_override(params, key, consume=False):
     # Sacred "with k=v" overrides take priority over config-file values.
     prefix = key + "="
-    for p in params:
+    for i, p in enumerate(params):
         if p.startswith(prefix):
+            if consume:
+                del params[i]
             return p[len(prefix):]
     return None
 
@@ -145,7 +147,7 @@ if __name__ == '__main__':
     if checkpoint_override is not None:
         config_dict["checkpoint_path"] = checkpoint_override
 
-    auto_resume_override = _extract_with_override(params, "auto_resume")
+    auto_resume_override = _extract_with_override(params, "auto_resume", consume=True)
     if auto_resume_override is not None:
         config_dict["auto_resume"] = _parse_boolish(auto_resume_override)
 

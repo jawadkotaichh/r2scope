@@ -1,0 +1,126 @@
+{
+  "action_encoder_grad_norm": [
+    8.165816307067871
+  ],
+  "action_encoder_grad_norm_T": [
+    748
+  ],
+  "battle_won_mean": [
+    0.0,
+    0.0
+  ],
+  "battle_won_mean_T": [
+    21,
+    10021
+  ],
+  "ep_length_mean": [
+    21.0,
+    23.14814814814815
+  ],
+  "ep_length_mean_T": [
+    21,
+    10021
+  ],
+  "epsilon": [
+    1.0,
+    0.810057
+  ],
+  "epsilon_T": [
+    21,
+    10021
+  ],
+  "grad_norm": [
+    31.67228126525879
+  ],
+  "grad_norm_T": [
+    748
+  ],
+  "loss": [
+    0.19159579277038574
+  ],
+  "loss_T": [
+    748
+  ],
+  "pred_obs_loss": [
+    3.567465305328369
+  ],
+  "pred_obs_loss_T": [
+    748
+  ],
+  "pred_r_loss": [
+    0.13053391873836517
+  ],
+  "pred_r_loss_T": [
+    748
+  ],
+  "q_taken_mean": [
+    -0.20663331111697164
+  ],
+  "q_taken_mean_T": [
+    748
+  ],
+  "return_mean": [
+    5.135135135135135,
+    5.001591435185185
+  ],
+  "return_mean_T": [
+    21,
+    10021
+  ],
+  "return_std": [
+    0.0,
+    0.5750069061079874
+  ],
+  "return_std_T": [
+    21,
+    10021
+  ],
+  "role_loss": [
+    1.7144099473953247
+  ],
+  "role_loss_T": [
+    748
+  ],
+  "role_q_taken_mean": [
+    -0.0024803950011364523
+  ],
+  "role_q_taken_mean_T": [
+    748
+  ],
+  "target_mean": [
+    -0.1588130549738539
+  ],
+  "target_mean_T": [
+    748
+  ],
+  "td_error_abs": [
+    0.34531892174705464
+  ],
+  "td_error_abs_T": [
+    748
+  ],
+  "test_battle_won_mean": [
+    0.0
+  ],
+  "test_battle_won_mean_T": [
+    21
+  ],
+  "test_ep_length_mean": [
+    20.84375
+  ],
+  "test_ep_length_mean_T": [
+    21
+  ],
+  "test_return_mean": [
+    0.0
+  ],
+  "test_return_mean_T": [
+    21
+  ],
+  "test_return_std": [
+    0.0
+  ],
+  "test_return_std_T": [
+    21
+  ]
+}
