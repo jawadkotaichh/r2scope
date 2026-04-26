@@ -4,3 +4,4 @@ venv/
 __MACOSX/
 results/
 .venv/
+plots/
