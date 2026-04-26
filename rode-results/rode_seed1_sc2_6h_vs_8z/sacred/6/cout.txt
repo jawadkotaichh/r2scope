@@ -7504,3 +7504,53 @@ grad_norm:                 4.6111	loss:                      0.0946	pred_obs_los
 q_taken_mean:              0.9683	return_mean:              15.0492	return_std:                3.3636	role_loss:                 0.6877
 role_q_taken_mean:         1.1091	target_mean:               0.9691	td_error_abs:              0.2165	test_battle_won_mean:      0.7000
 test_ep_length_mean:      64.2375	test_return_mean:         18.5223	test_return_std:           2.5150	
+[INFO 06:43:00] my_main Updated target network
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:51614 disconnected
+[INFO 06:43:29] absl Shutdown gracefully.
+[INFO 06:43:29] absl Shutdown with return code: -15
+[INFO 06:43:29] absl No GL library found, so RGB rendering will be disabled. For software rendering install libosmesa.
+[INFO 06:43:29] absl Launching SC2: /workspace/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 44465 -dataDir /workspace/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-v3nyq0ey/ -headlessNoRender
+[INFO 06:43:29] absl Connecting to: ws://127.0.0.1:44465/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/workspace/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 44465 -dataDir /workspace/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-v3nyq0ey/ -headlessNoRender'
+Starting up...
+Startup Phase 1 complete
+[INFO 06:43:30] absl Connecting to: ws://127.0.0.1:44465/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Creating stub renderer...
+[INFO 06:43:31] absl Connecting to: ws://127.0.0.1:44465/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:44465
+Startup Phase 3 complete. Ready for commands.
+[INFO 06:43:32] absl Connecting to: ws://127.0.0.1:44465/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:45508 accepted
+ReadyHandler: 127.0.0.1:45508 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /workspace/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 06:43:41] my_main t_env: 4492321 / 5050000
+[INFO 06:43:41] my_main Estimated time left: 2 hours, 20 minutes, 11 seconds. Time passed: 17 hours, 44 minutes, 30 seconds
+[INFO 06:43:54] my_main Recent Stats | t_env:    4492321 | Episode:    93888
+action_encoder_grad_norm:  2.9477	battle_won_mean:           0.2359	ep_length_mean:           60.5673	epsilon:                   0.0500
+grad_norm:                 3.8004	loss:                      0.0897	pred_obs_loss:             1.4890	pred_r_loss:               0.0312
+q_taken_mean:              0.9681	return_mean:              15.0340	return_std:                3.3790	role_loss:                 0.6859
+role_q_taken_mean:         1.1195	target_mean:               0.9702	td_error_abs:              0.2090	test_battle_won_mean:      0.6750
+test_ep_length_mean:      63.0312	test_return_mean:         18.3811	test_return_std:           2.5053	

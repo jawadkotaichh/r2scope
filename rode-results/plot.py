@@ -108,8 +108,56 @@ def metric_progress(info, progress_metrics=DEFAULT_PROGRESS_METRICS):
     return best_t, point_count
 
 
-def find_info_path(run_dir: Path) -> Path:
-    candidates = []
+def metric_pairs(info):
+    names = []
+    for key, values in info.items():
+        if key.endswith("_T"):
+            continue
+        t_key = f"{key}_T"
+        if t_key in info and values and info[t_key]:
+            names.append(key)
+    return sorted(names)
+
+
+def sorted_unique_last(x, y):
+    points = {}
+    for t, value in zip(x, y):
+        points[float(t)] = float(value)
+    if not points:
+        return [], []
+
+    ordered_t = sorted(points)
+    return ordered_t, [points[t] for t in ordered_t]
+
+
+def append_attempt_metric(stitched_x, stitched_y, attempt_x, attempt_y):
+    x = np.asarray(attempt_x, dtype=float)
+    y = np.asarray(attempt_y, dtype=float)
+    if len(x) == 0 or len(y) == 0:
+        return stitched_x, stitched_y
+
+    length = min(len(x), len(y))
+    x = x[:length]
+    y = y[:length]
+
+    order = np.argsort(x, kind="stable")
+    x = x[order]
+    y = y[order]
+    x, y = sorted_unique_last(x, y)
+
+    if stitched_x:
+        resume_t = x[0]
+        kept = [(t, value) for t, value in zip(stitched_x, stitched_y) if t < resume_t]
+        stitched_x = [t for t, _ in kept]
+        stitched_y = [value for _, value in kept]
+
+    stitched_x.extend(x)
+    stitched_y.extend(y)
+    return sorted_unique_last(stitched_x, stitched_y)
+
+
+def load_attempt_infos(run_dir: Path):
+    attempts = []
     for sacred_run_dir in numeric_sacred_dirs(run_dir):
         info_path = sacred_run_dir / "info.json"
         if not info_path.exists():
@@ -119,14 +167,41 @@ def find_info_path(run_dir: Path) -> Path:
         except json.JSONDecodeError:
             continue
         max_t, point_count = metric_progress(info)
-        candidates.append((max_t, point_count, int(sacred_run_dir.name), info_path))
+        if max_t < 0:
+            continue
+        attempts.append((int(sacred_run_dir.name), info_path, info, max_t, point_count))
 
-    if not candidates:
+    if not attempts:
         raise FileNotFoundError(f"Could not find a usable sacred/*/info.json under {run_dir}")
 
-    # Pick the attempt with the most logged training progress. The numeric
-    # Sacred id is only a tie-breaker for repeated attempts with equal progress.
-    return max(candidates, key=lambda item: item[:3])[3]
+    return sorted(attempts, key=lambda item: item[0])
+
+
+def stitch_attempt_infos(run_dir: Path):
+    attempts = load_attempt_infos(run_dir)
+    stitched = {}
+
+    metric_names = sorted({name for _, _, info, _, _ in attempts for name in metric_pairs(info)})
+    for metric_name in metric_names:
+        stitched_x = []
+        stitched_y = []
+        t_key = f"{metric_name}_T"
+
+        for _, _, info, _, _ in attempts:
+            if metric_name not in info or t_key not in info:
+                continue
+            stitched_x, stitched_y = append_attempt_metric(
+                stitched_x,
+                stitched_y,
+                info[t_key],
+                info[metric_name],
+            )
+
+        if stitched_x:
+            stitched[metric_name] = stitched_y
+            stitched[t_key] = stitched_x
+
+    return stitched, attempts
 
 
 def get_metric(info, metric_name):
@@ -188,6 +263,23 @@ def plot_mean_std(x, ys, title, ylabel, out_file, scale=1.0, ylim=None):
         plt.ylim(*ylim)
     plt.grid(True, alpha=0.3)
     plt.legend()
+    plt.tight_layout()
+    plt.savefig(out_file, dpi=300, bbox_inches="tight")
+    plt.close()
+
+
+def plot_single_curve(x, y, title, ylabel, out_file, scale=1.0, ylim=None):
+    x_plot = x / 1e6
+    y_plot = y * scale
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(x_plot, y_plot, linewidth=2)
+    plt.xlabel("T (mil)")
+    plt.ylabel(ylabel)
+    plt.title(title)
+    if ylim is not None:
+        plt.ylim(*ylim)
+    plt.grid(True, alpha=0.3)
     plt.tight_layout()
     plt.savefig(out_file, dpi=300, bbox_inches="tight")
     plt.close()
@@ -255,16 +347,22 @@ def main():
     loaded_seeds = []
     for run_dir in run_dirs:
         try:
-            info_path = find_info_path(run_dir)
+            info, attempts = stitch_attempt_infos(run_dir)
         except FileNotFoundError as exc:
             print(f"Skipping {run_dir.name}: {exc}")
             continue
-        info = load_json(info_path)
         max_t, point_count = metric_progress(info)
         run_infos.append((run_dir.name, info))
         loaded_seeds.append(run_seed(run_dir))
         max_t_label = int(max_t) if max_t >= 0 else "unknown"
-        print(f"Loaded: {info_path} (max_t={max_t_label}, points={point_count})")
+        attempt_labels = ", ".join(
+            f"{info_path.parent.name}:{int(attempt_max_t)}"
+            for _, info_path, _, attempt_max_t, _ in attempts
+        )
+        print(
+            f"Loaded: {run_dir.name} stitched {len(attempts)} attempt(s) "
+            f"(max_t={max_t_label}, points={point_count}; attempts={attempt_labels})"
+        )
 
     if not run_infos:
         raise SystemExit(f"No usable sacred info.json files found for map '{map_name}'")
@@ -272,6 +370,8 @@ def main():
     seed_count = len(set(loaded_seeds))
     outdir = outdir_base / f"{safe_folder_name(map_name)}_{seed_count}seeds"
     outdir.mkdir(parents=True, exist_ok=True)
+    individual_dir = outdir / "individual_runs"
+    individual_dir.mkdir(parents=True, exist_ok=True)
 
     x, ys = aggregate_metric(run_infos, "return_mean")
     if x is not None:
@@ -310,6 +410,28 @@ def main():
         )
     else:
         print("Metric test_battle_won_mean not found in the selected runs.")
+
+    per_run_specs = (
+        ("return_mean", "Averaged Score", "avg_score.png", 1.0, None),
+        ("test_return_mean", "Test Averaged Score", "test_score.png", 1.0, None),
+        ("test_battle_won_mean", "Test Win %", "test_win.png", 100.0, (0, 100)),
+    )
+    for run_name, info in run_infos:
+        run_outdir = individual_dir / safe_folder_name(run_name)
+        run_outdir.mkdir(parents=True, exist_ok=True)
+        for metric_name, ylabel, filename, scale, ylim in per_run_specs:
+            x, y = get_metric(info, metric_name)
+            if x is None:
+                continue
+            plot_single_curve(
+                x=x,
+                y=y,
+                title=f"{run_name}: {ylabel} vs Timesteps",
+                ylabel=ylabel,
+                out_file=run_outdir / filename,
+                scale=scale,
+                ylim=ylim,
+            )
 
     print(f"Saved plots to: {outdir.resolve()}")
 
