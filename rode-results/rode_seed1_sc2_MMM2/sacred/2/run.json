@@ -1,0 +1,92 @@
+{
+  "artifacts": [],
+  "command": "my_main",
+  "experiment": {
+    "base_dir": "/workspace/RODE-plus/src",
+    "dependencies": [
+      "numpy==1.26.4",
+      "pyyaml==6.0.3",
+      "sacred==0.8.5",
+      "torch==2.11.0"
+    ],
+    "mainfile": "main.py",
+    "name": "pymarl",
+    "repositories": [],
+    "sources": [
+      [
+        "main.py",
+        "_sources/main_05a448fdb5053a7b8088a22539eedfa7.py"
+      ],
+      [
+        "run.py",
+        "_sources/run_0da1166e01e4f9378e8682930fb08cac.py"
+      ],
+      [
+        "utils/logging.py",
+        "_sources/logging_9b4bf82fb0aa0ae6e713d9dd7b370b09.py"
+      ]
+    ]
+  },
+  "heartbeat": "2026-04-25T11:53:53.660915",
+  "host": {
+    "ENV": {},
+    "cpu": "AMD EPYC 7443 24-Core Processor",
+    "gpus": {
+      "driver_version": "570.172.08",
+      "gpus": [
+        {
+          "model": "NVIDIA RTX 2000 Ada Generation",
+          "persistence_mode": true,
+          "total_memory": 16380
+        }
+      ]
+    },
+    "hostname": "67df3da86d48",
+    "os": [
+      "Linux",
+      "Linux-6.8.0-84-generic-x86_64-with-glibc2.35"
+    ],
+    "python_version": "3.11.10"
+  },
+  "meta": {
+    "command": "my_main",
+    "config_updates": {
+      "seed": 1,
+      "torch_num_threads": 1
+    },
+    "named_configs": [],
+    "options": {
+      "--beat-interval": null,
+      "--capture": null,
+      "--comment": null,
+      "--debug": false,
+      "--enforce_clean": false,
+      "--file_storage": null,
+      "--force": false,
+      "--help": false,
+      "--id": null,
+      "--loglevel": null,
+      "--mongo_db": null,
+      "--name": null,
+      "--pdb": false,
+      "--print-config": false,
+      "--priority": null,
+      "--queue": false,
+      "--s3": null,
+      "--sql": null,
+      "--tiny_db": null,
+      "--unobserved": false,
+      "COMMAND": null,
+      "UPDATE": [
+        "seed=1",
+        "torch_num_threads=1"
+      ],
+      "help": false,
+      "with": true
+    }
+  },
+  "resources": [],
+  "result": null,
+  "start_time": "2026-04-25T11:41:59.553523",
+  "status": "RUNNING"
+}
