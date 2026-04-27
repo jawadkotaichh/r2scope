@@ -3,13 +3,13 @@
 #SBATCH --job-name=rode3b
 #SBATCH --account=rhe34
 
-#SBATCH --partition=gpu
+#SBATCH --partition=msfea-ai
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=32000
 #SBATCH --gres=gpu:v100d32q:2
-#SBATCH --time=0-06:00:00
+#SBATCH --time=3-00:00:00
 
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=rhe34@mail.aub.edu
@@ -41,4 +41,5 @@ extra_args=()
 if [ "${AUTO_RESUME:-0}" = "1" ]; then
   extra_args+=(--extra auto_resume=True)
 fi
+# msfea-ai exposes one V100 per allocated node for this single-host launcher.
 python3 run_parallel.py --spec octopus/rode3b.yaml --max-parallel 2 "${extra_args[@]}"
