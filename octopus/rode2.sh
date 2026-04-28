@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=rode2
+#SBATCH --job-name=rode_ices2
 #SBATCH --account=rhe34
 
 #SBATCH --partition=gpu
@@ -37,4 +37,5 @@ python3 -m pip install --upgrade pip "setuptools<82" wheel
 python3 -m pip install "dm-tree==0.1.8" -r requirements.txt
 python3 -m pip install --pre --upgrade torch --extra-index-url https://download.pytorch.org/whl/nightly/cu121
 [ -d 3rdparty/StarCraftII/Versions ] || bash install_sc2.sh
-python3 run_parallel.py --alg rode --seed 0 1 --max-parallel 4 --map sc2_6h_vs_8z sc2_MMM2
+MAX_PARALLEL=${MAX_PARALLEL:-4}
+python3 run_parallel.py --alg rode_ices --seed 0 1 --max-parallel "${MAX_PARALLEL}" --map sc2_6h_vs_8z sc2_MMM2

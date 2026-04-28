@@ -3,4 +3,4 @@ venv/
 3rdparty/
 __MACOSX/
 results/
-.venv/
+.venv*/
