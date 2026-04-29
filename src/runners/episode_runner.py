@@ -95,6 +95,8 @@ class EpisodeRunner:
                                                                          t_env=self.t_env, test_mode=test_mode)
             # Pass tensor directly to avoid GPU->CPU->GPU round-trip via .tolist().
             self.batch.update({"role_avail_actions": role_avail_actions}, ts=self.t)
+            if getattr(self.args, "use_ices", False):
+                self.batch.update({"ices_explore": self.mac.last_ices_explore}, ts=self.t, mark_filled=False)
 
             if self.verbose:
                 roles_detach = roles.detach().cpu().squeeze().numpy()
