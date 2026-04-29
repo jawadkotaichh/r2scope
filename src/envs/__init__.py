@@ -13,5 +13,6 @@ REGISTRY = {}
 REGISTRY["sc2"] = partial(env_fn, env=StarCraft2Env)
 
 if sys.platform == "linux":
-    os.environ.setdefault("SC2PATH",
-                          os.path.join(os.getcwd(), "..", "..", "StarCraftII"))
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    repo_sc2_path = os.path.join(repo_root, "3rdparty", "StarCraftII")
+    os.environ.setdefault("SC2PATH", repo_sc2_path)

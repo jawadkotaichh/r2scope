@@ -24,6 +24,38 @@ download() {
         fi
 }
 
+extract_zip() {
+        ZIP_FILE="$1"
+        PASSWORD="${2:-}"
+
+        if command -v unzip >/dev/null 2>&1; then
+                if [ -n "$PASSWORD" ]; then
+                        unzip -o -P "$PASSWORD" "$ZIP_FILE"
+                else
+                        unzip -o "$ZIP_FILE"
+                fi
+                return
+        fi
+
+        if command -v python3 >/dev/null 2>&1; then
+                ZIP_FILE="$ZIP_FILE" ZIP_PASSWORD="$PASSWORD" python3 - <<'PY'
+import os
+import zipfile
+
+zip_file = os.environ["ZIP_FILE"]
+password = os.environ.get("ZIP_PASSWORD") or None
+pwd = password.encode("utf-8") if password else None
+
+with zipfile.ZipFile(zip_file) as zf:
+    zf.extractall(pwd=pwd)
+PY
+                return
+        fi
+
+        echo "Neither unzip nor python3 is available to extract $ZIP_FILE." >&2
+        exit 1
+}
+
 echo "PROJECT_DIR: $PROJECT_DIR"
 cd "$PROJECT_DIR"
 
@@ -36,7 +68,7 @@ echo 'SC2PATH is set to '$SC2PATH
 if [ ! -d "$SC2PATH/Versions" ]; then
         echo 'StarCraftII is not installed. Installing now ...';
         download http://blzdistsc2-a.akamaihd.net/Linux/SC2.4.10.zip SC2.4.10.zip
-        unzip -o -P iagreetotheeula SC2.4.10.zip
+        extract_zip SC2.4.10.zip iagreetotheeula
         rm -rf SC2.4.10.zip
 else
         echo 'StarCraftII is already installed.'
@@ -52,7 +84,7 @@ fi
 
 cd ..
 download https://github.com/oxwhirl/smac/releases/download/v0.1-beta1/SMAC_Maps.zip SMAC_Maps.zip
-unzip -o SMAC_Maps.zip
+extract_zip SMAC_Maps.zip
 mv SMAC_Maps "$MAP_DIR"
 rm -rf SMAC_Maps.zip
 

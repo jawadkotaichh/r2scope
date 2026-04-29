@@ -29,16 +29,25 @@ if sys.version_info < (3, 9):
 PY
 
 cd "${SLURM_SUBMIT_DIR}"
+export SC2PATH="${PWD}/3rdparty/StarCraftII"
 
 python3 -m venv --clear .venv2
 source .venv2/bin/activate
 python --version
 python3 -m pip install --upgrade pip "setuptools<82" wheel
 python3 -m pip install "dm-tree==0.1.8" -r requirements.txt
-python3 -m pip install --pre --upgrade torch --extra-index-url https://download.pytorch.org/whl/nightly/cu121
+python3 -m pip install --upgrade torch==2.4.1 --index-url https://download.pytorch.org/whl/cu124
+python3 - <<'PY'
+import torch
+print("torch:", torch.__version__)
+print("cuda available:", torch.cuda.is_available())
+print("cuda devices:", torch.cuda.device_count())
+if not torch.cuda.is_available():
+    raise SystemExit("CUDA is not available; refusing to run GPU experiment on CPU.")
+PY
 [ -d 3rdparty/StarCraftII/Versions ] || bash install_sc2.sh
 extra_args=()
 if [ "${AUTO_RESUME:-0}" = "1" ]; then
   extra_args+=(--extra auto_resume=True)
 fi
-python3 run_parallel.py --alg rode --seed 0 1 --max-parallel 4 --map sc2_6h_vs_8z sc2_MMM2 "${extra_args[@]}"
+python3 run_parallel.py --alg rode --seed 0 1 --max-parallel 4 --map sc2_6h_vs_8z sc2_MMM2 ${extra_args[@]+"${extra_args[@]}"}
