@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=rode_ices1
+#SBATCH --job-name=rode1
 #SBATCH --account=rhe34
 
 #SBATCH --partition=msfea-ai

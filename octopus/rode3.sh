@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=rode_ices3
+#SBATCH --job-name=rode3
 #SBATCH --account=rhe34
 
 #SBATCH --partition=gpu
