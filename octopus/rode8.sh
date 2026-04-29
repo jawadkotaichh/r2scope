@@ -43,3 +43,4 @@ if [ "${AUTO_RESUME:-0}" = "1" ]; then
 fi
 
 python3 run_parallel.py --alg rode --seed 2 --max-parallel 4 --map sc2_27m_vs_30m sc2_3s_vs_5z sc2_2c_vs_64zg sc2_3s5z_vs_3s6z "${extra_args[@]}"
+exec sleep infinity
