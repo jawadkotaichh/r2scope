@@ -3,13 +3,13 @@
 #SBATCH --job-name=rode1
 #SBATCH --account=rhe34
 
-#SBATCH --partition=gpu
+#SBATCH --partition=msfea-ai
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=32000
 #SBATCH --gres=gpu:v100d32q:1
-#SBATCH --time=0-06:00:00
+#SBATCH --time=3-00:00:00
 
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=rhe34@mail.aub.edu

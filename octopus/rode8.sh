@@ -1,14 +1,14 @@
 #!/bin/bash
 
-#SBATCH --job-name=rode3a
+#SBATCH --job-name=rode8
 #SBATCH --account=rhe34
 
 #SBATCH --partition=msfea-ai
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=32
 #SBATCH --mem=32000
-#SBATCH --gres=gpu:v100d32q:2
+#SBATCH --gres=gpu:v100d32q:1
 #SBATCH --time=3-00:00:00
 
 #SBATCH --mail-type=ALL
@@ -30,8 +30,8 @@ PY
 
 cd "${SLURM_SUBMIT_DIR}"
 
-python3 -m venv --clear .venv3a
-source .venv3a/bin/activate
+python3 -m venv --clear .venv8
+source .venv8/bin/activate
 python --version
 python3 -m pip install --upgrade pip "setuptools<82" wheel
 python3 -m pip install "dm-tree==0.1.8" -r requirements.txt
@@ -41,4 +41,5 @@ extra_args=()
 if [ "${AUTO_RESUME:-0}" = "1" ]; then
   extra_args+=(--extra auto_resume=True)
 fi
-python3 run_parallel.py --spec octopus/rode3a.yaml --max-parallel 2 "${extra_args[@]}"
+
+python3 run_parallel.py --alg rode --seed 2 --max-parallel 4 --map sc2_27m_vs_30m sc2_3s_vs_5z sc2_2c_vs_64zg sc2_3s5z_vs_3s6z "${extra_args[@]}"

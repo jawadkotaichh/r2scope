@@ -16,6 +16,23 @@ DEFAULT_PROGRESS_METRICS = (
     "return_mean",
 )
 
+ALGORITHM_COLORS = {
+    "rode": "tab:blue",
+    "rode_ices": "tab:red",
+    "rode-ices": "tab:red",
+}
+
+FALLBACK_COLORS = (
+    "tab:green",
+    "tab:orange",
+    "tab:purple",
+    "tab:brown",
+    "tab:pink",
+    "tab:gray",
+    "tab:olive",
+    "tab:cyan",
+)
+
 
 def load_json(path: Path):
     with open(path, "r", encoding="utf-8") as f:
@@ -68,6 +85,28 @@ def run_seed(run_dir: Path):
     return int(match.group(1)) if match else 10**12
 
 
+def run_algorithm(run_dir: Path):
+    config = run_config(run_dir)
+    if config.get("name"):
+        return str(config["name"])
+
+    match = re.match(r"(.+?)_seed\d+_", run_dir.name)
+    if match:
+        return match.group(1)
+
+    return run_dir.name
+
+
+def algorithm_color(algorithm: str, algorithm_order):
+    key = algorithm.lower().replace("-", "_")
+    if key in ALGORITHM_COLORS:
+        return ALGORITHM_COLORS[key]
+    if algorithm in ALGORITHM_COLORS:
+        return ALGORITHM_COLORS[algorithm]
+    idx = algorithm_order.index(algorithm) if algorithm in algorithm_order else 0
+    return FALLBACK_COLORS[idx % len(FALLBACK_COLORS)]
+
+
 def map_matches(run_dir: Path, wanted_map: str) -> bool:
     wanted = clean_map_name(wanted_map)
     config_map = run_map_name(run_dir)
@@ -79,7 +118,7 @@ def map_matches(run_dir: Path, wanted_map: str) -> bool:
 
 def discover_run_dirs(root: Path, map_name: str):
     run_dirs = [p for p in root.iterdir() if p.is_dir() and map_matches(p, map_name)]
-    return sorted(run_dirs, key=lambda p: (run_seed(p), p.name))
+    return sorted(run_dirs, key=lambda p: (run_algorithm(p), run_seed(p), p.name))
 
 
 def metric_progress(info, progress_metrics=DEFAULT_PROGRESS_METRICS):
@@ -224,14 +263,15 @@ def interp_to_ref(ref_x, x, y):
     return np.interp(ref_x, unique_x, unique_y)
 
 
-def aggregate_metric(run_infos, metric_name):
+def aggregate_metric(run_records, metric_name):
     curves = []
 
-    for run_name, info in run_infos:
+    for record in run_records:
+        info = record["info"]
         x, y = get_metric(info, metric_name)
         if x is None:
             continue
-        curves.append((run_name, x, y))
+        curves.append((record["run_name"], x, y))
 
     if not curves:
         return None, None
@@ -246,6 +286,16 @@ def aggregate_metric(run_infos, metric_name):
 
     ys = np.vstack(ys)
     return ref_x, ys
+
+
+def records_by_algorithm(run_records):
+    grouped = {}
+    for record in run_records:
+        grouped.setdefault(record["algorithm"], []).append(record)
+    return {
+        algorithm: sorted(records, key=lambda r: (r["seed"], r["run_name"]))
+        for algorithm, records in sorted(grouped.items())
+    }
 
 
 def plot_mean_std(x, ys, title, ylabel, out_file, scale=1.0, ylim=None):
@@ -268,12 +318,61 @@ def plot_mean_std(x, ys, title, ylabel, out_file, scale=1.0, ylim=None):
     plt.close()
 
 
-def plot_single_curve(x, y, title, ylabel, out_file, scale=1.0, ylim=None):
+def plot_algorithm_comparison(grouped_records, metric_name, title, ylabel, out_file, scale=1.0, ylim=None,
+                              center="mean"):
+    algorithm_order = list(grouped_records)
+
+    plt.figure(figsize=(10, 6))
+    plotted = False
+    for algorithm, records in grouped_records.items():
+        x, ys = aggregate_metric(records, metric_name)
+        if x is None:
+            continue
+
+        y_scaled = ys * scale
+        if center == "median":
+            mid = np.median(y_scaled, axis=0)
+            low = np.percentile(y_scaled, 25, axis=0)
+            high = np.percentile(y_scaled, 75, axis=0)
+            band_label = "25-75 percentile"
+        else:
+            mid = y_scaled.mean(axis=0)
+            spread = y_scaled.std(axis=0)
+            low = mid - spread
+            high = mid + spread
+            band_label = "+/- 1 std"
+
+        color = algorithm_color(algorithm, algorithm_order)
+        seed_labels = ", ".join(str(record["seed"]) for record in records)
+        label = f"{algorithm} (seeds: {seed_labels})"
+        plt.plot(x / 1e6, mid, linewidth=2, label=label, color=color)
+        if len(records) > 1:
+            plt.fill_between(x / 1e6, low, high, alpha=0.18, color=color, label=f"{algorithm} {band_label}")
+        plotted = True
+
+    if not plotted:
+        plt.close()
+        return False
+
+    plt.xlabel("T (mil)")
+    plt.ylabel(ylabel)
+    plt.title(title)
+    if ylim is not None:
+        plt.ylim(*ylim)
+    plt.grid(True, alpha=0.3)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(out_file, dpi=300, bbox_inches="tight")
+    plt.close()
+    return True
+
+
+def plot_single_curve(x, y, title, ylabel, out_file, scale=1.0, ylim=None, color=None):
     x_plot = x / 1e6
     y_plot = y * scale
 
     plt.figure(figsize=(10, 6))
-    plt.plot(x_plot, y_plot, linewidth=2)
+    plt.plot(x_plot, y_plot, linewidth=2, color=color)
     plt.xlabel("T (mil)")
     plt.ylabel(ylabel)
     plt.title(title)
@@ -306,6 +405,49 @@ def plot_median_iqr(x, ys, title, ylabel, out_file, scale=1.0, ylim=None):
     plt.close()
 
 
+def write_manifest(outdir: Path, map_name: str, grouped_records, skipped_runs):
+    manifest = {
+        "map": map_name,
+        "algorithms": {},
+        "skipped_runs": skipped_runs,
+    }
+
+    lines = [f"Map: {map_name}", ""]
+    for algorithm, records in grouped_records.items():
+        seeds = [record["seed"] for record in records]
+        manifest["algorithms"][algorithm] = {
+            "seeds": seeds,
+            "runs": [
+                {
+                    "run_name": record["run_name"],
+                    "seed": record["seed"],
+                    "max_t": record["max_t"],
+                    "point_count": record["point_count"],
+                    "attempts": record["attempt_labels"],
+                }
+                for record in records
+            ],
+        }
+        lines.append(f"{algorithm}: seeds {', '.join(str(seed) for seed in seeds)}")
+        for record in records:
+            lines.append(
+                f"  - {record['run_name']} seed={record['seed']} "
+                f"max_t={record['max_t']} points={record['point_count']} "
+                f"attempts={record['attempt_labels']}"
+            )
+        lines.append("")
+
+    if skipped_runs:
+        lines.append("Skipped runs:")
+        for skipped in skipped_runs:
+            lines.append(f"  - {skipped['run_name']}: {skipped['reason']}")
+
+    with open(outdir / "manifest.json", "w", encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2, sort_keys=True)
+    with open(outdir / "manifest.txt", "w", encoding="utf-8") as f:
+        f.write("\n".join(lines).rstrip() + "\n")
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -320,7 +462,7 @@ def main():
     parser.add_argument(
         "--outdir",
         default=None,
-        help="Base directory where plots will be saved. A map-name and seed-count subfolder is always created.",
+        help="Base directory where plots will be saved. A map-name subfolder is always created.",
     )
     parser.add_argument(
         "--runs",
@@ -343,72 +485,79 @@ def main():
     if not run_dirs:
         raise SystemExit(f"No run folders found for map '{map_name}' under {root}")
 
-    run_infos = []
-    loaded_seeds = []
+    run_records = []
+    skipped_runs = []
     for run_dir in run_dirs:
         try:
             info, attempts = stitch_attempt_infos(run_dir)
         except FileNotFoundError as exc:
             print(f"Skipping {run_dir.name}: {exc}")
+            skipped_runs.append({"run_name": run_dir.name, "reason": str(exc)})
             continue
         max_t, point_count = metric_progress(info)
-        run_infos.append((run_dir.name, info))
-        loaded_seeds.append(run_seed(run_dir))
+        seed = run_seed(run_dir)
+        algorithm = run_algorithm(run_dir)
         max_t_label = int(max_t) if max_t >= 0 else "unknown"
         attempt_labels = ", ".join(
             f"{info_path.parent.name}:{int(attempt_max_t)}"
             for _, info_path, _, attempt_max_t, _ in attempts
         )
+        run_records.append(
+            {
+                "run_dir": run_dir,
+                "run_name": run_dir.name,
+                "algorithm": algorithm,
+                "seed": seed,
+                "info": info,
+                "attempts": attempts,
+                "attempt_labels": attempt_labels,
+                "max_t": max_t_label,
+                "point_count": point_count,
+            }
+        )
         print(
-            f"Loaded: {run_dir.name} stitched {len(attempts)} attempt(s) "
+            f"Loaded: {run_dir.name} [{algorithm}, seed={seed}] stitched {len(attempts)} attempt(s) "
             f"(max_t={max_t_label}, points={point_count}; attempts={attempt_labels})"
         )
 
-    if not run_infos:
+    if not run_records:
         raise SystemExit(f"No usable sacred info.json files found for map '{map_name}'")
 
-    seed_count = len(set(loaded_seeds))
-    outdir = outdir_base / f"{safe_folder_name(map_name)}_{seed_count}seeds"
+    grouped_records = records_by_algorithm(run_records)
+    outdir = outdir_base / safe_folder_name(map_name)
     outdir.mkdir(parents=True, exist_ok=True)
     individual_dir = outdir / "individual_runs"
     individual_dir.mkdir(parents=True, exist_ok=True)
+    write_manifest(outdir, map_name, grouped_records, skipped_runs)
 
-    x, ys = aggregate_metric(run_infos, "return_mean")
-    if x is not None:
-        plot_mean_std(
-            x=x,
-            ys=ys,
+    if not plot_algorithm_comparison(
+            grouped_records=grouped_records,
+            metric_name="return_mean",
             title=f"{map_name}: Averaged Score vs Timesteps",
             ylabel="Averaged Score",
-            out_file=outdir / "avg_score_mean_std.png",
-        )
-    else:
+            out_file=outdir / "combined_avg_score.png",
+    ):
         print("Metric return_mean not found in the selected runs.")
 
-    x, ys = aggregate_metric(run_infos, "test_return_mean")
-    if x is not None:
-        plot_mean_std(
-            x=x,
-            ys=ys,
+    if not plot_algorithm_comparison(
+            grouped_records=grouped_records,
+            metric_name="test_return_mean",
             title=f"{map_name}: Test Averaged Score vs Timesteps",
             ylabel="Test Averaged Score",
-            out_file=outdir / "test_score_mean_std.png",
-        )
-    else:
+            out_file=outdir / "combined_test_score.png",
+    ):
         print("Metric test_return_mean not found in the selected runs.")
 
-    x, ys = aggregate_metric(run_infos, "test_battle_won_mean")
-    if x is not None:
-        plot_median_iqr(
-            x=x,
-            ys=ys,
+    if not plot_algorithm_comparison(
+            grouped_records=grouped_records,
+            metric_name="test_battle_won_mean",
             title=f"{map_name}: Test Win Rate vs Timesteps",
             ylabel="Test Win %",
-            out_file=outdir / "test_win_paper_style.png",
+            out_file=outdir / "combined_test_win.png",
             scale=100.0,
             ylim=(0, 100),
-        )
-    else:
+            center="median",
+    ):
         print("Metric test_battle_won_mean not found in the selected runs.")
 
     per_run_specs = (
@@ -416,7 +565,10 @@ def main():
         ("test_return_mean", "Test Averaged Score", "test_score.png", 1.0, None),
         ("test_battle_won_mean", "Test Win %", "test_win.png", 100.0, (0, 100)),
     )
-    for run_name, info in run_infos:
+    algorithm_order = list(grouped_records)
+    for record in run_records:
+        run_name = record["run_name"]
+        info = record["info"]
         run_outdir = individual_dir / safe_folder_name(run_name)
         run_outdir.mkdir(parents=True, exist_ok=True)
         for metric_name, ylabel, filename, scale, ylim in per_run_specs:
@@ -431,6 +583,7 @@ def main():
                 out_file=run_outdir / filename,
                 scale=scale,
                 ylim=ylim,
+                color=algorithm_color(record["algorithm"], algorithm_order),
             )
 
     print(f"Saved plots to: {outdir.resolve()}")

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name=rode3a
+#SBATCH --job-name=rode7
 #SBATCH --account=rhe34
 
 #SBATCH --partition=msfea-ai
@@ -30,8 +30,8 @@ PY
 
 cd "${SLURM_SUBMIT_DIR}"
 
-python3 -m venv --clear .venv3a
-source .venv3a/bin/activate
+python3 -m venv --clear .venv7
+source .venv7/bin/activate
 python --version
 python3 -m pip install --upgrade pip "setuptools<82" wheel
 python3 -m pip install "dm-tree==0.1.8" -r requirements.txt
@@ -41,4 +41,4 @@ extra_args=()
 if [ "${AUTO_RESUME:-0}" = "1" ]; then
   extra_args+=(--extra auto_resume=True)
 fi
-python3 run_parallel.py --spec octopus/rode3a.yaml --max-parallel 2 "${extra_args[@]}"
+python3 run_parallel.py --spec octopus/rode7.yaml --max-parallel 3 "${extra_args[@]}"
