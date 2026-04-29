@@ -6,9 +6,9 @@
 #SBATCH --partition=msfea-ai
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=32
 #SBATCH --mem=32000
-#SBATCH --gres=gpu:v100d32q:2
+#SBATCH --gres=gpu:v100d32q:1
 #SBATCH --time=3-00:00:00
 
 #SBATCH --mail-type=ALL
@@ -43,3 +43,4 @@ if [ "${AUTO_RESUME:-0}" = "1" ]; then
 fi
 
 python3 run_parallel.py --alg rode --seed 0 1 2 --max-parallel 3 --map sc2_bane_vs_bane "${extra_args[@]}"
+exec sleep infinity
