@@ -72,6 +72,13 @@ def child_env(cpu_threads, gpu_id=None):
     return env
 
 
+def should_append_log(cmd):
+    return any(
+        arg == "auto_resume=True" or arg.startswith("checkpoint_path=")
+        for arg in cmd
+    )
+
+
 def run_one(idx, cmd, cpu_threads, stagger_s, log_path, gpu_id=None, first_wave=0):
     # Stagger SC2 boots: if every subprocess starts at t=0, pysc2 map-load
     # contention and Blizzard license-server calls both slow down markedly.
@@ -82,7 +89,11 @@ def run_one(idx, cmd, cpu_threads, stagger_s, log_path, gpu_id=None, first_wave=
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
     gpu_tag = " gpu={}".format(gpu_id) if gpu_id is not None else ""
     print("[launcher] start  [{}]{} -> {}".format(idx, gpu_tag, " ".join(cmd)), flush=True)
-    with open(log_path, "w") as lf:
+    log_mode = "a" if should_append_log(cmd) else "w"
+    with open(log_path, log_mode) as lf:
+        if log_mode == "a":
+            lf.write("\n# ==== resume submission {} ====\n".format(
+                time.strftime("%Y-%m-%d %H:%M:%S")))
         lf.write("# cmd: {}\n".format(" ".join(cmd)))
         if gpu_id is not None:
             lf.write("# CUDA_VISIBLE_DEVICES={}\n".format(gpu_id))
@@ -113,6 +124,12 @@ def load_spec(path):
         return yaml.safe_load(f)
 
 
+def merge_extra(run_extra, cli_extra):
+    merged = list(run_extra or [])
+    merged.extend(cli_extra or [])
+    return merged
+
+
 def runs_from_args(args):
     runs = []
     if args.spec:
@@ -120,6 +137,7 @@ def runs_from_args(args):
         defaults = spec.get("defaults", {}) or {}
         for r in spec.get("runs", []) or []:
             merged = {**defaults, **r}
+            merged["extra"] = merge_extra(merged.get("extra", []), args.extra)
             runs.append(merged)
         return runs
 

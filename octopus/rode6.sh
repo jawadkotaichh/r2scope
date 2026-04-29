@@ -37,5 +37,8 @@ python3 -m pip install --upgrade pip "setuptools<82" wheel
 python3 -m pip install "dm-tree==0.1.8" -r requirements.txt
 python3 -m pip install --pre --upgrade torch --extra-index-url https://download.pytorch.org/whl/nightly/cu121
 [ -d 3rdparty/StarCraftII/Versions ] || bash install_sc2.sh
-MAX_PARALLEL=${MAX_PARALLEL:-4}
-python3 run_parallel.py --alg rode_ices --seed 2 --max-parallel "${MAX_PARALLEL}" --map sc2_10m_vs_11m sc2_1c3s5z sc2_2s3z sc2_2s_vs_1sc sc2_bane_vs_bane
+extra_args=()
+if [ "${AUTO_RESUME:-0}" = "1" ]; then
+  extra_args+=(--extra auto_resume=True)
+fi
+python3 run_parallel.py --alg rode --seed 2 --max-parallel 4 --map sc2_10m_vs_11m sc2_1c3s5z sc2_2s3z sc2_2s_vs_1sc "${extra_args[@]}"

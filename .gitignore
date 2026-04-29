@@ -4,3 +4,5 @@ venv/
 __MACOSX/
 results/
 .venv*/
+.venv/
+plots/

@@ -1,0 +1,10 @@
+defaults:
+  env: sc2
+
+runs:
+  - alg: rode
+    map: sc2_corridor
+    seed: 1
+  - alg: rode
+    map: sc2_2c_vs_64zg
+    seed: 0

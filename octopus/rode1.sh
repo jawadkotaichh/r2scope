@@ -3,13 +3,13 @@
 #SBATCH --job-name=rode_ices1
 #SBATCH --account=rhe34
 
-#SBATCH --partition=gpu
+#SBATCH --partition=msfea-ai
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=32000
 #SBATCH --gres=gpu:v100d32q:1
-#SBATCH --time=0-06:00:00
+#SBATCH --time=3-00:00:00
 
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=rhe34@mail.aub.edu
@@ -37,5 +37,8 @@ python3 -m pip install --upgrade pip "setuptools<82" wheel
 python3 -m pip install "dm-tree==0.1.8" -r requirements.txt
 python3 -m pip install --pre --upgrade torch --extra-index-url https://download.pytorch.org/whl/nightly/cu121
 [ -d 3rdparty/StarCraftII/Versions ] || bash install_sc2.sh
-MAX_PARALLEL=${MAX_PARALLEL:-4}
-python3 run_parallel.py --alg rode_ices --seed 0 1 --max-parallel "${MAX_PARALLEL}" --map sc2_27m_vs_30m sc2_3s5z_vs_3s6z
+extra_args=()
+if [ "${AUTO_RESUME:-0}" = "1" ]; then
+  extra_args+=(--extra auto_resume=True)
+fi
+python3 run_parallel.py --alg rode --seed 0 1 --map sc2_27m_vs_30m sc2_3s5z_vs_3s6z "${extra_args[@]}"

@@ -19,9 +19,10 @@ buffer_cpu_only: True # If true we won't keep all of the replay buffer in vram
 # --- Logging options ---
 use_tensorboard: True # Log results to tensorboard
 save_model: True # Save the models to disk
-save_model_interval: 200000 # Save models after this many timesteps (ignored if save_model_final_only)
-save_model_final_only: True # If true, only save a single checkpoint at the end of training
+save_model_interval: 100000 # Save models after this many timesteps (ignored if save_model_final_only)
+save_model_final_only: False # If true, only save a single checkpoint at the end of training
 checkpoint_path: "" # Load a checkpoint from this path
+auto_resume: False # If true and checkpoint_path is empty, resume from local_results_path/models when checkpoints exist
 evaluate: False # Evaluate model for test_nepisode episodes and quit (no training)
 load_step: 0 # Load model trained on this many timesteps (0 if choose max possible)
 save_replay: False # Saving the replay of the model loaded from checkpoint_path

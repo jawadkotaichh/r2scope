@@ -179,9 +179,12 @@ def run_sequential(args, logger):
 
         model_path = os.path.join(args.checkpoint_path, str(timestep_to_load))
 
-        logger.console_logger.info("Loading model from {}".format(model_path))
+        logger.console_logger.info("RESUME CONFIRMED: loading model from {}".format(model_path))
         learner.load_models(model_path)
         runner.t_env = timestep_to_load
+        logger.console_logger.info(
+            "RESUME CONFIRMED: continuing from t_env={} toward t_max={}".format(
+                runner.t_env, args.t_max))
 
         if args.evaluate or args.save_replay:
             evaluate_sequential(args, runner)

@@ -1,0 +1,116 @@
+{
+  "action_encoder_grad_norm": [
+    6.83024263381958
+  ],
+  "action_encoder_grad_norm_T": [
+    761
+  ],
+  "battle_won_mean": [
+    0.0
+  ],
+  "battle_won_mean_T": [
+    25
+  ],
+  "ep_length_mean": [
+    25.0
+  ],
+  "ep_length_mean_T": [
+    25
+  ],
+  "epsilon": [
+    1.0
+  ],
+  "epsilon_T": [
+    25
+  ],
+  "grad_norm": [
+    24.41123390197754
+  ],
+  "grad_norm_T": [
+    761
+  ],
+  "loss": [
+    0.15222764015197754
+  ],
+  "loss_T": [
+    761
+  ],
+  "pred_obs_loss": [
+    3.6610348224639893
+  ],
+  "pred_obs_loss_T": [
+    761
+  ],
+  "pred_r_loss": [
+    0.10159387439489365
+  ],
+  "pred_r_loss_T": [
+    761
+  ],
+  "q_taken_mean": [
+    -0.0009698070980611727
+  ],
+  "q_taken_mean_T": [
+    761
+  ],
+  "return_mean": [
+    6.324324324324323
+  ],
+  "return_mean_T": [
+    25
+  ],
+  "return_std": [
+    0.0
+  ],
+  "return_std_T": [
+    25
+  ],
+  "role_loss": [
+    1.4751970767974854
+  ],
+  "role_loss_T": [
+    761
+  ],
+  "role_q_taken_mean": [
+    0.024296299228823284
+  ],
+  "role_q_taken_mean_T": [
+    761
+  ],
+  "target_mean": [
+    0.03624004509383213
+  ],
+  "target_mean_T": [
+    761
+  ],
+  "td_error_abs": [
+    0.32204163560102866
+  ],
+  "td_error_abs_T": [
+    761
+  ],
+  "test_battle_won_mean": [
+    0.0
+  ],
+  "test_battle_won_mean_T": [
+    25
+  ],
+  "test_ep_length_mean": [
+    20.625
+  ],
+  "test_ep_length_mean_T": [
+    25
+  ],
+  "test_return_mean": [
+    0.0
+  ],
+  "test_return_mean_T": [
+    25
+  ],
+  "test_return_std": [
+    0.0
+  ],
+  "test_return_std_T": [
+    25
+  ]
+}

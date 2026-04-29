@@ -105,6 +105,15 @@ sed -i 's/\r$//' install_sc2.sh octopus/*.sh
 - The requirements include `dm-tree==0.1.8` so Octopus can install a wheel instead of trying to build a newer `dm-tree` with a newer CMake than the cluster provides.
 - `sc2_27m_vs_30m` uses a smaller replay buffer override because the default RODE buffer is too large for that map on Octopus RAM.
 
+### Auto-resume
+
+If an Octopus job times out after saving checkpoints, you can resubmit the
+same job and continue from the latest saved model with:
+
+```shell
+sbatch --export=ALL,AUTO_RESUME=1 octopus/rode1.sh
+```
+
 ## Run an experiment 
 
 ```shell
