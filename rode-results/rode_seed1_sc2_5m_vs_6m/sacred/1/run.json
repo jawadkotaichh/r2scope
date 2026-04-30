@@ -2,48 +2,48 @@
   "artifacts": [],
   "command": "my_main",
   "experiment": {
-    "base_dir": "/home/hhk22/RODE-plus/src",
+    "base_dir": "/home/jak51/projects/RODE-plus/src",
     "dependencies": [
       "numpy==1.26.4",
       "pyyaml==6.0.3",
       "sacred==0.8.5",
-      "torch==2.6.0"
+      "torch==2.4.1+cu124"
     ],
     "mainfile": "main.py",
     "name": "pymarl",
     "repositories": [
       {
-        "commit": "5ee1a7cbee10ad4a496c31bea58a3e7a5485c4ab",
-        "dirty": true,
-        "url": "https://github.com/JawadKotaichh/RODE-plus.git"
+        "commit": "55bb5599e4c09690c1447a971625d1775d26470b",
+        "dirty": false,
+        "url": "git@github.com:JawadKotaichh/RODE-plus.git"
       },
       {
-        "commit": "5ee1a7cbee10ad4a496c31bea58a3e7a5485c4ab",
-        "dirty": true,
-        "url": "https://github.com/JawadKotaichh/RODE-plus.git"
+        "commit": "55bb5599e4c09690c1447a971625d1775d26470b",
+        "dirty": false,
+        "url": "git@github.com:JawadKotaichh/RODE-plus.git"
       },
       {
-        "commit": "5ee1a7cbee10ad4a496c31bea58a3e7a5485c4ab",
-        "dirty": true,
-        "url": "https://github.com/JawadKotaichh/RODE-plus.git"
+        "commit": "55bb5599e4c09690c1447a971625d1775d26470b",
+        "dirty": false,
+        "url": "git@github.com:JawadKotaichh/RODE-plus.git"
       }
     ],
     "sources": [
       [
         "main.py",
-        "_sources/main_91ca076c19d8e2c2c02bdb9c9b8151c7.py"
+        "_sources/main_4865e279ee39be1a3596987c6c04054e.py"
       ],
       [
         "run.py",
-        "_sources/run_2a06e1afd87f9890df9860cd39498045.py"
+        "_sources/run_06107ffaa7ac4fa955f93438c7677e88.py"
       ],
       [
         "utils/logging.py",
-        "_sources/logging_9b4bf82fb0aa0ae6e713d9dd7b370b09.py"
+        "_sources/logging_3b7360d84a7492fd442af8d557459259.py"
       ]
     ]
   },
-  "heartbeat": "2026-04-26T10:15:21.893088",
+  "heartbeat": "2026-04-30T08:42:11.513555",
   "host": {
     "ENV": {},
     "cpu": "AMD EPYC 7551 32-Core Processor",
@@ -108,6 +108,6 @@
   },
   "resources": [],
   "result": null,
-  "start_time": "2026-04-26T04:22:11.695974",
+  "start_time": "2026-04-29T17:27:46.949675",
   "status": "RUNNING"
 }
