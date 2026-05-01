@@ -1,0 +1,452 @@
+[INFO 20:27:51] pymarl Running command 'my_main'
+[INFO 20:27:51] pymarl Started run with ID "1"
+[DEBUG 20:27:51] pymarl Starting Heartbeat
+[DEBUG 20:27:51] my_main Started
+[INFO 20:27:51] my_main Experiment Parameters:
+[INFO 20:27:51] my_main 
+
+{   'action_encoder': 'obs_reward',
+    'action_latent_dim': 20,
+    'action_selector': 'soft_epsilon_greedy',
+    'agent': 'rode',
+    'agent_output_type': 'q',
+    'auto_resume': False,
+    'batch_size': 32,
+    'batch_size_run': 1,
+    'bi_opt': False,
+    'buffer_cpu_only': True,
+    'buffer_size': 5000,
+    'checkpoint_path': '',
+    'critic_lr': 0.0005,
+    'double_q': True,
+    'env': 'sc2',
+    'env_args': {   'continuing_episode': False,
+                    'debug': False,
+                    'difficulty': '7',
+                    'game_version': None,
+                    'heuristic_ai': False,
+                    'heuristic_rest': False,
+                    'map_name': '2c_vs_64zg',
+                    'move_amount': 2,
+                    'obs_all_health': True,
+                    'obs_instead_of_state': False,
+                    'obs_last_action': False,
+                    'obs_own_health': True,
+                    'obs_pathing_grid': False,
+                    'obs_terrain_height': False,
+                    'obs_timestep_number': False,
+                    'replay_dir': '',
+                    'replay_prefix': '',
+                    'reward_death_value': 10,
+                    'reward_defeat': 0,
+                    'reward_negative_scale': 0.5,
+                    'reward_only_positive': True,
+                    'reward_scale': True,
+                    'reward_scale_rate': 20,
+                    'reward_sparse': False,
+                    'reward_win': 200,
+                    'seed': 2,
+                    'state_last_action': True,
+                    'state_timestep_number': False,
+                    'step_mul': 8},
+    'epsilon_anneal_time': 50000,
+    'epsilon_anneal_time_exp': 50000,
+    'epsilon_finish': 0.05,
+    'epsilon_start': 1.0,
+    'evaluate': False,
+    'gamma': 0.99,
+    'grad_norm_clip': 10,
+    'hypernet_embed': 64,
+    'hypernet_layers': 2,
+    'ices_action_embed_dim': 4,
+    'ices_alpha_anneal_time': 500000,
+    'ices_alpha_finish': 0.05,
+    'ices_alpha_start': 0.1,
+    'ices_beta': 0.1,
+    'ices_disable_eval': True,
+    'ices_explore_lr': 0.001,
+    'ices_grad_clip': 0.1,
+    'ices_latent_dim': 32,
+    'ices_scaffold_lr': 0.0001,
+    'ices_train_interval': 1,
+    'label': 'default_label',
+    'learner': 'rode_learner',
+    'learner_log_interval': 10000,
+    'load_step': 0,
+    'local_results_path': '/home/jak51/projects/RODE-plus/results/rode_seed2_sc2_2c_vs_64zg',
+    'log_interval': 10000,
+    'lr': 0.0005,
+    'mac': 'rode_mac',
+    'mixer': 'qmix',
+    'mixing_embed_dim': 32,
+    'n_role_clusters': 3,
+    'name': 'rode',
+    'obs_agent_id': True,
+    'obs_last_action': True,
+    'optim_alpha': 0.99,
+    'optim_eps': 1e-05,
+    'repeat_id': 1,
+    'rnn_hidden_dim': 64,
+    'role': 'dot',
+    'role_action_spaces_update_start': 50000,
+    'role_epsilon_finish': 0.05,
+    'role_interval': 5,
+    'role_mixer': 'qmix',
+    'role_selector': 'dot',
+    'run_name': 'rode_seed2_sc2_2c_vs_64zg',
+    'runner': 'episode',
+    'runner_log_interval': 10000,
+    'save_model': True,
+    'save_model_final_only': False,
+    'save_model_interval': 100000,
+    'save_replay': False,
+    'seed': 2,
+    'state_latent_dim': 32,
+    't_max': 2050000,
+    'target_update_interval': 200,
+    'test_greedy': True,
+    'test_interval': 10000,
+    'test_nepisode': 32,
+    'torch_num_threads': 1,
+    'use_cuda': True,
+    'use_ices': False,
+    'use_tensorboard': True,
+    'verbose': False}
+
+[INFO 20:28:00] my_main Beginning training for 2050000 timesteps
+[INFO 20:28:00] absl Launching SC2: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 44004 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-jjz5vhv0/ -eglpath libEGL.so
+[INFO 20:28:00] absl Connecting to: ws://127.0.0.1:44004/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 44004 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-jjz5vhv0/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 20:28:01] absl Connecting to: ws://127.0.0.1:44004/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f6e96309fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 20:28:02] absl Connecting to: ws://127.0.0.1:44004/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:44004
+Startup Phase 3 complete. Ready for commands.
+[INFO 20:28:03] absl Connecting to: ws://127.0.0.1:44004/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:56622 accepted
+ReadyHandler: 127.0.0.1:56622 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+/home/jak51/projects/RODE-plus/src/components/episode_buffer.py:114: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
+  v = th.as_tensor(v, dtype=dtype, device=self.device)
+[INFO 20:28:12] my_main t_env: 30 / 2050000
+[INFO 20:28:12] my_main Estimated time left: 38 minutes, 50 seconds. Time passed: 11 seconds
+[INFO 20:28:42] my_main Saving models to /home/jak51/projects/RODE-plus/results/rode_seed2_sc2_2c_vs_64zg/models/30
+[INFO 20:33:52] my_main Updated target network
+[INFO 20:36:14] my_main Recent Stats | t_env:      10026 | Episode:      299
+action_encoder_grad_norm:  3.0949	battle_won_mean:           0.0000	ep_length_mean:           30.0000	epsilon:                   1.0000
+grad_norm:                17.9707	loss:                      0.2082	pred_obs_loss:             5.7730	pred_r_loss:               0.1031
+q_taken_mean:             -0.0531	return_mean:               8.8280	return_std:                0.0000	role_loss:                 2.4645
+role_q_taken_mean:         0.0163	target_mean:               0.0864	td_error_abs:              0.2916	test_battle_won_mean:      0.0000
+test_ep_length_mean:      35.7500	test_return_mean:         10.7926	test_return_std:           1.0822	
+[INFO 20:36:15] my_main t_env: 10055 / 2050000
+[INFO 20:36:15] my_main Estimated time left: 1 days, 3 hours, 18 minutes, 49 seconds. Time passed: 8 minutes, 14 seconds
+[INFO 20:39:12] my_main Updated target network
+[INFO 20:44:01] my_main Updated target network
+[INFO 20:44:02] my_main Recent Stats | t_env:      20037 | Episode:      602
+action_encoder_grad_norm:  2.1078	battle_won_mean:           0.0000	ep_length_mean:           31.7642	epsilon:                   0.8095
+grad_norm:                10.5552	loss:                      0.1891	pred_obs_loss:             4.7200	pred_r_loss:               0.0866
+q_taken_mean:              0.0573	return_mean:               9.4569	return_std:                0.7767	role_loss:                 1.3178
+role_q_taken_mean:         0.5807	target_mean:               0.1760	td_error_abs:              0.3068	test_battle_won_mean:      0.0000
+test_ep_length_mean:      35.7656	test_return_mean:         10.9500	test_return_std:           1.0538	
+[INFO 20:44:04] my_main t_env: 20069 / 2050000
+[INFO 20:44:04] my_main Estimated time left: 1 days, 2 hours, 23 minutes, 51 seconds. Time passed: 16 minutes, 3 seconds
+[INFO 20:49:20] my_main Updated target network
+[INFO 20:51:40] my_main Recent Stats | t_env:      30063 | Episode:      898
+action_encoder_grad_norm:  1.8593	battle_won_mean:           0.0000	ep_length_mean:           32.1926	epsilon:                   0.6193
+grad_norm:                 9.4740	loss:                      0.1591	pred_obs_loss:             4.3075	pred_r_loss:               0.0839
+q_taken_mean:              0.2270	return_mean:               9.7380	return_std:                1.0578	role_loss:                 0.9835
+role_q_taken_mean:         1.1425	target_mean:               0.3143	td_error_abs:              0.2836	test_battle_won_mean:      0.0000
+test_ep_length_mean:      35.9583	test_return_mean:         10.8958	test_return_std:           1.0702	
+[INFO 20:51:42] my_main t_env: 30097 / 2050000
+[INFO 20:51:42] my_main Estimated time left: 1 days, 1 hours, 36 minutes, 25 seconds. Time passed: 23 minutes, 41 seconds
+[INFO 20:54:39] my_main Updated target network
+[INFO 20:59:19] my_main Recent Stats | t_env:      40092 | Episode:     1194
+action_encoder_grad_norm:  2.1651	battle_won_mean:           0.0000	ep_length_mean:           32.6141	epsilon:                   0.4288
+grad_norm:                 9.3059	loss:                      0.1439	pred_obs_loss:             3.9768	pred_r_loss:               0.0830
+q_taken_mean:              0.3486	return_mean:               9.9564	return_std:                1.2078	role_loss:                 0.8255
+role_q_taken_mean:         1.4821	target_mean:               0.4290	td_error_abs:              0.2709	test_battle_won_mean:      0.0000
+test_ep_length_mean:      36.1016	test_return_mean:         10.8673	test_return_std:           1.0432	
+[INFO 20:59:20] my_main t_env: 40124 / 2050000
+[INFO 20:59:20] my_main Estimated time left: 1 days, 1 hours, 32 minutes, 13 seconds. Time passed: 31 minutes, 19 seconds
+[INFO 21:00:06] my_main Updated target network
+[INFO 21:04:59] my_main Updated target network
+[INFO 21:07:01] my_main Updated target network
+[INFO 21:07:04] my_main Recent Stats | t_env:      50098 | Episode:     1482
+action_encoder_grad_norm:  2.0067	battle_won_mean:           0.0000	ep_length_mean:           32.8663	epsilon:                   0.2383
+grad_norm:                 8.1633	loss:                      0.1322	pred_obs_loss:             3.9285	pred_r_loss:               0.0855
+q_taken_mean:              0.4999	return_mean:              10.0980	return_std:                1.2867	role_loss:                 0.7113
+role_q_taken_mean:         1.7270	target_mean:               0.5539	td_error_abs:              0.2616	test_battle_won_mean:      0.0000
+test_ep_length_mean:      35.9562	test_return_mean:         10.8244	test_return_std:           0.9988	
+[INFO 21:07:05] my_main t_env: 50129 / 2050000
+[INFO 21:07:05] my_main Estimated time left: 1 days, 1 hours, 48 minutes, 13 seconds. Time passed: 39 minutes, 4 seconds
+[INFO 21:11:58] my_main Updated target network
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:56622 disconnected
+RequestQuit command received.
+QueueResponse: No outstanding requests to this connection, dropping response: quit, id: 999999999
+Closing Application...
+[INFO 21:13:05] absl Shutdown gracefully.
+[INFO 21:13:05] absl Shutdown with return code: -15
+[INFO 21:13:05] absl Launching SC2: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 34236 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-iznpy43a/ -eglpath libEGL.so
+[INFO 21:13:05] absl Connecting to: ws://127.0.0.1:34236/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 34236 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-iznpy43a/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 21:13:06] absl Connecting to: ws://127.0.0.1:34236/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7fb3ae103fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 21:13:07] absl Connecting to: ws://127.0.0.1:34236/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:34236
+Startup Phase 3 complete. Ready for commands.
+[INFO 21:13:08] absl Connecting to: ws://127.0.0.1:34236/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:42446 accepted
+ReadyHandler: 127.0.0.1:42446 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 21:14:31] my_main Recent Stats | t_env:      60126 | Episode:     1787
+action_encoder_grad_norm:  2.0067	battle_won_mean:           0.0000	ep_length_mean:           33.8142	epsilon:                   0.9988
+grad_norm:                 5.0325	loss:                      0.1094	pred_obs_loss:             3.9285	pred_r_loss:               0.0855
+q_taken_mean:              0.7569	return_mean:              10.5338	return_std:                1.6052	role_loss:                 0.2730
+role_q_taken_mean:         2.2419	target_mean:               0.7899	td_error_abs:              0.2491	test_battle_won_mean:      0.0000
+test_ep_length_mean:      35.4937	test_return_mean:         10.1637	test_return_std:           1.0762	
+[INFO 21:14:32] my_main t_env: 60168 / 2050000
+[INFO 21:14:32] my_main Estimated time left: 1 days, 37 minutes, 22 seconds. Time passed: 46 minutes, 31 seconds
+[INFO 21:17:03] my_main Updated target network
+[INFO 21:19:54] absl Shutdown gracefully.
+[INFO 21:19:54] absl Shutdown with return code: -9
+[INFO 21:19:54] absl Launching SC2: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 38442 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-f8xm_yvp/ -eglpath libEGL.so
+[INFO 21:19:54] absl Connecting to: ws://127.0.0.1:38442/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 38442 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-f8xm_yvp/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 21:19:55] absl Connecting to: ws://127.0.0.1:38442/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f060580efe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 21:19:56] absl Connecting to: ws://127.0.0.1:38442/sc2api, attempt: 2, running: True
+[INFO 21:19:57] absl Connecting to: ws://127.0.0.1:38442/sc2api, attempt: 3, running: True
+Listening on: 127.0.0.1:38442
+Startup Phase 3 complete. Ready for commands.
+[INFO 21:19:58] absl Connecting to: ws://127.0.0.1:38442/sc2api, attempt: 4, running: True
+ConnectHandler: Request from 127.0.0.1:47248 accepted
+ReadyHandler: 127.0.0.1:47248 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 21:20:14] absl Shutdown gracefully.
+[INFO 21:20:14] absl Shutdown with return code: -9
+[INFO 21:20:14] absl Launching SC2: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 35761 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-7vesvwlp/ -eglpath libEGL.so
+[INFO 21:20:14] absl Connecting to: ws://127.0.0.1:35761/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 35761 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-7vesvwlp/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 21:20:15] absl Connecting to: ws://127.0.0.1:35761/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f365a12dfe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 21:20:16] absl Connecting to: ws://127.0.0.1:35761/sc2api, attempt: 2, running: True
+[INFO 21:20:17] absl Connecting to: ws://127.0.0.1:35761/sc2api, attempt: 3, running: True
+Listening on: 127.0.0.1:35761
+Startup Phase 3 complete. Ready for commands.
+[INFO 21:20:18] absl Connecting to: ws://127.0.0.1:35761/sc2api, attempt: 4, running: True
+ConnectHandler: Request from 127.0.0.1:57824 accepted
+ReadyHandler: 127.0.0.1:57824 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 21:21:32] absl Shutdown gracefully.
+[INFO 21:21:32] absl Shutdown with return code: -9
+[INFO 21:21:32] absl Launching SC2: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 43198 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-v17k0g37/ -eglpath libEGL.so
+[INFO 21:21:32] absl Connecting to: ws://127.0.0.1:43198/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 43198 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-v17k0g37/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 21:21:33] absl Connecting to: ws://127.0.0.1:43198/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f5d7a36efe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 21:21:34] absl Connecting to: ws://127.0.0.1:43198/sc2api, attempt: 2, running: True
+[INFO 21:21:35] absl Connecting to: ws://127.0.0.1:43198/sc2api, attempt: 3, running: True
+Listening on: 127.0.0.1:43198
+Startup Phase 3 complete. Ready for commands.
+[INFO 21:21:36] absl Connecting to: ws://127.0.0.1:43198/sc2api, attempt: 4, running: True
+ConnectHandler: Request from 127.0.0.1:59910 accepted
+ReadyHandler: 127.0.0.1:59910 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 21:21:49] absl Shutdown gracefully.
+[INFO 21:21:49] absl Shutdown with return code: -9
+[INFO 21:21:49] absl Launching SC2: /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 41915 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-igoznqmb/ -eglpath libEGL.so
+[INFO 21:21:49] absl Connecting to: ws://127.0.0.1:41915/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/projects/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 41915 -dataDir /home/jak51/projects/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-igoznqmb/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 21:21:50] absl Connecting to: ws://127.0.0.1:41915/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7fc3a4007fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 21:21:51] absl Connecting to: ws://127.0.0.1:41915/sc2api, attempt: 2, running: True
+[INFO 21:21:52] absl Connecting to: ws://127.0.0.1:41915/sc2api, attempt: 3, running: True
+Listening on: 127.0.0.1:41915
+Startup Phase 3 complete. Ready for commands.
+[INFO 21:21:53] absl Connecting to: ws://127.0.0.1:41915/sc2api, attempt: 4, running: True
+ConnectHandler: Request from 127.0.0.1:49802 accepted
+ReadyHandler: 127.0.0.1:49802 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
