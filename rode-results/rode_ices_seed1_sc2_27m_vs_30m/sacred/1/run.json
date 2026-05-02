@@ -36,14 +36,14 @@
     "  File \"/workspace/RODE-plus/src/learners/rode_learner.py\", line 252, in train\n    ices_stats = self.ices_scaffold.train_scaffold(\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
     "  File \"/workspace/RODE-plus/src/modules/ices/ices_scaffold.py\", line 51, in train_scaffold\n    stats = self._forward_batch(batch)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
     "  File \"/workspace/RODE-plus/src/modules/ices/ices_scaffold.py\", line 90, in _forward_batch\n    missing_recon_loss = (missing_recon - repeated_next_states).pow(2).mean(dim=-1, keepdim=True)\n                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
-    "torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 46.00 MiB. GPU 0 has a total capacity of 15.70 GiB of which 9.81 MiB is free. Process 2888668 has 12.12 GiB memory in use. Process 4009260 has 1.93 GiB memory in use. Process 4009027 has 1.62 GiB memory in use. Of the allocated memory 983.24 MiB is allocated by PyTorch, and 560.76 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+    "torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 252.00 MiB. GPU 0 has a total capacity of 15.60 GiB of which 147.50 MiB is free. Process 713047 has 3.76 GiB memory in use. Process 712897 has 8.30 GiB memory in use. Process 713145 has 1.63 GiB memory in use. Process 713202 has 1.74 GiB memory in use. Of the allocated memory 2.73 GiB is allocated by PyTorch, and 939.71 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
   ],
-  "heartbeat": "2026-04-30T21:23:22.297554",
+  "heartbeat": "2026-04-29T18:02:33.465984",
   "host": {
     "ENV": {},
-    "cpu": "AMD EPYC 7443P 24-Core Processor",
+    "cpu": "AMD EPYC 7352 24-Core Processor",
     "gpus": {
-      "driver_version": "550.127.05",
+      "driver_version": "565.57.01",
       "gpus": [
         {
           "model": "NVIDIA RTX 2000 Ada Generation",
@@ -52,17 +52,17 @@
         }
       ]
     },
-    "hostname": "2f737e98306f",
+    "hostname": "e906c51d330d",
     "os": [
       "Linux",
-      "Linux-6.5.0-44-generic-x86_64-with-glibc2.35"
+      "Linux-6.8.0-50-generic-x86_64-with-glibc2.35"
     ],
     "python_version": "3.11.10"
   },
   "meta": {
     "command": "my_main",
     "config_updates": {
-      "seed": 0,
+      "seed": 1,
       "torch_num_threads": 1
     },
     "named_configs": [],
@@ -89,7 +89,7 @@
       "--unobserved": false,
       "COMMAND": null,
       "UPDATE": [
-        "seed=0",
+        "seed=1",
         "torch_num_threads=1"
       ],
       "help": false,
@@ -98,7 +98,7 @@
   },
   "resources": [],
   "result": null,
-  "start_time": "2026-04-30T21:06:05.783972",
+  "start_time": "2026-04-29T17:22:19.304079",
   "status": "FAILED",
-  "stop_time": "2026-04-30T21:23:22.375337"
+  "stop_time": "2026-04-29T18:02:33.583472"
 }
