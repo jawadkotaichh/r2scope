@@ -1,0 +1,223 @@
+[INFO 07:02:50] pymarl Running command 'my_main'
+[INFO 07:02:50] pymarl Started run with ID "1"
+[DEBUG 07:02:50] pymarl Starting Heartbeat
+[DEBUG 07:02:50] my_main Started
+[INFO 07:02:50] my_main Experiment Parameters:
+[INFO 07:02:50] my_main 
+
+{   'action_encoder': 'obs_reward',
+    'action_latent_dim': 20,
+    'action_selector': 'soft_epsilon_greedy',
+    'agent': 'rode',
+    'agent_output_type': 'q',
+    'auto_resume': False,
+    'batch_size': 32,
+    'batch_size_run': 1,
+    'bi_opt': False,
+    'buffer_cpu_only': True,
+    'buffer_size': 5000,
+    'checkpoint_path': '',
+    'critic_lr': 0.0005,
+    'double_q': True,
+    'env': 'sc2',
+    'env_args': {   'continuing_episode': False,
+                    'debug': False,
+                    'difficulty': '7',
+                    'game_version': None,
+                    'heuristic_ai': False,
+                    'heuristic_rest': False,
+                    'map_name': '6h_vs_8z',
+                    'move_amount': 2,
+                    'obs_all_health': True,
+                    'obs_instead_of_state': False,
+                    'obs_last_action': False,
+                    'obs_own_health': True,
+                    'obs_pathing_grid': False,
+                    'obs_terrain_height': False,
+                    'obs_timestep_number': False,
+                    'replay_dir': '',
+                    'replay_prefix': '',
+                    'reward_death_value': 10,
+                    'reward_defeat': 0,
+                    'reward_negative_scale': 0.5,
+                    'reward_only_positive': True,
+                    'reward_scale': True,
+                    'reward_scale_rate': 20,
+                    'reward_sparse': False,
+                    'reward_win': 200,
+                    'seed': 2,
+                    'state_last_action': True,
+                    'state_timestep_number': False,
+                    'step_mul': 8},
+    'epsilon_anneal_time': 50000,
+    'epsilon_anneal_time_exp': 500000,
+    'epsilon_finish': 0.05,
+    'epsilon_start': 1.0,
+    'evaluate': False,
+    'gamma': 0.99,
+    'grad_norm_clip': 10,
+    'hypernet_embed': 64,
+    'hypernet_layers': 2,
+    'ices_action_embed_dim': 4,
+    'ices_alpha_anneal_time': 500000,
+    'ices_alpha_finish': 0.1,
+    'ices_alpha_start': 0.1,
+    'ices_beta': 0.1,
+    'ices_disable_eval': True,
+    'ices_explore_lr': 0.01,
+    'ices_grad_clip': 0.1,
+    'ices_latent_dim': 32,
+    'ices_scaffold_lr': 0.0001,
+    'ices_train_interval': 1,
+    'label': 'default_label',
+    'learner': 'rode_learner',
+    'learner_log_interval': 10000,
+    'load_step': 0,
+    'local_results_path': '/workspace/RODE-plus/results/rode_ices_seed2_sc2_6h_vs_8z',
+    'log_interval': 10000,
+    'lr': 0.0005,
+    'mac': 'rode_mac',
+    'mixer': 'qmix',
+    'mixing_embed_dim': 32,
+    'n_role_clusters': 3,
+    'name': 'rode_ices',
+    'obs_agent_id': True,
+    'obs_last_action': True,
+    'optim_alpha': 0.99,
+    'optim_eps': 1e-05,
+    'repeat_id': 1,
+    'rnn_hidden_dim': 64,
+    'role': 'dot',
+    'role_action_spaces_update_start': 50000,
+    'role_epsilon_finish': 0.05,
+    'role_interval': 5,
+    'role_mixer': 'qmix',
+    'role_selector': 'dot',
+    'run_name': 'rode_ices_seed2_sc2_6h_vs_8z',
+    'runner': 'episode',
+    'runner_log_interval': 10000,
+    'save_model': True,
+    'save_model_final_only': False,
+    'save_model_interval': 100000,
+    'save_replay': False,
+    'seed': 2,
+    'state_latent_dim': 32,
+    't_max': 5050000,
+    'target_update_interval': 200,
+    'test_greedy': True,
+    'test_interval': 10000,
+    'test_nepisode': 32,
+    'torch_num_threads': 1,
+    'use_cuda': True,
+    'use_ices': True,
+    'use_tensorboard': True,
+    'verbose': False}
+
+[INFO 07:02:59] my_main Beginning training for 5050000 timesteps
+[INFO 07:02:59] absl No GL library found, so RGB rendering will be disabled. For software rendering install libosmesa.
+[INFO 07:02:59] absl Launching SC2: /workspace/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 34379 -dataDir /workspace/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-9y1eun8b/ -headlessNoRender
+[INFO 07:02:59] absl Connecting to: ws://127.0.0.1:34379/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/workspace/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 34379 -dataDir /workspace/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-9y1eun8b/ -headlessNoRender'
+Starting up...
+Startup Phase 1 complete
+[INFO 07:03:00] absl Connecting to: ws://127.0.0.1:34379/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Creating stub renderer...
+[INFO 07:03:01] absl Connecting to: ws://127.0.0.1:34379/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:34379
+Startup Phase 3 complete. Ready for commands.
+[INFO 07:03:02] absl Connecting to: ws://127.0.0.1:34379/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:35898 accepted
+ReadyHandler: 127.0.0.1:35898 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /workspace/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+/workspace/RODE-plus/src/components/episode_buffer.py:114: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
+  v = th.as_tensor(v, dtype=dtype, device=self.device)
+[INFO 07:03:08] my_main t_env: 20 / 5050000
+[INFO 07:03:08] my_main Estimated time left: 1 hours, 15 minutes, 27 seconds. Time passed: 8 seconds
+[INFO 07:03:16] my_main Saving models to /workspace/RODE-plus/results/rode_ices_seed2_sc2_6h_vs_8z/models/20
+[INFO 07:04:53] my_main Updated target network
+[INFO 07:06:36] my_main Updated target network
+[INFO 07:07:13] my_main Recent Stats | t_env:      10007 | Episode:      474
+action_encoder_grad_norm:  1.5157	battle_won_mean:           0.0000	ep_length_mean:           20.0000	epsilon:                   0.0000
+grad_norm:                 2.1052	ices_alpha:                0.1000	ices_entropy:              1.7530	ices_explorer_loss:        1.6153
+ices_fraction_explore_actions:  0.1021	ices_intrinsic_mean:       0.6001	ices_intrinsic_std:        0.0879	ices_kl_mean:              0.3603
+ices_scaffold_loss:        1.1493	ices_value_loss:           0.5048	loss:                      0.0676	pred_obs_loss:             4.1005
+pred_r_loss:               0.0084	q_taken_mean:             -0.1526	return_mean:               0.1622	return_std:                0.0000
+role_loss:                 0.0940	role_q_taken_mean:         0.1103	target_mean:              -0.1405	td_error_abs:              0.1768
+test_battle_won_mean:      0.0000	test_ep_length_mean:      20.8438	test_return_mean:          0.0000	test_return_std:           0.0000
+
+[INFO 07:07:14] my_main t_env: 10031 / 5050000
+[INFO 07:07:14] my_main Estimated time left: 1 days, 10 hours, 19 minutes, 9 seconds. Time passed: 4 minutes, 14 seconds
+[INFO 07:08:25] my_main Updated target network
+[INFO 07:10:06] my_main Updated target network
+[INFO 07:11:21] my_main Recent Stats | t_env:      20023 | Episode:      949
+action_encoder_grad_norm:  1.6096	battle_won_mean:           0.0000	ep_length_mean:           20.5601	epsilon:                   0.0000
+grad_norm:                 1.1071	ices_alpha:                0.1000	ices_entropy:              1.7597	ices_explorer_loss:        0.7154
+ices_fraction_explore_actions:  0.1018	ices_intrinsic_mean:       0.3013	ices_intrinsic_std:        0.0448	ices_kl_mean:              0.1808
+ices_scaffold_loss:        0.6191	ices_value_loss:           0.2524	loss:                      0.0379	pred_obs_loss:             2.5160
+pred_r_loss:               0.0060	q_taken_mean:             -0.1294	return_mean:               0.4463	return_std:                0.1560
+role_loss:                 0.0640	role_q_taken_mean:         0.0952	target_mean:              -0.1240	td_error_abs:              0.1224
+test_battle_won_mean:      0.0000	test_ep_length_mean:      20.5469	test_return_mean:          0.0000	test_return_std:           0.0000
+
+[INFO 07:11:22] my_main t_env: 20042 / 5050000
+[INFO 07:11:22] my_main Estimated time left: 1 days, 10 hours, 35 minutes, 52 seconds. Time passed: 8 minutes, 22 seconds
+[INFO 07:11:57] my_main Updated target network
+[INFO 07:13:38] my_main Updated target network
+[INFO 07:15:20] my_main Updated target network
+[INFO 07:15:30] my_main Recent Stats | t_env:      30032 | Episode:     1421
+action_encoder_grad_norm:  1.6921	battle_won_mean:           0.0000	ep_length_mean:           20.7320	epsilon:                   0.0000
+grad_norm:                 0.8707	ices_alpha:                0.1000	ices_entropy:              1.7081	ices_explorer_loss:        0.4262
+ices_fraction_explore_actions:  0.1001	ices_intrinsic_mean:       0.2011	ices_intrinsic_std:        0.0301	ices_kl_mean:              0.1207
+ices_scaffold_loss:        0.4372	ices_value_loss:           0.1683	loss:                      0.0277	pred_obs_loss:             1.9316
+pred_r_loss:               0.0051	q_taken_mean:             -0.1081	return_mean:               0.5411	return_std:                0.2099
+role_loss:                 0.0508	role_q_taken_mean:         0.0841	target_mean:              -0.1059	td_error_abs:              0.1047
+test_battle_won_mean:      0.0000	test_ep_length_mean:      20.7604	test_return_mean:          0.0000	test_return_std:           0.0000
+
+[INFO 07:15:30] my_main t_env: 30051 / 5050000
+[INFO 07:15:30] my_main Estimated time left: 1 days, 10 hours, 37 minutes, 50 seconds. Time passed: 12 minutes, 30 seconds
+[INFO 07:17:10] my_main Updated target network
+[INFO 07:18:51] my_main Updated target network
+[INFO 07:19:40] my_main Recent Stats | t_env:      40035 | Episode:     1895
+action_encoder_grad_norm:  1.7626	battle_won_mean:           0.0000	ep_length_mean:           20.8504	epsilon:                   0.0000
+grad_norm:                 0.7176	ices_alpha:                0.1000	ices_entropy:              1.6977	ices_explorer_loss:        0.2799
+ices_fraction_explore_actions:  0.1015	ices_intrinsic_mean:       0.1510	ices_intrinsic_std:        0.0226	ices_kl_mean:              0.0906
+ices_scaffold_loss:        0.3452	ices_value_loss:           0.1262	loss:                      0.0225	pred_obs_loss:             1.6437
+pred_r_loss:               0.0047	q_taken_mean:             -0.0886	return_mean:               0.5886	return_std:                0.2362
+role_loss:                 0.0435	role_q_taken_mean:         0.0814	target_mean:              -0.0871	td_error_abs:              0.0936
+test_battle_won_mean:      0.0000	test_ep_length_mean:      20.8047	test_return_mean:          0.0000	test_return_std:           0.0000
+
+[INFO 07:19:40] my_main t_env: 40058 / 5050000
+[INFO 07:19:40] my_main Estimated time left: 1 days, 10 hours, 48 minutes, 49 seconds. Time passed: 16 minutes, 41 seconds
+[INFO 07:20:42] my_main Updated target network
+[INFO 07:22:23] my_main Updated target network
+[INFO 07:23:47] my_main Updated target network
+[INFO 07:23:49] my_main Recent Stats | t_env:      50054 | Episode:     2368
+action_encoder_grad_norm:  1.6461	battle_won_mean:           0.0000	ep_length_mean:           20.9027	epsilon:                   0.0000
+grad_norm:                 0.6053	ices_alpha:                0.1000	ices_entropy:              1.7004	ices_explorer_loss:        0.1880
+ices_fraction_explore_actions:  0.1013	ices_intrinsic_mean:       0.1208	ices_intrinsic_std:        0.0182	ices_kl_mean:              0.0725
+ices_scaffold_loss:        0.2897	ices_value_loss:           0.1010	loss:                      0.0192	pred_obs_loss:             1.4571
+pred_r_loss:               0.0046	q_taken_mean:             -0.0718	return_mean:               0.6170	return_std:                0.2518
+role_loss:                 0.0405	role_q_taken_mean:         0.0779	target_mean:              -0.0706	td_error_abs:              0.0858
+test_battle_won_mean:      0.0000	test_ep_length_mean:      20.7750	test_return_mean:          0.0000	test_return_std:           0.0000
+
+[INFO 07:23:50] my_main t_env: 50204 / 5050000
+[INFO 07:23:50] my_main Estimated time left: 1 days, 10 hours, 9 minutes, 37 seconds. Time passed: 20 minutes, 50 seconds

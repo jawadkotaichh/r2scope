@@ -1,0 +1,32 @@
+{
+  "battle_won_mean": [
+    0.0
+  ],
+  "battle_won_mean_T": [
+    82
+  ],
+  "ep_length_mean": [
+    41.0
+  ],
+  "ep_length_mean_T": [
+    82
+  ],
+  "epsilon": [
+    0.0
+  ],
+  "epsilon_T": [
+    82
+  ],
+  "return_mean": [
+    0.7634730538922154
+  ],
+  "return_mean_T": [
+    82
+  ],
+  "return_std": [
+    0.0
+  ],
+  "return_std_T": [
+    82
+  ]
+}
