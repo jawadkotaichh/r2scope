@@ -19,7 +19,7 @@ DEFAULT_PROGRESS_METRICS = (
 
 # Only these two algorithms will be plotted
 TARGET_ALGORITHMS = ["rode_ices", "rode"]
-REQUIRED_SEEDS = (0, 1, 2)
+REQUIRED_SEEDS = (0, 1, 2, 3)
 
 ALGORITHM_DISPLAY_NAMES = {
     "rode_ices": "RODE-ICES",
