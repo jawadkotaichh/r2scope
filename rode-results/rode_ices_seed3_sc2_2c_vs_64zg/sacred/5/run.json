@@ -1,0 +1,120 @@
+{
+  "artifacts": [],
+  "command": "my_main",
+  "experiment": {
+    "base_dir": "/home/jak51/RODE-plus/src",
+    "dependencies": [
+      "numpy==1.26.4",
+      "pyyaml==6.0.3",
+      "sacred==0.8.5",
+      "torch==2.4.1+cu124"
+    ],
+    "mainfile": "main.py",
+    "name": "pymarl",
+    "repositories": [
+      {
+        "commit": "01a339f8e65bd74c9dff91a180cc4081a9603ce3",
+        "dirty": false,
+        "url": "git@github.com:JawadKotaichh/RODE-plus.git"
+      },
+      {
+        "commit": "01a339f8e65bd74c9dff91a180cc4081a9603ce3",
+        "dirty": false,
+        "url": "git@github.com:JawadKotaichh/RODE-plus.git"
+      },
+      {
+        "commit": "01a339f8e65bd74c9dff91a180cc4081a9603ce3",
+        "dirty": false,
+        "url": "git@github.com:JawadKotaichh/RODE-plus.git"
+      }
+    ],
+    "sources": [
+      [
+        "main.py",
+        "_sources/main_4865e279ee39be1a3596987c6c04054e.py"
+      ],
+      [
+        "run.py",
+        "_sources/run_06107ffaa7ac4fa955f93438c7677e88.py"
+      ],
+      [
+        "utils/logging.py",
+        "_sources/logging_3b7360d84a7492fd442af8d557459259.py"
+      ]
+    ]
+  },
+  "fail_trace": [
+    "Traceback (most recent call last):\n",
+    "  File \"/home/jak51/RODE-plus/.venv2/lib/python3.10/site-packages/sacred/config/captured_function.py\", line 42, in captured_function\n    result = wrapped(*args, **kwargs)\n",
+    "  File \"/home/jak51/RODE-plus/src/main.py\", line 38, in my_main\n    run(_run, config, _log)\n",
+    "  File \"/home/jak51/RODE-plus/src/run.py\", line 59, in run\n    run_sequential(args=args, logger=logger)\n",
+    "  File \"/home/jak51/RODE-plus/src/run.py\", line 141, in run_sequential\n    buffer = ReplayBuffer(scheme, groups, args.buffer_size, env_info[\"episode_limit\"] + 1,\n",
+    "  File \"/home/jak51/RODE-plus/src/components/episode_buffer.py\", line 222, in __init__\n    super(ReplayBuffer, self).__init__(scheme, groups, buffer_size, max_seq_length, preprocess=preprocess, device=device)\n",
+    "  File \"/home/jak51/RODE-plus/src/components/episode_buffer.py\", line 28, in __init__\n    self._setup_data(self.scheme, self.groups, batch_size, max_seq_length, self.preprocess)\n",
+    "  File \"/home/jak51/RODE-plus/src/components/episode_buffer.py\", line 75, in _setup_data\n    self.data.transition_data[field_key] = th.zeros((batch_size, max_seq_length, *shape), dtype=dtype, device=self.device)\n",
+    "RuntimeError: [enforce fail at alloc_cpu.cpp:117] err == 0. DefaultCPUAllocator: can't allocate memory: you tried to allocate 1122800000 bytes. Error code 12 (Cannot allocate memory)\n"
+  ],
+  "heartbeat": "2026-05-06T08:27:59.295156",
+  "host": {
+    "ENV": {},
+    "cpu": "AMD EPYC 7551 32-Core Processor",
+    "gpus": {
+      "driver_version": "535.104.05",
+      "gpus": [
+        {
+          "model": "Tesla V100-SXM3-32GB",
+          "persistence_mode": false,
+          "total_memory": 32768
+        }
+      ]
+    },
+    "hostname": "onode27",
+    "os": [
+      "Linux",
+      "Linux-3.10.0-1062.18.1.el7.x86_64-x86_64-with-glibc2.17"
+    ],
+    "python_version": "3.10.13"
+  },
+  "meta": {
+    "command": "my_main",
+    "config_updates": {
+      "seed": 3,
+      "torch_num_threads": 1
+    },
+    "named_configs": [],
+    "options": {
+      "--beat-interval": null,
+      "--capture": null,
+      "--comment": null,
+      "--debug": false,
+      "--enforce_clean": false,
+      "--file_storage": null,
+      "--force": false,
+      "--help": false,
+      "--id": null,
+      "--loglevel": null,
+      "--mongo_db": null,
+      "--name": null,
+      "--pdb": false,
+      "--print-config": false,
+      "--priority": null,
+      "--queue": false,
+      "--s3": null,
+      "--sql": null,
+      "--tiny_db": null,
+      "--unobserved": false,
+      "COMMAND": null,
+      "UPDATE": [
+        "seed=3",
+        "torch_num_threads=1"
+      ],
+      "help": false,
+      "with": true
+    }
+  },
+  "resources": [],
+  "result": null,
+  "start_time": "2026-05-06T08:27:54.820370",
+  "status": "FAILED",
+  "stop_time": "2026-05-06T08:27:59.323959"
+}
