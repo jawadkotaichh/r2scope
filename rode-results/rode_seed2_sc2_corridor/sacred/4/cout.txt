@@ -1,0 +1,508 @@
+[INFO 08:39:22] pymarl Running command 'my_main'
+[INFO 08:39:22] pymarl Started run with ID "4"
+[DEBUG 08:39:22] pymarl Starting Heartbeat
+[DEBUG 08:39:22] my_main Started
+[INFO 08:39:22] my_main Experiment Parameters:
+[INFO 08:39:22] my_main 
+
+{   'action_encoder': 'obs_reward',
+    'action_latent_dim': 20,
+    'action_selector': 'soft_epsilon_greedy',
+    'agent': 'rode',
+    'agent_output_type': 'q',
+    'auto_resume': True,
+    'batch_size': 32,
+    'batch_size_run': 1,
+    'bi_opt': False,
+    'buffer_cpu_only': True,
+    'buffer_size': 5000,
+    'checkpoint_path': '/home/jak51/RODE-plus/results/rode_seed2_sc2_corridor/models',
+    'critic_lr': 0.0005,
+    'double_q': True,
+    'env': 'sc2',
+    'env_args': {   'continuing_episode': False,
+                    'debug': False,
+                    'difficulty': '7',
+                    'game_version': None,
+                    'heuristic_ai': False,
+                    'heuristic_rest': False,
+                    'map_name': 'corridor',
+                    'move_amount': 2,
+                    'obs_all_health': True,
+                    'obs_instead_of_state': False,
+                    'obs_last_action': False,
+                    'obs_own_health': True,
+                    'obs_pathing_grid': False,
+                    'obs_terrain_height': False,
+                    'obs_timestep_number': False,
+                    'replay_dir': '',
+                    'replay_prefix': '',
+                    'reward_death_value': 10,
+                    'reward_defeat': 0,
+                    'reward_negative_scale': 0.5,
+                    'reward_only_positive': True,
+                    'reward_scale': True,
+                    'reward_scale_rate': 20,
+                    'reward_sparse': False,
+                    'reward_win': 200,
+                    'seed': 2,
+                    'state_last_action': True,
+                    'state_timestep_number': False,
+                    'step_mul': 8},
+    'epsilon_anneal_time': 50000,
+    'epsilon_anneal_time_exp': 50000,
+    'epsilon_finish': 0.05,
+    'epsilon_start': 1.0,
+    'evaluate': False,
+    'gamma': 0.99,
+    'grad_norm_clip': 10,
+    'hypernet_embed': 64,
+    'hypernet_layers': 2,
+    'ices_action_embed_dim': 4,
+    'ices_alpha_anneal_time': 500000,
+    'ices_alpha_finish': 0.05,
+    'ices_alpha_start': 0.1,
+    'ices_beta': 0.1,
+    'ices_disable_eval': True,
+    'ices_explore_lr': 0.001,
+    'ices_grad_clip': 0.1,
+    'ices_latent_dim': 32,
+    'ices_scaffold_lr': 0.0001,
+    'ices_train_interval': 1,
+    'label': 'default_label',
+    'learner': 'rode_learner',
+    'learner_log_interval': 10000,
+    'load_step': 0,
+    'local_results_path': '/home/jak51/RODE-plus/results/rode_seed2_sc2_corridor',
+    'log_interval': 10000,
+    'lr': 0.0005,
+    'mac': 'rode_mac',
+    'mixer': 'qmix',
+    'mixing_embed_dim': 32,
+    'n_role_clusters': 3,
+    'name': 'rode',
+    'obs_agent_id': True,
+    'obs_last_action': True,
+    'optim_alpha': 0.99,
+    'optim_eps': 1e-05,
+    'repeat_id': 1,
+    'rnn_hidden_dim': 64,
+    'role': 'dot',
+    'role_action_spaces_update_start': 50000,
+    'role_epsilon_finish': 0.05,
+    'role_interval': 5,
+    'role_mixer': 'qmix',
+    'role_selector': 'dot',
+    'run_name': 'rode_seed2_sc2_corridor',
+    'runner': 'episode',
+    'runner_log_interval': 10000,
+    'save_model': True,
+    'save_model_final_only': False,
+    'save_model_interval': 100000,
+    'save_replay': False,
+    'seed': 2,
+    'state_latent_dim': 32,
+    't_max': 5050000,
+    'target_update_interval': 200,
+    'test_greedy': True,
+    'test_interval': 10000,
+    'test_nepisode': 32,
+    'torch_num_threads': 1,
+    'use_cuda': True,
+    'use_ices': False,
+    'use_tensorboard': True,
+    'verbose': False}
+
+[INFO 08:39:26] my_main RESUME CONFIRMED: loading model from /home/jak51/RODE-plus/results/rode_seed2_sc2_corridor/models/4903490
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:151: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.role_action_spaces = th.load("{}/role_action_spaces.pt".format(path),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:154: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.agent.load_state_dict(th.load("{}/agent.th".format(path), map_location=lambda storage, loc: storage))
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:155: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.role_agent.load_state_dict(th.load("{}/role_agent.th".format(path), map_location=lambda storage, loc: storage))
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:158: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.roles[role_i].load_state_dict(th.load("{}/role_{}.th".format(path, role_i),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:165: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.role_selector.load_state_dict(th.load("{}/role_selector.th".format(path),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:168: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.action_encoder.load_state_dict(th.load("{}/action_encoder.th".format(path),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:170: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.role_latent = th.load("{}/role_latent.pt".format(path),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:172: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.action_repr = th.load("{}/action_repr.pt".format(path),
+/home/jak51/RODE-plus/src/learners/rode_learner.py:394: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.mixer.load_state_dict(th.load("{}/mixer.th".format(path), map_location=lambda storage, loc: storage))
+/home/jak51/RODE-plus/src/learners/rode_learner.py:397: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  th.load("{}/role_mixer.th".format(path), map_location=lambda storage, loc: storage))
+/home/jak51/RODE-plus/src/learners/rode_learner.py:398: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.optimiser.load_state_dict(th.load("{}/opt.th".format(path), map_location=lambda storage, loc: storage))
+/home/jak51/RODE-plus/src/learners/rode_learner.py:399: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.action_encoder_optimiser.load_state_dict(th.load("{}/action_repr_opt.th".format(path),
+[INFO 08:39:26] my_main RESUME CONFIRMED: continuing from t_env=4903490 toward t_max=5050000
+[INFO 08:39:26] my_main Beginning training for 5050000 timesteps
+[INFO 08:39:26] absl Launching SC2: /home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 41015 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-55l0rb8l/ -eglpath libEGL.so
+[INFO 08:39:26] absl Connecting to: ws://127.0.0.1:41015/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 41015 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-55l0rb8l/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 08:39:27] absl Connecting to: ws://127.0.0.1:41015/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f84c9a6efe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 08:39:28] absl Connecting to: ws://127.0.0.1:41015/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:41015
+Startup Phase 3 complete. Ready for commands.
+[INFO 08:39:29] absl Connecting to: ws://127.0.0.1:41015/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:40800 accepted
+ReadyHandler: 127.0.0.1:40800 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+/home/jak51/RODE-plus/src/components/episode_buffer.py:114: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
+  v = th.as_tensor(v, dtype=dtype, device=self.device)
+[INFO 08:39:36] my_main t_env: 4903525 / 5050000
+[INFO 08:39:36] my_main Estimated time left: 0 seconds. Time passed: 10 seconds
+[INFO 08:40:33] my_main Saving models to /home/jak51/RODE-plus/results/rode_seed2_sc2_corridor/models/4903525
+[INFO 08:40:33] my_main Recent Stats | t_env:    4903525 | Episode:        1
+battle_won_mean:           0.0000	ep_length_mean:           35.0000	epsilon:                   1.0000	return_mean:               3.3416
+return_std:                0.0000	test_battle_won_mean:      0.0000	test_ep_length_mean:     172.6250	test_return_mean:          6.2302
+test_return_std:           3.2218	
+[INFO 08:40:51] my_main Updated target network
+[INFO 08:43:49] my_main Updated target network
+[INFO 08:44:34] my_main t_env: 4913864 / 5050000
+[INFO 08:44:34] my_main Estimated time left: 1 hours, 5 minutes, 19 seconds. Time passed: 5 minutes, 8 seconds
+[INFO 08:46:19] my_main Recent Stats | t_env:    4913864 | Episode:      271
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0000	ep_length_mean:           36.6463	epsilon:                   0.8105
+grad_norm:               207.2827	loss:                     42.4354	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.7416	return_mean:               3.2017	return_std:                0.3171	role_loss:                 6.8318
+role_q_taken_mean:         0.4505	target_mean:              -0.1912	td_error_abs:              5.6000	test_battle_won_mean:      0.0000
+test_ep_length_mean:     248.5312	test_return_mean:          8.2023	test_return_std:           3.1265	
+[INFO 08:50:10] my_main Updated target network
+[INFO 08:51:28] my_main t_env: 4924180 / 5050000
+[INFO 08:51:28] my_main Estimated time left: 1 hours, 24 minutes, 8 seconds. Time passed: 12 minutes, 2 seconds
+[INFO 08:53:14] my_main Recent Stats | t_env:    4924180 | Episode:      472
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0000	ep_length_mean:           41.5387	epsilon:                   0.6145
+grad_norm:               105.2936	loss:                     21.2650	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5699	return_mean:               3.1814	return_std:                0.5348	role_loss:                 3.5157
+role_q_taken_mean:         0.4137	target_mean:               0.1141	td_error_abs:              2.9137	test_battle_won_mean:      0.0000
+test_ep_length_mean:     277.3542	test_return_mean:          8.8962	test_return_std:           2.9285	
+[INFO 08:57:42] my_main t_env: 4934342 / 5050000
+[INFO 08:57:42] my_main Estimated time left: 1 hours, 10 minutes, 58 seconds. Time passed: 18 minutes, 16 seconds
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:40800 disconnected
+[INFO 08:58:59] absl Shutdown gracefully.
+[INFO 08:58:59] absl Shutdown with return code: -15
+[INFO 08:58:59] absl Launching SC2: /home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 37448 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-c0_50q40/ -eglpath libEGL.so
+[INFO 08:58:59] absl Connecting to: ws://127.0.0.1:37448/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 37448 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-c0_50q40/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 08:59:00] absl Connecting to: ws://127.0.0.1:37448/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f3d4c41dfe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 08:59:01] absl Connecting to: ws://127.0.0.1:37448/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:37448
+Startup Phase 3 complete. Ready for commands.
+[INFO 08:59:02] absl Connecting to: ws://127.0.0.1:37448/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:51914 accepted
+ReadyHandler: 127.0.0.1:51914 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 08:59:42] my_main Recent Stats | t_env:    4934342 | Episode:      569
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0000	ep_length_mean:           57.3447	epsilon:                   0.4180
+grad_norm:                70.6715	loss:                     14.1977	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5335	return_mean:               3.3037	return_std:                0.7600	role_loss:                 2.4161
+role_q_taken_mean:         0.4035	target_mean:               0.2283	td_error_abs:              1.9989	test_battle_won_mean:      0.0078
+test_ep_length_mean:     297.6172	test_return_mean:          9.3811	test_return_std:           3.0178	
+[INFO 09:03:23] my_main t_env: 4944502 / 5050000
+[INFO 09:03:23] my_main Estimated time left: 58 minutes, 54 seconds. Time passed: 23 minutes, 56 seconds
+[INFO 09:05:10] my_main Recent Stats | t_env:    4944502 | Episode:      622
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0000	ep_length_mean:           84.2154	epsilon:                   0.2246
+grad_norm:                53.2403	loss:                     10.6661	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5274	return_mean:               3.7254	return_std:                1.0703	role_loss:                 1.8843
+role_q_taken_mean:         0.4053	target_mean:               0.2984	td_error_abs:              1.5398	test_battle_won_mean:      0.0063
+test_ep_length_mean:     306.1000	test_return_mean:          9.6702	test_return_std:           3.0204	
+[INFO 09:05:58] my_main Updated target network
+[INFO 09:08:16] my_main t_env: 4954696 / 5050000
+[INFO 09:08:16] my_main Estimated time left: 45 minutes, 38 seconds. Time passed: 28 minutes, 49 seconds
+[INFO 09:09:50] my_main Recent Stats | t_env:    4954696 | Episode:      660
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0000	ep_length_mean:          130.8680	epsilon:                   0.0500
+grad_norm:                42.7976	loss:                      8.5428	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5132	return_mean:               4.8350	return_std:                1.7750	role_loss:                 1.5466
+role_q_taken_mean:         0.4026	target_mean:               0.3294	td_error_abs:              1.2575	test_battle_won_mean:      0.0125
+test_ep_length_mean:     329.7125	test_return_mean:         10.7793	test_return_std:           3.0237	
+[INFO 09:13:17] my_main t_env: 4964773 / 5050000
+[INFO 09:13:17] my_main Estimated time left: 42 minutes, 31 seconds. Time passed: 33 minutes, 51 seconds
+[INFO 09:14:45] my_main Recent Stats | t_env:    4964773 | Episode:      706
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0000	ep_length_mean:          167.0226	epsilon:                   0.0500
+grad_norm:                 1.6668	loss:                      0.0673	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.4589	return_mean:               5.6823	return_std:                2.2350	role_loss:                 0.2167
+role_q_taken_mean:         0.3933	target_mean:               0.4639	td_error_abs:              0.1674	test_battle_won_mean:      0.0125
+test_ep_length_mean:     321.2312	test_return_mean:         10.6822	test_return_std:           3.1727	
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:51914 disconnected
+[INFO 09:15:24] absl Shutdown gracefully.
+[INFO 09:15:24] absl Shutdown with return code: -15
+[INFO 09:15:24] absl Launching SC2: /home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 41319 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-p7wm4b45/ -eglpath libEGL.so
+[INFO 09:15:24] absl Connecting to: ws://127.0.0.1:41319/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 41319 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-p7wm4b45/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 09:15:25] absl Connecting to: ws://127.0.0.1:41319/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f2c6626dfe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 09:15:26] absl Connecting to: ws://127.0.0.1:41319/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:41319
+Startup Phase 3 complete. Ready for commands.
+[INFO 09:15:27] absl Connecting to: ws://127.0.0.1:41319/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:54326 accepted
+ReadyHandler: 127.0.0.1:54326 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 09:18:17] my_main t_env: 4975076 / 5050000
+[INFO 09:18:17] my_main Estimated time left: 36 minutes, 23 seconds. Time passed: 38 minutes, 51 seconds
+[INFO 09:19:21] my_main Recent Stats | t_env:    4975076 | Episode:      749
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0047	ep_length_mean:          204.6788	epsilon:                   0.0500
+grad_norm:                 1.9487	loss:                      0.0805	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.4862	return_mean:               7.0038	return_std:                2.7907	role_loss:                 0.2183
+role_q_taken_mean:         0.4017	target_mean:               0.4804	td_error_abs:              0.1812	test_battle_won_mean:      0.0187
+test_ep_length_mean:     292.8562	test_return_mean:         10.7972	test_return_std:           3.3120	
+[INFO 09:22:41] my_main t_env: 4985186 / 5050000
+[INFO 09:22:41] my_main Estimated time left: 28 minutes, 9 seconds. Time passed: 43 minutes, 15 seconds
+[INFO 09:24:08] my_main Recent Stats | t_env:    4985186 | Episode:      791
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0094	ep_length_mean:          231.8691	epsilon:                   0.0500
+grad_norm:                 2.1288	loss:                      0.0845	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5147	return_mean:               8.2460	return_std:                3.2422	role_loss:                 0.2422
+role_q_taken_mean:         0.4331	target_mean:               0.5100	td_error_abs:              0.1784	test_battle_won_mean:      0.0375
+test_ep_length_mean:     274.8813	test_return_mean:         10.8069	test_return_std:           3.5811	
+[INFO 09:27:20] my_main t_env: 4995227 / 5050000
+[INFO 09:27:20] my_main Estimated time left: 25 minutes, 23 seconds. Time passed: 47 minutes, 54 seconds
+[INFO 09:28:50] my_main Recent Stats | t_env:    4995227 | Episode:      830
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0145	ep_length_mean:          245.0218	epsilon:                   0.0500
+grad_norm:                 2.1532	loss:                      0.0834	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5253	return_mean:               9.1411	return_std:                3.4710	role_loss:                 0.2270
+role_q_taken_mean:         0.4488	target_mean:               0.5208	td_error_abs:              0.1765	test_battle_won_mean:      0.0437
+test_ep_length_mean:     263.7875	test_return_mean:         10.8153	test_return_std:           3.6742	
+[INFO 09:29:02] my_main Updated target network
+[INFO 09:31:30] my_main Saving models to /home/jak51/RODE-plus/results/rode_seed2_sc2_corridor/models/5003559
+[INFO 09:32:01] my_main t_env: 5005265 / 5050000
+[INFO 09:32:01] my_main Estimated time left: 20 minutes, 52 seconds. Time passed: 52 minutes, 35 seconds
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:54326 disconnected
+[INFO 09:32:34] absl Shutdown gracefully.
+[INFO 09:32:34] absl Shutdown with return code: -15
+[INFO 09:32:34] absl Launching SC2: /home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 34138 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-4y3k_8yc/ -eglpath libEGL.so
+[INFO 09:32:34] absl Connecting to: ws://127.0.0.1:34138/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 34138 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-4y3k_8yc/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 09:32:35] absl Connecting to: ws://127.0.0.1:34138/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7fd54fa75fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 09:32:36] absl Connecting to: ws://127.0.0.1:34138/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:34138
+Startup Phase 3 complete. Ready for commands.
+[INFO 09:32:37] absl Connecting to: ws://127.0.0.1:34138/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:39978 accepted
+ReadyHandler: 127.0.0.1:39978 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 09:33:43] my_main Recent Stats | t_env:    5005265 | Episode:      869
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0145	ep_length_mean:          242.8461	epsilon:                   0.0500
+grad_norm:                 2.3484	loss:                      0.0843	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5476	return_mean:               9.1823	return_std:                3.5171	role_loss:                 0.2292
+role_q_taken_mean:         0.4636	target_mean:               0.5420	td_error_abs:              0.1826	test_battle_won_mean:      0.0375
+test_ep_length_mean:     264.2437	test_return_mean:         10.1679	test_return_std:           3.8043	
+[INFO 09:36:33] my_main t_env: 5015370 / 5050000
+[INFO 09:36:33] my_main Estimated time left: 15 minutes, 32 seconds. Time passed: 57 minutes, 7 seconds
+[INFO 09:38:09] my_main Recent Stats | t_env:    5015370 | Episode:      899
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0145	ep_length_mean:          266.3997	epsilon:                   0.0500
+grad_norm:                 2.2620	loss:                      0.0835	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5578	return_mean:               9.7031	return_std:                3.6527	role_loss:                 0.2296
+role_q_taken_mean:         0.4781	target_mean:               0.5501	td_error_abs:              0.1815	test_battle_won_mean:      0.0500
+test_ep_length_mean:     270.5250	test_return_mean:          9.8510	test_return_std:           3.9714	
+[INFO 09:40:57] my_main t_env: 5025538 / 5050000
+[INFO 09:40:57] my_main Estimated time left: 10 minutes, 34 seconds. Time passed: 1 hours, 1 minutes, 31 seconds
+[INFO 09:42:45] my_main Recent Stats | t_env:    5025538 | Episode:      928
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0099	ep_length_mean:          288.6029	epsilon:                   0.0500
+grad_norm:                 1.4604	loss:                      0.0607	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5568	return_mean:               9.7536	return_std:                3.6058	role_loss:                 0.2302
+role_q_taken_mean:         0.4927	target_mean:               0.5554	td_error_abs:              0.1458	test_battle_won_mean:      0.0563
+test_ep_length_mean:     299.9875	test_return_mean:          9.6766	test_return_std:           4.2272	
+[INFO 09:45:40] my_main t_env: 5035625 / 5050000
+[INFO 09:45:40] my_main Estimated time left: 6 minutes, 42 seconds. Time passed: 1 hours, 6 minutes, 13 seconds
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:39978 disconnected
+[INFO 09:47:00] absl Shutdown gracefully.
+[INFO 09:47:00] absl Shutdown with return code: -15
+[INFO 09:47:00] absl Launching SC2: /home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 40964 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-bk772qob/ -eglpath libEGL.so
+[INFO 09:47:00] absl Connecting to: ws://127.0.0.1:40964/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 40964 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-bk772qob/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 09:47:01] absl Connecting to: ws://127.0.0.1:40964/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f20fda6efe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-SXM3-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 09:47:02] absl Connecting to: ws://127.0.0.1:40964/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:40964
+Startup Phase 3 complete. Ready for commands.
+[INFO 09:47:03] absl Connecting to: ws://127.0.0.1:40964/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:55382 accepted
+ReadyHandler: 127.0.0.1:55382 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 09:47:42] my_main Recent Stats | t_env:    5035625 | Episode:      960
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0114	ep_length_mean:          303.5038	epsilon:                   0.0500
+grad_norm:                 1.5677	loss:                      0.0606	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5488	return_mean:               9.7887	return_std:                3.7312	role_loss:                 0.2186
+role_q_taken_mean:         0.4891	target_mean:               0.5449	td_error_abs:              0.1508	test_battle_won_mean:      0.0375
+test_ep_length_mean:     319.2500	test_return_mean:          9.8396	test_return_std:           4.1611	
+[INFO 09:50:44] my_main t_env: 5045702 / 5050000
+[INFO 09:50:44] my_main Estimated time left: 2 minutes, 9 seconds. Time passed: 1 hours, 11 minutes, 17 seconds
+[INFO 09:52:37] my_main Recent Stats | t_env:    5045702 | Episode:      994
+action_encoder_grad_norm:  1.3801	battle_won_mean:           0.0063	ep_length_mean:          311.2879	epsilon:                   0.0500
+grad_norm:                 2.0837	loss:                      0.0578	pred_obs_loss:             1.5051	pred_r_loss:               0.0129
+q_taken_mean:              0.5347	return_mean:               9.6973	return_std:                3.6942	role_loss:                 0.2395
+role_q_taken_mean:         0.4893	target_mean:               0.5305	td_error_abs:              0.1462	test_battle_won_mean:      0.0437
+test_ep_length_mean:     334.3313	test_return_mean:          9.7265	test_return_std:           4.2934	
