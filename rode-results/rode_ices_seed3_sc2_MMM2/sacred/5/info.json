@@ -1,0 +1,62 @@
+{
+  "battle_won_mean": [
+    0.0
+  ],
+  "battle_won_mean_T": [
+    1800632
+  ],
+  "ep_length_mean": [
+    35.0
+  ],
+  "ep_length_mean_T": [
+    1800632
+  ],
+  "episode": [
+    1
+  ],
+  "episode_T": [
+    1800632
+  ],
+  "epsilon": [
+    0.0
+  ],
+  "epsilon_T": [
+    1800632
+  ],
+  "return_mean": [
+    5.127925635373442
+  ],
+  "return_mean_T": [
+    1800632
+  ],
+  "return_std": [
+    0.0
+  ],
+  "return_std_T": [
+    1800632
+  ],
+  "test_battle_won_mean": [
+    1.0
+  ],
+  "test_battle_won_mean_T": [
+    1800632
+  ],
+  "test_ep_length_mean": [
+    51.0
+  ],
+  "test_ep_length_mean_T": [
+    1800632
+  ],
+  "test_return_mean": [
+    20.06945699478086
+  ],
+  "test_return_mean_T": [
+    1800632
+  ],
+  "test_return_std": [
+    0.21659363035194784
+  ],
+  "test_return_std_T": [
+    1800632
+  ]
+}

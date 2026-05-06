@@ -1,0 +1,688 @@
+[INFO 19:48:17] pymarl Running command 'my_main'
+[INFO 19:48:17] pymarl Started run with ID "9"
+[DEBUG 19:48:17] pymarl Starting Heartbeat
+[DEBUG 19:48:17] my_main Started
+[INFO 19:48:17] my_main Experiment Parameters:
+[INFO 19:48:17] my_main 
+
+{   'action_encoder': 'obs_reward',
+    'action_latent_dim': 20,
+    'action_selector': 'soft_epsilon_greedy',
+    'agent': 'rode',
+    'agent_output_type': 'q',
+    'auto_resume': True,
+    'batch_size': 32,
+    'batch_size_run': 1,
+    'bi_opt': False,
+    'buffer_cpu_only': True,
+    'buffer_size': 5000,
+    'checkpoint_path': '/home/jak51/RODE-plus/results/rode_ices_seed3_sc2_MMM2/models',
+    'critic_lr': 0.0005,
+    'double_q': True,
+    'env': 'sc2',
+    'env_args': {   'continuing_episode': False,
+                    'debug': False,
+                    'difficulty': '7',
+                    'game_version': None,
+                    'heuristic_ai': False,
+                    'heuristic_rest': False,
+                    'map_name': 'MMM2',
+                    'move_amount': 2,
+                    'obs_all_health': True,
+                    'obs_instead_of_state': False,
+                    'obs_last_action': False,
+                    'obs_own_health': True,
+                    'obs_pathing_grid': False,
+                    'obs_terrain_height': False,
+                    'obs_timestep_number': False,
+                    'replay_dir': '',
+                    'replay_prefix': '',
+                    'reward_death_value': 10,
+                    'reward_defeat': 0,
+                    'reward_negative_scale': 0.5,
+                    'reward_only_positive': True,
+                    'reward_scale': True,
+                    'reward_scale_rate': 20,
+                    'reward_sparse': False,
+                    'reward_win': 200,
+                    'seed': 3,
+                    'state_last_action': True,
+                    'state_timestep_number': False,
+                    'step_mul': 8},
+    'epsilon_anneal_time': 50000,
+    'epsilon_anneal_time_exp': 50000,
+    'epsilon_finish': 0.05,
+    'epsilon_start': 1.0,
+    'evaluate': False,
+    'gamma': 0.99,
+    'grad_norm_clip': 10,
+    'hypernet_embed': 64,
+    'hypernet_layers': 2,
+    'ices_action_embed_dim': 4,
+    'ices_alpha_anneal_time': 500000,
+    'ices_alpha_finish': 0.1,
+    'ices_alpha_start': 0.1,
+    'ices_beta': 0.1,
+    'ices_disable_eval': True,
+    'ices_explore_lr': 0.01,
+    'ices_grad_clip': 0.1,
+    'ices_latent_dim': 32,
+    'ices_scaffold_lr': 0.0001,
+    'ices_train_interval': 1,
+    'label': 'default_label',
+    'learner': 'rode_learner',
+    'learner_log_interval': 10000,
+    'load_step': 0,
+    'local_results_path': '/home/jak51/RODE-plus/results/rode_ices_seed3_sc2_MMM2',
+    'log_interval': 10000,
+    'lr': 0.0005,
+    'mac': 'rode_mac',
+    'mixer': 'qmix',
+    'mixing_embed_dim': 32,
+    'n_role_clusters': 5,
+    'name': 'rode_ices',
+    'obs_agent_id': True,
+    'obs_last_action': True,
+    'optim_alpha': 0.99,
+    'optim_eps': 1e-05,
+    'repeat_id': 1,
+    'rnn_hidden_dim': 64,
+    'role': 'dot',
+    'role_action_spaces_update_start': 999999999,
+    'role_epsilon_finish': 0.05,
+    'role_interval': 5,
+    'role_mixer': 'qmix',
+    'role_selector': 'dot',
+    'run_name': 'rode_ices_seed3_sc2_MMM2',
+    'runner': 'episode',
+    'runner_log_interval': 10000,
+    'save_model': True,
+    'save_model_final_only': False,
+    'save_model_interval': 100000,
+    'save_replay': False,
+    'seed': 3,
+    'state_latent_dim': 32,
+    't_max': 2050000,
+    'target_update_interval': 200,
+    'test_greedy': True,
+    'test_interval': 10000,
+    'test_nepisode': 32,
+    'torch_num_threads': 1,
+    'use_cuda': True,
+    'use_ices': True,
+    'use_tensorboard': True,
+    'verbose': False}
+
+[INFO 19:48:21] my_main RESUME CONFIRMED: loading model from /home/jak51/RODE-plus/results/rode_ices_seed3_sc2_MMM2/models/1800737
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:151: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.role_action_spaces = th.load("{}/role_action_spaces.pt".format(path),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:154: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.agent.load_state_dict(th.load("{}/agent.th".format(path), map_location=lambda storage, loc: storage))
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:155: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.role_agent.load_state_dict(th.load("{}/role_agent.th".format(path), map_location=lambda storage, loc: storage))
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:158: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.roles[role_i].load_state_dict(th.load("{}/role_{}.th".format(path, role_i),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:165: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.role_selector.load_state_dict(th.load("{}/role_selector.th".format(path),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:168: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.action_encoder.load_state_dict(th.load("{}/action_encoder.th".format(path),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:170: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.role_latent = th.load("{}/role_latent.pt".format(path),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:172: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.action_repr = th.load("{}/action_repr.pt".format(path),
+/home/jak51/RODE-plus/src/controllers/rode_controller.py:178: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  th.load(explorer_path, map_location=lambda storage, loc: storage)
+/home/jak51/RODE-plus/src/learners/rode_learner.py:394: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.mixer.load_state_dict(th.load("{}/mixer.th".format(path), map_location=lambda storage, loc: storage))
+/home/jak51/RODE-plus/src/learners/rode_learner.py:397: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  th.load("{}/role_mixer.th".format(path), map_location=lambda storage, loc: storage))
+/home/jak51/RODE-plus/src/learners/rode_learner.py:398: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.optimiser.load_state_dict(th.load("{}/opt.th".format(path), map_location=lambda storage, loc: storage))
+/home/jak51/RODE-plus/src/learners/rode_learner.py:399: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  self.action_encoder_optimiser.load_state_dict(th.load("{}/action_repr_opt.th".format(path),
+/home/jak51/RODE-plus/src/learners/rode_learner.py:407: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  th.load(scaffold_path, map_location=lambda storage, loc: storage)
+/home/jak51/RODE-plus/src/learners/rode_learner.py:411: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  th.load(scaffold_opt_path, map_location=lambda storage, loc: storage)
+/home/jak51/RODE-plus/src/learners/rode_learner.py:415: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  th.load(explorer_opt_path, map_location=lambda storage, loc: storage)
+[INFO 19:48:21] my_main RESUME CONFIRMED: continuing from t_env=1800737 toward t_max=2050000
+[INFO 19:48:21] my_main Beginning training for 2050000 timesteps
+[INFO 19:48:21] absl Launching SC2: /home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 42124 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-slp5pytr/ -eglpath libEGL.so
+[INFO 19:48:21] absl Connecting to: ws://127.0.0.1:42124/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 42124 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-slp5pytr/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 19:48:22] absl Connecting to: ws://127.0.0.1:42124/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f5d061ebfe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-PCIE-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 19:48:23] absl Connecting to: ws://127.0.0.1:42124/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:42124
+Startup Phase 3 complete. Ready for commands.
+[INFO 19:48:24] absl Connecting to: ws://127.0.0.1:42124/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:34800 accepted
+ReadyHandler: 127.0.0.1:34800 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+/home/jak51/RODE-plus/src/components/episode_buffer.py:114: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:278.)
+  v = th.as_tensor(v, dtype=dtype, device=self.device)
+[INFO 19:48:32] my_main t_env: 1800792 / 2050000
+[INFO 19:48:32] my_main Estimated time left: 1 seconds. Time passed: 11 seconds
+[INFO 19:48:55] my_main Saving models to /home/jak51/RODE-plus/results/rode_ices_seed3_sc2_MMM2/models/1800792
+[INFO 19:48:55] my_main Recent Stats | t_env:    1800792 | Episode:        1
+battle_won_mean:           1.0000	ep_length_mean:           55.0000	epsilon:                   0.0000	return_mean:              19.8501
+return_std:                0.0000	test_battle_won_mean:      1.0000	test_ep_length_mean:      51.0000	test_return_mean:         20.0420
+test_return_std:           0.2621	
+[INFO 19:56:00] my_main Updated target network
+[INFO 19:56:26] my_main t_env: 1810822 / 2050000
+[INFO 19:56:26] my_main Estimated time left: 3 hours, 8 minutes, 29 seconds. Time passed: 8 minutes, 5 seconds
+[INFO 19:56:48] my_main Recent Stats | t_env:    1810822 | Episode:      213
+action_encoder_grad_norm:  2.3013	battle_won_mean:           0.5519	ep_length_mean:           51.1557	epsilon:                   0.0000
+grad_norm:               368.6761	ices_alpha:                0.1000	ices_entropy:              1.3359	ices_explorer_loss:       -0.1402
+ices_fraction_explore_actions:  0.1004	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1059	ices_value_loss:           0.0000	loss:                     65.2057	pred_obs_loss:             0.9235
+pred_r_loss:               0.0595	q_taken_mean:              0.8153	return_mean:              14.6468	return_std:                2.0975
+role_loss:                73.5249	role_q_taken_mean:         0.7849	target_mean:               0.1203	td_error_abs:              6.9510
+test_battle_won_mean:      0.5781	test_ep_length_mean:      50.2500	test_return_mean:         16.4043	test_return_std:           1.8270
+
+[INFO 20:03:47] my_main Updated target network
+[INFO 20:04:05] my_main t_env: 1820851 / 2050000
+[INFO 20:04:05] my_main Estimated time left: 2 hours, 54 minutes, 50 seconds. Time passed: 15 minutes, 44 seconds
+[INFO 20:04:28] my_main Recent Stats | t_env:    1820851 | Episode:      409
+action_encoder_grad_norm:  2.0400	battle_won_mean:           0.4172	ep_length_mean:           51.1599	epsilon:                   0.0000
+grad_norm:               186.3624	ices_alpha:                0.1000	ices_entropy:              1.3674	ices_explorer_loss:       -0.1436
+ices_fraction_explore_actions:  0.0997	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1072	ices_value_loss:           0.0000	loss:                     32.6726	pred_obs_loss:             0.8183
+pred_r_loss:               0.0387	q_taken_mean:              0.4383	return_mean:              13.6049	return_std:                2.6494
+role_loss:                36.9784	role_q_taken_mean:         0.4227	target_mean:               0.0861	td_error_abs:              3.6127
+test_battle_won_mean:      0.6458	test_ep_length_mean:      51.8125	test_return_mean:         16.7852	test_return_std:           2.2077
+
+[INFO 20:11:28] my_main Updated target network
+[INFO 20:11:38] my_main t_env: 1830889 / 2050000
+[INFO 20:11:38] my_main Estimated time left: 2 hours, 44 minutes, 31 seconds. Time passed: 23 minutes, 16 seconds
+[INFO 20:11:57] my_main Recent Stats | t_env:    1830889 | Episode:      605
+action_encoder_grad_norm:  1.8528	battle_won_mean:           0.3512	ep_length_mean:           51.1735	epsilon:                   0.0000
+grad_norm:               125.5895	ices_alpha:                0.1000	ices_entropy:              1.3466	ices_explorer_loss:       -0.1414
+ices_fraction_explore_actions:  0.0992	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1073	ices_value_loss:           0.0000	loss:                     21.8154	pred_obs_loss:             0.6877
+pred_r_loss:               0.0288	q_taken_mean:              0.3239	return_mean:              13.0754	return_std:                2.8090
+role_loss:                24.7782	role_q_taken_mean:         0.3204	target_mean:               0.0924	td_error_abs:              2.4817
+test_battle_won_mean:      0.6406	test_ep_length_mean:      50.1562	test_return_mean:         16.4728	test_return_std:           2.4128
+
+[INFO 20:18:54] my_main Updated target network
+[INFO 20:19:20] my_main t_env: 1840921 / 2050000
+[INFO 20:19:20] my_main Estimated time left: 2 hours, 40 minutes, 41 seconds. Time passed: 30 minutes, 59 seconds
+[INFO 20:19:40] my_main Recent Stats | t_env:    1840921 | Episode:      813
+action_encoder_grad_norm:  1.7780	battle_won_mean:           0.3281	ep_length_mean:           50.5849	epsilon:                   0.0000
+grad_norm:                94.7362	ices_alpha:                0.1000	ices_entropy:              1.3429	ices_explorer_loss:       -0.1410
+ices_fraction_explore_actions:  0.0996	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1071	ices_value_loss:           0.0000	loss:                     16.3848	pred_obs_loss:             0.7312
+pred_r_loss:               0.0296	q_taken_mean:              0.2820	return_mean:              12.9622	return_std:                2.9250
+role_loss:                18.6837	role_q_taken_mean:         0.2958	target_mean:               0.1080	td_error_abs:              1.9134
+test_battle_won_mean:      0.6500	test_ep_length_mean:      49.0063	test_return_mean:         16.3840	test_return_std:           2.4942
+
+[INFO 20:26:17] my_main Updated target network
+[INFO 20:26:55] my_main t_env: 1851043 / 2050000
+[INFO 20:26:55] my_main Estimated time left: 2 hours, 29 minutes, 5 seconds. Time passed: 38 minutes, 34 seconds
+[INFO 20:27:17] my_main Recent Stats | t_env:    1851043 | Episode:     1019
+action_encoder_grad_norm:  1.6691	battle_won_mean:           0.1863	ep_length_mean:           49.4121	epsilon:                   0.0000
+grad_norm:                76.4782	ices_alpha:                0.1000	ices_entropy:              1.3691	ices_explorer_loss:       -0.1408
+ices_fraction_explore_actions:  0.0994	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1068	ices_value_loss:           0.0000	loss:                     13.1249	pred_obs_loss:             0.8133
+pred_r_loss:               0.0299	q_taken_mean:              0.2670	return_mean:              11.5349	return_std:                3.6634
+role_loss:                15.0226	role_q_taken_mean:         0.2991	target_mean:               0.1269	td_error_abs:              1.5741
+test_battle_won_mean:      0.6250	test_ep_length_mean:      48.4875	test_return_mean:         15.8775	test_return_std:           2.8565
+
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:34800 disconnected
+[INFO 20:30:53] absl Shutdown gracefully.
+[INFO 20:30:53] absl Shutdown with return code: -15
+[INFO 20:30:53] absl Launching SC2: /home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 35734 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-l85qqa5h/ -eglpath libEGL.so
+[INFO 20:30:53] absl Connecting to: ws://127.0.0.1:35734/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 35734 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-l85qqa5h/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 20:30:54] absl Connecting to: ws://127.0.0.1:35734/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7fdb9a55dfe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-PCIE-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 20:30:55] absl Connecting to: ws://127.0.0.1:35734/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:35734
+Startup Phase 3 complete. Ready for commands.
+[INFO 20:30:56] absl Connecting to: ws://127.0.0.1:35734/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:34324 accepted
+ReadyHandler: 127.0.0.1:34324 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 20:34:12] my_main Updated target network
+[INFO 20:34:12] my_main t_env: 1861069 / 2050000
+[INFO 20:34:12] my_main Estimated time left: 2 hours, 17 minutes, 15 seconds. Time passed: 45 minutes, 51 seconds
+[INFO 20:34:32] my_main Recent Stats | t_env:    1861069 | Episode:     1201
+action_encoder_grad_norm:  1.6163	battle_won_mean:           0.2557	ep_length_mean:           50.9675	epsilon:                   0.0000
+grad_norm:                 3.1628	ices_alpha:                0.1000	ices_entropy:              1.3258	ices_explorer_loss:       -0.1362
+ices_fraction_explore_actions:  0.0991	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1069	ices_value_loss:           0.0000	loss:                      0.0945	pred_obs_loss:             0.7145
+pred_r_loss:               0.0204	q_taken_mean:              0.1384	return_mean:              12.5359	return_std:                3.5492
+role_loss:                 0.3900	role_q_taken_mean:         0.1961	target_mean:               0.1376	td_error_abs:              0.2150
+test_battle_won_mean:      0.7937	test_ep_length_mean:      47.4937	test_return_mean:         17.0124	test_return_std:           2.2725
+
+[INFO 20:41:12] my_main t_env: 1871120 / 2050000
+[INFO 20:41:12] my_main Estimated time left: 2 hours, 4 minutes, 34 seconds. Time passed: 52 minutes, 51 seconds
+[INFO 20:41:35] my_main Recent Stats | t_env:    1871120 | Episode:     1384
+action_encoder_grad_norm:  1.6562	battle_won_mean:           0.3190	ep_length_mean:           51.7185	epsilon:                   0.0000
+grad_norm:                 2.9148	ices_alpha:                0.1000	ices_entropy:              1.3059	ices_explorer_loss:       -0.1315
+ices_fraction_explore_actions:  0.0987	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1067	ices_value_loss:           0.0000	loss:                      0.0800	pred_obs_loss:             0.6637
+pred_r_loss:               0.0213	q_taken_mean:              0.1748	return_mean:              13.1726	return_std:                3.5835
+role_loss:                 0.3960	role_q_taken_mean:         0.2680	target_mean:               0.1753	td_error_abs:              0.1963
+test_battle_won_mean:      0.7937	test_ep_length_mean:      46.1562	test_return_mean:         16.9899	test_return_std:           2.2819
+
+[INFO 20:42:12] my_main Updated target network
+[INFO 20:48:22] my_main t_env: 1881131 / 2050000
+[INFO 20:48:22] my_main Estimated time left: 2 hours, 53 seconds. Time passed: 1 hours, 1 seconds
+[INFO 20:48:44] my_main Recent Stats | t_env:    1881131 | Episode:     1566
+action_encoder_grad_norm:  1.7340	battle_won_mean:           0.3939	ep_length_mean:           52.4767	epsilon:                   0.0000
+grad_norm:                 3.6671	ices_alpha:                0.1000	ices_entropy:              1.2950	ices_explorer_loss:       -0.1279
+ices_fraction_explore_actions:  0.0995	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1065	ices_value_loss:           0.0000	loss:                      0.0724	pred_obs_loss:             0.6622
+pred_r_loss:               0.0225	q_taken_mean:              0.2028	return_mean:              13.9784	return_std:                3.7410
+role_loss:                 0.4495	role_q_taken_mean:         0.3414	target_mean:               0.2019	td_error_abs:              0.1878
+test_battle_won_mean:      0.8688	test_ep_length_mean:      46.6625	test_return_mean:         17.8936	test_return_std:           1.7155
+
+[INFO 20:50:00] my_main Updated target network
+[INFO 20:55:27] my_main t_env: 1891156 / 2050000
+[INFO 20:55:27] my_main Estimated time left: 1 hours, 52 minutes, 10 seconds. Time passed: 1 hours, 7 minutes, 6 seconds
+[INFO 20:55:48] my_main Recent Stats | t_env:    1891156 | Episode:     1747
+action_encoder_grad_norm:  1.7961	battle_won_mean:           0.4407	ep_length_mean:           53.9079	epsilon:                   0.0000
+grad_norm:                 6.4111	ices_alpha:                0.1000	ices_entropy:              1.3018	ices_explorer_loss:       -0.1286
+ices_fraction_explore_actions:  0.0993	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1061	ices_value_loss:           0.0000	loss:                      0.0812	pred_obs_loss:             0.5802
+pred_r_loss:               0.0206	q_taken_mean:              0.2290	return_mean:              14.5191	return_std:                3.8863
+role_loss:                 0.6108	role_q_taken_mean:         0.4089	target_mean:               0.2330	td_error_abs:              0.2028
+test_battle_won_mean:      0.9062	test_ep_length_mean:      47.2875	test_return_mean:         18.4201	test_return_std:           1.5920
+
+[INFO 20:57:48] my_main Updated target network
+[INFO 21:02:22] my_main Saving models to /home/jak51/RODE-plus/results/rode_ices_seed3_sc2_MMM2/models/1900878
+[INFO 21:02:36] my_main t_env: 1901282 / 2050000
+[INFO 21:02:36] my_main Estimated time left: 1 hours, 45 minutes, 5 seconds. Time passed: 1 hours, 14 minutes, 15 seconds
+[INFO 21:03:00] my_main Recent Stats | t_env:    1901282 | Episode:     1930
+action_encoder_grad_norm:  1.8448	battle_won_mean:           0.4906	ep_length_mean:           55.1474	epsilon:                   0.0000
+grad_norm:                 6.7939	ices_alpha:                0.1000	ices_entropy:              1.2803	ices_explorer_loss:       -0.1266
+ices_fraction_explore_actions:  0.1007	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1061	ices_value_loss:           0.0000	loss:                      0.0800	pred_obs_loss:             0.5192
+pred_r_loss:               0.0238	q_taken_mean:              0.2489	return_mean:              15.1439	return_std:                3.9900
+role_loss:                 0.7398	role_q_taken_mean:         0.4670	target_mean:               0.2546	td_error_abs:              0.1992
+test_battle_won_mean:      0.9250	test_ep_length_mean:      47.7750	test_return_mean:         18.8717	test_return_std:           1.5178
+
+[INFO 21:05:43] my_main Updated target network
+[INFO 21:09:42] my_main t_env: 1911319 / 2050000
+[INFO 21:09:42] my_main Estimated time left: 1 hours, 37 minutes, 57 seconds. Time passed: 1 hours, 21 minutes, 21 seconds
+[INFO 21:10:04] my_main Recent Stats | t_env:    1911319 | Episode:     2108
+action_encoder_grad_norm:  1.8017	battle_won_mean:           0.5252	ep_length_mean:           55.4073	epsilon:                   0.0000
+grad_norm:                 8.7789	ices_alpha:                0.1000	ices_entropy:              1.3186	ices_explorer_loss:       -0.1306
+ices_fraction_explore_actions:  0.1008	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1058	ices_value_loss:           0.0000	loss:                      0.0846	pred_obs_loss:             0.5301
+pred_r_loss:               0.0268	q_taken_mean:              0.2793	return_mean:              15.5554	return_std:                4.1523
+role_loss:                 0.8679	role_q_taken_mean:         0.5334	target_mean:               0.2867	td_error_abs:              0.2077
+test_battle_won_mean:      0.9250	test_ep_length_mean:      48.7313	test_return_mean:         19.1938	test_return_std:           1.4830
+
+RequestQuit command received.
+DataHandler: unable to parse websocket frame.
+Closing Application...
+CloseHandler: 127.0.0.1:34324 disconnected
+ResponseThread: No connection, dropping the response.
+[INFO 21:10:51] absl Shutdown gracefully.
+[INFO 21:10:51] absl Shutdown with return code: -15
+[INFO 21:10:51] absl Launching SC2: /home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 36506 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-lmsvx1kj/ -eglpath libEGL.so
+[INFO 21:10:51] absl Connecting to: ws://127.0.0.1:36506/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 36506 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-lmsvx1kj/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 21:10:52] absl Connecting to: ws://127.0.0.1:36506/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7fd2d5003fe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-PCIE-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 21:10:53] absl Connecting to: ws://127.0.0.1:36506/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:36506
+Startup Phase 3 complete. Ready for commands.
+[INFO 21:10:54] absl Connecting to: ws://127.0.0.1:36506/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:46248 accepted
+ReadyHandler: 127.0.0.1:46248 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 21:13:39] my_main Updated target network
+[INFO 21:17:01] my_main t_env: 1921358 / 2050000
+[INFO 21:17:01] my_main Estimated time left: 1 hours, 33 minutes, 47 seconds. Time passed: 1 hours, 28 minutes, 40 seconds
+[INFO 21:17:22] my_main Recent Stats | t_env:    1921358 | Episode:     2292
+action_encoder_grad_norm:  1.8109	battle_won_mean:           0.5639	ep_length_mean:           55.3346	epsilon:                   0.0000
+grad_norm:                10.9942	ices_alpha:                0.1000	ices_entropy:              1.2971	ices_explorer_loss:       -0.1309
+ices_fraction_explore_actions:  0.1011	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1055	ices_value_loss:           0.0000	loss:                      0.0831	pred_obs_loss:             0.5254
+pred_r_loss:               0.0263	q_taken_mean:              0.2908	return_mean:              15.9960	return_std:                4.2322
+role_loss:                 0.9837	role_q_taken_mean:         0.5635	target_mean:               0.2988	td_error_abs:              0.2043
+test_battle_won_mean:      0.9688	test_ep_length_mean:      48.3937	test_return_mean:         19.7129	test_return_std:           0.9408
+
+[INFO 21:21:23] my_main Updated target network
+[INFO 21:23:43] my_main t_env: 1931375 / 2050000
+[INFO 21:23:43] my_main Estimated time left: 1 hours, 19 minutes, 16 seconds. Time passed: 1 hours, 35 minutes, 21 seconds
+[INFO 21:24:05] my_main Recent Stats | t_env:    1931375 | Episode:     2463
+action_encoder_grad_norm:  1.8263	battle_won_mean:           0.5917	ep_length_mean:           56.0493	epsilon:                   0.0000
+grad_norm:                12.1464	ices_alpha:                0.1000	ices_entropy:              1.3555	ices_explorer_loss:       -0.1396
+ices_fraction_explore_actions:  0.0999	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1054	ices_value_loss:           0.0000	loss:                      0.0908	pred_obs_loss:             0.6676
+pred_r_loss:               0.0395	q_taken_mean:              0.3426	return_mean:              16.3418	return_std:                4.1943
+role_loss:                 1.1003	role_q_taken_mean:         0.6333	target_mean:               0.3478	td_error_abs:              0.2165
+test_battle_won_mean:      0.9688	test_ep_length_mean:      48.6625	test_return_mean:         19.7061	test_return_std:           0.9667
+
+[INFO 21:29:04] my_main Updated target network
+[INFO 21:30:16] my_main t_env: 1941386 / 2050000
+[INFO 21:30:16] my_main Estimated time left: 1 hours, 11 minutes, 8 seconds. Time passed: 1 hours, 41 minutes, 55 seconds
+[INFO 21:30:38] my_main Recent Stats | t_env:    1941386 | Episode:     2634
+action_encoder_grad_norm:  1.7479	battle_won_mean:           0.6311	ep_length_mean:           56.6807	epsilon:                   0.0000
+grad_norm:                11.0379	ices_alpha:                0.1000	ices_entropy:              1.3632	ices_explorer_loss:       -0.1376
+ices_fraction_explore_actions:  0.0996	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1057	ices_value_loss:           0.0000	loss:                      0.0902	pred_obs_loss:             0.7177
+pred_r_loss:               0.0439	q_taken_mean:              0.3804	return_mean:              16.7032	return_std:                4.2007
+role_loss:                 1.1062	role_q_taken_mean:         0.6602	target_mean:               0.3768	td_error_abs:              0.2151
+test_battle_won_mean:      0.9938	test_ep_length_mean:      49.0187	test_return_mean:         19.9749	test_return_std:           0.6323
+
+[INFO 21:36:49] my_main Updated target network
+[INFO 21:37:04] my_main t_env: 1951434 / 2050000
+[INFO 21:37:04] my_main Estimated time left: 1 hours, 6 minutes, 38 seconds. Time passed: 1 hours, 48 minutes, 42 seconds
+[INFO 21:37:26] my_main Recent Stats | t_env:    1951434 | Episode:     2808
+action_encoder_grad_norm:  1.8695	battle_won_mean:           0.6482	ep_length_mean:           57.1635	epsilon:                   0.0000
+grad_norm:                13.4501	ices_alpha:                0.1000	ices_entropy:              1.3531	ices_explorer_loss:       -0.1366
+ices_fraction_explore_actions:  0.0982	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1060	ices_value_loss:           0.0000	loss:                      0.0916	pred_obs_loss:             0.6448
+pred_r_loss:               0.0415	q_taken_mean:              0.4077	return_mean:              16.8634	return_std:                4.2070
+role_loss:                 1.2122	role_q_taken_mean:         0.6729	target_mean:               0.4046	td_error_abs:              0.2168
+test_battle_won_mean:      0.9875	test_ep_length_mean:      49.2750	test_return_mean:         19.9698	test_return_std:           0.5572
+
+[INFO 21:43:31] my_main t_env: 1961459 / 2050000
+[INFO 21:43:31] my_main Estimated time left: 57 minutes, 1 seconds. Time passed: 1 hours, 55 minutes, 10 seconds
+[INFO 21:43:52] my_main Recent Stats | t_env:    1961459 | Episode:     2980
+action_encoder_grad_norm:  1.9275	battle_won_mean:           0.6479	ep_length_mean:           57.5429	epsilon:                   0.0000
+grad_norm:                14.2223	ices_alpha:                0.1000	ices_entropy:              1.3845	ices_explorer_loss:       -0.1399
+ices_fraction_explore_actions:  0.0980	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1059	ices_value_loss:           0.0000	loss:                      0.0939	pred_obs_loss:             0.7586
+pred_r_loss:               0.0498	q_taken_mean:              0.4405	return_mean:              16.9148	return_std:                4.1436
+role_loss:                 1.3377	role_q_taken_mean:         0.7164	target_mean:               0.4362	td_error_abs:              0.2202
+test_battle_won_mean:      0.9812	test_ep_length_mean:      49.0250	test_return_mean:         19.9446	test_return_std:           0.6832
+
+[INFO 21:44:37] my_main Updated target network
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:46248 disconnected
+[INFO 21:48:59] absl Shutdown gracefully.
+[INFO 21:48:59] absl Shutdown with return code: -15
+[INFO 21:48:59] absl Launching SC2: /home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 43756 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-yk3jlf4c/ -eglpath libEGL.so
+[INFO 21:48:59] absl Connecting to: ws://127.0.0.1:43756/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 43756 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-yk3jlf4c/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 21:49:00] absl Connecting to: ws://127.0.0.1:43756/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7fed64c1ffe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-PCIE-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 21:49:01] absl Connecting to: ws://127.0.0.1:43756/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:43756
+Startup Phase 3 complete. Ready for commands.
+[INFO 21:49:02] absl Connecting to: ws://127.0.0.1:43756/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:53270 accepted
+ReadyHandler: 127.0.0.1:53270 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 21:50:07] my_main t_env: 1971514 / 2050000
+[INFO 21:50:07] my_main Estimated time left: 51 minutes, 34 seconds. Time passed: 2 hours, 1 minutes, 46 seconds
+[INFO 21:50:31] my_main Recent Stats | t_env:    1971514 | Episode:     3151
+action_encoder_grad_norm:  2.0116	battle_won_mean:           0.6567	ep_length_mean:           58.3912	epsilon:                   0.0000
+grad_norm:                13.3200	ices_alpha:                0.1000	ices_entropy:              1.4388	ices_explorer_loss:       -0.1456
+ices_fraction_explore_actions:  0.0980	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1063	ices_value_loss:           0.0000	loss:                      0.1019	pred_obs_loss:             0.8701
+pred_r_loss:               0.0589	q_taken_mean:              0.4893	return_mean:              16.9911	return_std:                4.1041
+role_loss:                 1.5295	role_q_taken_mean:         0.7598	target_mean:               0.4860	td_error_abs:              0.2329
+test_battle_won_mean:      0.9750	test_ep_length_mean:      50.9937	test_return_mean:         19.9403	test_return_std:           0.7522
+
+[INFO 21:52:16] my_main Updated target network
+[INFO 21:56:55] my_main t_env: 1981546 / 2050000
+[INFO 21:56:55] my_main Estimated time left: 46 minutes, 24 seconds. Time passed: 2 hours, 8 minutes, 34 seconds
+[INFO 21:57:16] my_main Recent Stats | t_env:    1981546 | Episode:     3329
+action_encoder_grad_norm:  2.0400	battle_won_mean:           0.6414	ep_length_mean:           57.9473	epsilon:                   0.0000
+grad_norm:                13.8405	ices_alpha:                0.1000	ices_entropy:              1.4150	ices_explorer_loss:       -0.1403
+ices_fraction_explore_actions:  0.0984	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1062	ices_value_loss:           0.0000	loss:                      0.1019	pred_obs_loss:             0.8280
+pred_r_loss:               0.0542	q_taken_mean:              0.4944	return_mean:              16.8152	return_std:                4.2270
+role_loss:                 1.6177	role_q_taken_mean:         0.7529	target_mean:               0.4932	td_error_abs:              0.2274
+test_battle_won_mean:      0.9750	test_ep_length_mean:      50.5125	test_return_mean:         19.9482	test_return_std:           0.7557
+
+[INFO 21:59:59] my_main Updated target network
+[INFO 22:03:24] my_main t_env: 1991620 / 2050000
+[INFO 22:03:24] my_main Estimated time left: 37 minutes, 31 seconds. Time passed: 2 hours, 15 minutes, 3 seconds
+[INFO 22:03:45] my_main Recent Stats | t_env:    1991620 | Episode:     3496
+action_encoder_grad_norm:  2.1194	battle_won_mean:           0.6362	ep_length_mean:           58.3032	epsilon:                   0.0000
+grad_norm:                14.5031	ices_alpha:                0.1000	ices_entropy:              1.4150	ices_explorer_loss:       -0.1403
+ices_fraction_explore_actions:  0.0995	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1060	ices_value_loss:           0.0000	loss:                      0.0963	pred_obs_loss:             0.7844
+pred_r_loss:               0.0509	q_taken_mean:              0.5056	return_mean:              16.7984	return_std:                4.2278
+role_loss:                 1.5982	role_q_taken_mean:         0.7617	target_mean:               0.5061	td_error_abs:              0.2181
+test_battle_won_mean:      0.9688	test_ep_length_mean:      50.1125	test_return_mean:         19.9182	test_return_std:           0.8176
+
+[INFO 22:07:36] my_main Updated target network
+[INFO 22:09:22] my_main Saving models to /home/jak51/RODE-plus/results/rode_ices_seed3_sc2_MMM2/models/2000878
+[INFO 22:09:51] my_main t_env: 2001641 / 2050000
+[INFO 22:09:51] my_main Estimated time left: 31 minutes, 7 seconds. Time passed: 2 hours, 21 minutes, 30 seconds
+[INFO 22:10:13] my_main Recent Stats | t_env:    2001641 | Episode:     3663
+action_encoder_grad_norm:  2.0113	battle_won_mean:           0.6474	ep_length_mean:           58.7550	epsilon:                   0.0000
+grad_norm:                13.0620	ices_alpha:                0.1000	ices_entropy:              1.4581	ices_explorer_loss:       -0.1443
+ices_fraction_explore_actions:  0.0991	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1060	ices_value_loss:           0.0000	loss:                      0.0966	pred_obs_loss:             0.8740
+pred_r_loss:               0.0581	q_taken_mean:              0.5470	return_mean:              16.9264	return_std:                4.1445
+role_loss:                 1.6088	role_q_taken_mean:         0.7971	target_mean:               0.5462	td_error_abs:              0.2200
+test_battle_won_mean:      0.9750	test_ep_length_mean:      49.9062	test_return_mean:         19.9072	test_return_std:           0.7811
+
+[INFO 22:15:08] my_main Updated target network
+[INFO 22:16:17] my_main t_env: 2011674 / 2050000
+[INFO 22:16:17] my_main Estimated time left: 24 minutes, 34 seconds. Time passed: 2 hours, 27 minutes, 56 seconds
+[INFO 22:16:38] my_main Recent Stats | t_env:    2011674 | Episode:     3832
+action_encoder_grad_norm:  2.2690	battle_won_mean:           0.6626	ep_length_mean:           58.9714	epsilon:                   0.0000
+grad_norm:                12.2635	ices_alpha:                0.1000	ices_entropy:              1.4679	ices_explorer_loss:       -0.1454
+ices_fraction_explore_actions:  0.0989	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1062	ices_value_loss:           0.0000	loss:                      0.1080	pred_obs_loss:             0.8336
+pred_r_loss:               0.0581	q_taken_mean:              0.5798	return_mean:              17.0514	return_std:                4.0980
+role_loss:                 1.5558	role_q_taken_mean:         0.7921	target_mean:               0.5749	td_error_abs:              0.2319
+test_battle_won_mean:      0.9688	test_ep_length_mean:      49.7687	test_return_mean:         19.8403	test_return_std:           0.9811
+
+[INFO 22:22:38] my_main t_env: 2021682 / 2050000
+[INFO 22:22:38] my_main Estimated time left: 17 minutes, 59 seconds. Time passed: 2 hours, 34 minutes, 17 seconds
+[INFO 22:23:03] my_main Recent Stats | t_env:    2021682 | Episode:     3998
+action_encoder_grad_norm:  2.1461	battle_won_mean:           0.6343	ep_length_mean:           59.2690	epsilon:                   0.0000
+grad_norm:                13.9879	ices_alpha:                0.1000	ices_entropy:              1.4508	ices_explorer_loss:       -0.1436
+ices_fraction_explore_actions:  0.0986	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1056	ices_value_loss:           0.0000	loss:                      0.1100	pred_obs_loss:             0.7448
+pred_r_loss:               0.0501	q_taken_mean:              0.5839	return_mean:              16.8610	return_std:                4.1280
+role_loss:                 1.4207	role_q_taken_mean:         0.7751	target_mean:               0.5769	td_error_abs:              0.2313
+test_battle_won_mean:      0.9688	test_ep_length_mean:      49.9875	test_return_mean:         19.8307	test_return_std:           0.9943
+
+[INFO 22:23:10] my_main Updated target network
+RequestQuit command received.
+Closing Application...
+DataHandler: unable to parse websocket frame.
+CloseHandler: 127.0.0.1:53270 disconnected
+ResponseThread: No connection, dropping the response.
+[INFO 22:25:17] absl Shutdown gracefully.
+[INFO 22:25:17] absl Shutdown with return code: -15
+[INFO 22:25:17] absl Launching SC2: /home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64 -listen 127.0.0.1 -port 38858 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-43b59_bv/ -eglpath libEGL.so
+[INFO 22:25:17] absl Connecting to: ws://127.0.0.1:38858/sc2api, attempt: 0, running: True
+Version: B75689 (SC2.4.10)
+Build: Aug 12 2019 17:16:57
+Command Line: '"/home/jak51/RODE-plus/3rdparty/StarCraftII/Versions/Base75689/SC2_x64" -listen 127.0.0.1 -port 38858 -dataDir /home/jak51/RODE-plus/3rdparty/StarCraftII/ -tempDir /tmp/sc-43b59_bv/ -eglpath libEGL.so'
+Starting up...
+Startup Phase 1 complete
+[INFO 22:25:18] absl Connecting to: ws://127.0.0.1:38858/sc2api, attempt: 1, running: True
+Startup Phase 2 complete
+Attempting to initialize EGL from file libEGL.so ...
+Successfully loaded EGL library!
+Successfully initialized display on device idx: 0, EGL version: 1.5
+
+Running CGLSimpleDevice::HALInit...
+Calling glGetString: 0x7f149e4dcfe0
+Version: 4.6.0 NVIDIA 535.104.05
+Vendor: NVIDIA Corporation
+Renderer: Tesla V100-PCIE-32GB/PCIe/SSE2
+OpenGL initialized!
+[INFO 22:25:19] absl Connecting to: ws://127.0.0.1:38858/sc2api, attempt: 2, running: True
+Listening on: 127.0.0.1:38858
+Startup Phase 3 complete. Ready for commands.
+[INFO 22:25:20] absl Connecting to: ws://127.0.0.1:38858/sc2api, attempt: 3, running: True
+ConnectHandler: Request from 127.0.0.1:47822 accepted
+ReadyHandler: 127.0.0.1:47822 ready
+Requesting to join a single player game
+Configuring interface options
+Configure: raw interface enabled
+Configure: feature layer interface disabled
+Configure: score interface disabled
+Configure: render interface disabled
+Launching next game.
+Next launch phase started: 2
+Next launch phase started: 3
+Next launch phase started: 4
+Next launch phase started: 5
+Next launch phase started: 6
+Next launch phase started: 7
+Next launch phase started: 8
+Game has started.
+Using default stable ids, none found at: /home/jak51/RODE-plus/3rdparty/StarCraftII/stableid.json
+Successfully loaded stable ids: GameData\stableid.json
+Sending ResponseJoinGame
+[INFO 22:29:33] my_main t_env: 2031708 / 2050000
+[INFO 22:29:33] my_main Estimated time left: 12 minutes, 36 seconds. Time passed: 2 hours, 41 minutes, 12 seconds
+[INFO 22:29:57] my_main Recent Stats | t_env:    2031708 | Episode:     4169
+action_encoder_grad_norm:  2.3668	battle_won_mean:           0.6497	ep_length_mean:           59.7234	epsilon:                   0.0000
+grad_norm:                12.9647	ices_alpha:                0.1000	ices_entropy:              1.4594	ices_explorer_loss:       -0.1473
+ices_fraction_explore_actions:  0.0985	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1057	ices_value_loss:           0.0000	loss:                      0.1158	pred_obs_loss:             0.7463
+pred_r_loss:               0.0515	q_taken_mean:              0.6083	return_mean:              17.0050	return_std:                4.0586
+role_loss:                 1.3845	role_q_taken_mean:         0.7627	target_mean:               0.5997	td_error_abs:              0.2397
+test_battle_won_mean:      0.9625	test_ep_length_mean:      51.9688	test_return_mean:         19.8146	test_return_std:           1.0697
+
+[INFO 22:31:07] my_main Updated target network
+[INFO 22:36:23] my_main t_env: 2041734 / 2050000
+[INFO 22:36:23] my_main Estimated time left: 5 minutes, 37 seconds. Time passed: 2 hours, 48 minutes, 1 seconds
+[INFO 22:36:47] my_main Recent Stats | t_env:    2041734 | Episode:     4343
+action_encoder_grad_norm:  2.4922	battle_won_mean:           0.6721	ep_length_mean:           59.1829	epsilon:                   0.0000
+grad_norm:                12.3130	ices_alpha:                0.1000	ices_entropy:              1.4738	ices_explorer_loss:       -0.1487
+ices_fraction_explore_actions:  0.0977	ices_intrinsic_mean:       0.0000	ices_intrinsic_std:        0.0000	ices_kl_mean:              0.0000
+ices_scaffold_loss:        0.1059	ices_value_loss:           0.0000	loss:                      0.1174	pred_obs_loss:             0.8082
+pred_r_loss:               0.0564	q_taken_mean:              0.6319	return_mean:              17.1700	return_std:                3.9810
+role_loss:                 1.4441	role_q_taken_mean:         0.7738	target_mean:               0.6271	td_error_abs:              0.2424
+test_battle_won_mean:      0.9688	test_ep_length_mean:      52.9500	test_return_mean:         19.8390	test_return_std:           0.9630
+
+[INFO 22:38:52] my_main Updated target network
