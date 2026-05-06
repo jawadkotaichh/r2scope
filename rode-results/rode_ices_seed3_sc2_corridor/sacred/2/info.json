@@ -1,0 +1,196 @@
+{
+  "action_encoder_grad_norm": [
+    2.3664581775665283
+  ],
+  "action_encoder_grad_norm_T": [
+    804156
+  ],
+  "battle_won_mean": [
+    0.0,
+    0.0
+  ],
+  "battle_won_mean_T": [
+    800783,
+    810787
+  ],
+  "ep_length_mean": [
+    33.0,
+    147.11764705882354
+  ],
+  "ep_length_mean_T": [
+    800783,
+    810787
+  ],
+  "episode": [
+    1,
+    69
+  ],
+  "episode_T": [
+    800783,
+    810787
+  ],
+  "epsilon": [
+    0.0,
+    0.0
+  ],
+  "epsilon_T": [
+    800783,
+    810787
+  ],
+  "grad_norm": [
+    15.464707374572754
+  ],
+  "grad_norm_T": [
+    804156
+  ],
+  "ices_alpha": [
+    0.1
+  ],
+  "ices_alpha_T": [
+    804156
+  ],
+  "ices_entropy": [
+    0.6632452607154846
+  ],
+  "ices_entropy_T": [
+    804156
+  ],
+  "ices_explorer_loss": [
+    -0.06939029693603516
+  ],
+  "ices_explorer_loss_T": [
+    804156
+  ],
+  "ices_fraction_explore_actions": [
+    0.09732824563980103
+  ],
+  "ices_fraction_explore_actions_T": [
+    804156
+  ],
+  "ices_intrinsic_mean": [
+    0.00015415833331644535
+  ],
+  "ices_intrinsic_mean_T": [
+    804156
+  ],
+  "ices_intrinsic_std": [
+    0.0003040784504264593
+  ],
+  "ices_intrinsic_std_T": [
+    804156
+  ],
+  "ices_kl_mean": [
+    8.098993566818535e-05
+  ],
+  "ices_kl_mean_T": [
+    804156
+  ],
+  "ices_scaffold_loss": [
+    0.0984339565038681
+  ],
+  "ices_scaffold_loss_T": [
+    804156
+  ],
+  "ices_value_loss": [
+    2.2175967387738638e-05
+  ],
+  "ices_value_loss_T": [
+    804156
+  ],
+  "loss": [
+    1.5540755987167358
+  ],
+  "loss_T": [
+    804156
+  ],
+  "pred_obs_loss": [
+    0.32349446415901184
+  ],
+  "pred_obs_loss_T": [
+    804156
+  ],
+  "pred_r_loss": [
+    0.0015368318418040872
+  ],
+  "pred_r_loss_T": [
+    804156
+  ],
+  "q_taken_mean": [
+    0.17203405697207133
+  ],
+  "q_taken_mean_T": [
+    804156
+  ],
+  "return_mean": [
+    3.2779006958007812,
+    3.3405008877024933
+  ],
+  "return_mean_T": [
+    800783,
+    810787
+  ],
+  "return_std": [
+    0.0,
+    1.1443742142784092
+  ],
+  "return_std_T": [
+    800783,
+    810787
+  ],
+  "role_loss": [
+    1.1969629526138306
+  ],
+  "role_loss_T": [
+    804156
+  ],
+  "role_q_taken_mean": [
+    0.14685847663787385
+  ],
+  "role_q_taken_mean_T": [
+    804156
+  ],
+  "target_mean": [
+    0.023540821624236184
+  ],
+  "target_mean_T": [
+    804156
+  ],
+  "td_error_abs": [
+    0.8912175033488696
+  ],
+  "td_error_abs_T": [
+    804156
+  ],
+  "test_battle_won_mean": [
+    0.0,
+    0.0
+  ],
+  "test_battle_won_mean_T": [
+    800783,
+    810787
+  ],
+  "test_ep_length_mean": [
+    257.78125,
+    266.03125
+  ],
+  "test_ep_length_mean_T": [
+    800783,
+    810787
+  ],
+  "test_return_mean": [
+    4.348243236541748,
+    3.4751272201538086
+  ],
+  "test_return_mean_T": [
+    800783,
+    810787
+  ],
+  "test_return_std": [
+    1.3075800673722906,
+    1.0572979955861457
+  ],
+  "test_return_std_T": [
+    800783,
+    810787
+  ]
+}
