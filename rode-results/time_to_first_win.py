@@ -260,7 +260,7 @@ def plot_map_time_to_first_win(map_name, rows, out_file, metric_name, threshold)
         f"{result_plot.display_map_name(map_name)}: Time to first win",
         fontsize=11,
     )
-    ax.set_ylabel("Timestep (million env steps)", fontsize=10)
+    ax.set_ylabel("T (mil)", fontsize=10)
     ax.set_xticks(x_positions)
     ax.set_xticklabels(
         [result_plot.ALGORITHM_DISPLAY_NAMES.get(algorithm, algorithm) for algorithm in algorithms],
