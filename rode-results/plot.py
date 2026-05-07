@@ -22,13 +22,13 @@ TARGET_ALGORITHMS = ["rode_ices", "rode"]
 REQUIRED_SEEDS = (0, 1, 2, 3)
 
 ALGORITHM_DISPLAY_NAMES = {
-    "rode_ices": "RODE-ICES",
+    "rode_ices": "R2SCOPE",
     "rode": "RODE",
 }
 
 ALGORITHM_COLORS = {
     "rode_ices": "tab:red",
-    "rode": "tab:orange",
+    "rode": "tab:blue",
 }
 
 FALLBACK_COLORS = (
@@ -53,6 +53,10 @@ def clean_map_name(map_name: str) -> str:
     if map_name.startswith("sc2_"):
         return map_name[4:]
     return map_name
+
+
+def display_map_name(map_name: str) -> str:
+    return clean_map_name(str(map_name)).replace("_", " ")
 
 
 def safe_folder_name(name: str) -> str:
@@ -442,7 +446,7 @@ def records_by_algorithm(run_records):
     for record in run_records:
         algorithm = normalize_algorithm_name(record["algorithm"])
 
-        # Keep only RODE-ICES and RODE
+        # Keep only R2SCOPE and RODE
         if algorithm not in TARGET_ALGORITHMS:
             continue
 
@@ -665,13 +669,14 @@ def plot_median_iqr(x, ys, title, ylabel, out_file, scale=1.0, ylim=None):
 
 def write_manifest(outdir: Path, map_name: str, grouped_records, skipped_runs):
     manifest = {
-        "map": map_name,
+        "map": display_map_name(map_name),
+        "map_key": map_name,
         "plotted_algorithms": list(grouped_records.keys()),
         "algorithms": {},
         "skipped_runs": skipped_runs,
     }
 
-    lines = [f"Map: {map_name}", ""]
+    lines = [f"Map: {display_map_name(map_name)}", f"Map key: {map_name}", ""]
 
     for algorithm, records in grouped_records.items():
         seeds = [record["seed"] for record in records]
@@ -725,10 +730,10 @@ def load_run_records(run_dirs):
     for run_dir in run_dirs:
         algorithm = run_algorithm(run_dir)
 
-        # Skip anything that is not RODE-ICES or RODE
+        # Skip anything that is not R2SCOPE or RODE
         if algorithm not in TARGET_ALGORITHMS:
             print(
-                f"Skipping {run_dir.name}: algorithm '{algorithm}' is not RODE-ICES or RODE"
+                f"Skipping {run_dir.name}: algorithm '{algorithm}' is not R2SCOPE or RODE"
             )
             continue
 
@@ -782,12 +787,13 @@ def plot_map_outputs(map_name: str, outdir_base: Path, grouped_records, skipped_
     individual_dir.mkdir(parents=True, exist_ok=True)
 
     write_manifest(outdir, map_name, grouped_records, skipped_runs)
+    map_title = display_map_name(map_name)
 
     # Combined train score plot
     if not plot_algorithm_comparison(
         grouped_records=grouped_records,
         metric_name="return_mean",
-        title=map_name.upper(),
+        title=map_title,
         ylabel="Averaged Score",
         out_file=outdir / "combined_avg_score.png",
         center="median",
@@ -800,7 +806,7 @@ def plot_map_outputs(map_name: str, outdir_base: Path, grouped_records, skipped_
     if not plot_algorithm_comparison(
         grouped_records=grouped_records,
         metric_name="test_return_mean",
-        title=map_name.upper(),
+        title=map_title,
         ylabel="Test Averaged Score",
         out_file=outdir / "combined_test_score.png",
         center="median",
@@ -813,7 +819,7 @@ def plot_map_outputs(map_name: str, outdir_base: Path, grouped_records, skipped_
     if not plot_algorithm_comparison(
         grouped_records=grouped_records,
         metric_name="test_battle_won_mean",
-        title=map_name.upper(),
+        title=map_title,
         ylabel="Test Win %",
         out_file=outdir / "combined_test_win.png",
         scale=100.0,
@@ -963,7 +969,7 @@ def main():
 
         if not run_records:
             reason = (
-                f"No usable RODE-ICES or RODE sacred info.json files found for map '{map_name}'"
+                f"No usable R2SCOPE or RODE sacred info.json files found for map '{map_name}'"
             )
             print(f"Skipping map {map_name}: {reason}")
             skipped_maps.append({"map": map_name, "reason": reason})
@@ -973,7 +979,7 @@ def main():
 
         if not grouped_records:
             reason = (
-                f"No RODE-ICES or RODE runs found for map '{map_name}' after filtering."
+                f"No R2SCOPE or RODE runs found for map '{map_name}' after filtering."
             )
             print(f"Skipping map {map_name}: {reason}")
             skipped_maps.append({"map": map_name, "reason": reason})
@@ -1006,7 +1012,7 @@ def main():
 
     if not plotted_maps:
         raise SystemExit(
-            "No maps satisfied the requirement: both RODE-ICES and RODE must have "
+            "No maps satisfied the requirement: both R2SCOPE and RODE must have "
             f"usable results for seeds {', '.join(str(seed) for seed in REQUIRED_SEEDS)}."
         )
 
