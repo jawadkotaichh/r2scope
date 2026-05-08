@@ -1,0 +1,110 @@
+{
+  "artifacts": [],
+  "command": "my_main",
+  "experiment": {
+    "base_dir": "/workspace/RODE-plus/src",
+    "dependencies": [
+      "numpy==1.26.4",
+      "pyyaml==6.0.3",
+      "sacred==0.8.5",
+      "torch==2.4.1+cu124"
+    ],
+    "mainfile": "main.py",
+    "name": "pymarl",
+    "repositories": [],
+    "sources": [
+      [
+        "main.py",
+        "_sources/main_12e2a6b8b177f73cc62e411a8224f22f.py"
+      ],
+      [
+        "run.py",
+        "_sources/run_0b7a5d365bbe9d1535d6fd851f703ed4.py"
+      ],
+      [
+        "utils/logging.py",
+        "_sources/logging_9b4bf82fb0aa0ae6e713d9dd7b370b09.py"
+      ]
+    ]
+  },
+  "fail_trace": [
+    "Traceback (most recent call last):\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/sacred/config/captured_function.py\", line 42, in captured_function\n    result = wrapped(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/src/main.py\", line 38, in my_main\n    run(_run, config, _log)\n",
+    "  File \"/workspace/RODE-plus/src/run.py\", line 59, in run\n    run_sequential(args=args, logger=logger)\n",
+    "  File \"/workspace/RODE-plus/src/run.py\", line 220, in run_sequential\n    learner.train(episode_sample, runner.t_env, episode)\n",
+    "  File \"/workspace/RODE-plus/src/learners/rode_learner.py\", line 252, in train\n    ices_stats = self.ices_scaffold.train_scaffold(\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/src/modules/ices/ices_scaffold.py\", line 51, in train_scaffold\n    stats = self._forward_batch(batch)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/src/modules/ices/ices_scaffold.py\", line 87, in _forward_batch\n    missing_recon = self.shared_decoder(missing_latent)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 1553, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 1562, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/torch/nn/modules/container.py\", line 219, in forward\n    input = module(input)\n            ^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 1553, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/torch/nn/modules/module.py\", line 1562, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/torch/nn/modules/linear.py\", line 117, in forward\n    return F.linear(input, self.weight, self.bias)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 432.00 MiB. GPU 0 has a total capacity of 19.70 GiB of which 173.12 MiB is free. Process 223754 has 10.62 GiB memory in use. Process 224017 has 5.09 GiB memory in use. Process 224223 has 1.97 GiB memory in use. Process 224468 has 1.13 GiB memory in use. Process 229816 has 716.00 MiB memory in use. Of the allocated memory 3.51 GiB is allocated by PyTorch, and 1.36 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)\n"
+  ],
+  "heartbeat": "2026-04-30T08:23:06.324840",
+  "host": {
+    "ENV": {},
+    "cpu": "AMD EPYC 7352 24-Core Processor",
+    "gpus": {
+      "driver_version": "550.127.05",
+      "gpus": [
+        {
+          "model": "NVIDIA RTX A4500",
+          "persistence_mode": true,
+          "total_memory": 20470
+        }
+      ]
+    },
+    "hostname": "7614d58b2128",
+    "os": [
+      "Linux",
+      "Linux-5.15.0-91-generic-x86_64-with-glibc2.35"
+    ],
+    "python_version": "3.11.10"
+  },
+  "meta": {
+    "command": "my_main",
+    "config_updates": {
+      "seed": 2,
+      "torch_num_threads": 1
+    },
+    "named_configs": [],
+    "options": {
+      "--beat-interval": null,
+      "--capture": null,
+      "--comment": null,
+      "--debug": false,
+      "--enforce_clean": false,
+      "--file_storage": null,
+      "--force": false,
+      "--help": false,
+      "--id": null,
+      "--loglevel": null,
+      "--mongo_db": null,
+      "--name": null,
+      "--pdb": false,
+      "--print-config": false,
+      "--priority": null,
+      "--queue": false,
+      "--s3": null,
+      "--sql": null,
+      "--tiny_db": null,
+      "--unobserved": false,
+      "COMMAND": null,
+      "UPDATE": [
+        "seed=2",
+        "torch_num_threads=1"
+      ],
+      "help": false,
+      "with": true
+    }
+  },
+  "resources": [],
+  "result": null,
+  "start_time": "2026-04-30T07:37:02.972231",
+  "status": "FAILED",
+  "stop_time": "2026-04-30T08:23:06.407956"
+}

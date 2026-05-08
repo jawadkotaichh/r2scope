@@ -1,0 +1,176 @@
+{
+  "action_encoder_grad_norm": [
+    2.582505464553833
+  ],
+  "action_encoder_grad_norm_T": [
+    4104065
+  ],
+  "battle_won_mean": [
+    0.0
+  ],
+  "battle_won_mean_T": [
+    4101948
+  ],
+  "ep_length_mean": [
+    43.0
+  ],
+  "ep_length_mean_T": [
+    4101948
+  ],
+  "episode": [
+    1
+  ],
+  "episode_T": [
+    4101948
+  ],
+  "epsilon": [
+    0.0
+  ],
+  "epsilon_T": [
+    4101948
+  ],
+  "grad_norm": [
+    139.80055236816406
+  ],
+  "grad_norm_T": [
+    4104065
+  ],
+  "ices_alpha": [
+    0.1
+  ],
+  "ices_alpha_T": [
+    4104065
+  ],
+  "ices_entropy": [
+    0.6536229252815247
+  ],
+  "ices_entropy_T": [
+    4104065
+  ],
+  "ices_explorer_loss": [
+    -0.062073249369859695
+  ],
+  "ices_explorer_loss_T": [
+    4104065
+  ],
+  "ices_fraction_explore_actions": [
+    0.10077160596847534
+  ],
+  "ices_fraction_explore_actions_T": [
+    4104065
+  ],
+  "ices_intrinsic_mean": [
+    2.727485934883589e-06
+  ],
+  "ices_intrinsic_mean_T": [
+    4104065
+  ],
+  "ices_intrinsic_std": [
+    8.077979600784602e-07
+  ],
+  "ices_intrinsic_std_T": [
+    4104065
+  ],
+  "ices_kl_mean": [
+    1.8539941493145307e-06
+  ],
+  "ices_kl_mean_T": [
+    4104065
+  ],
+  "ices_scaffold_loss": [
+    0.04162319749593735
+  ],
+  "ices_scaffold_loss_T": [
+    4104065
+  ],
+  "ices_value_loss": [
+    2.493187457730528e-05
+  ],
+  "ices_value_loss_T": [
+    4104065
+  ],
+  "loss": [
+    19.652496337890625
+  ],
+  "loss_T": [
+    4104065
+  ],
+  "pred_obs_loss": [
+    0.6680663824081421
+  ],
+  "pred_obs_loss_T": [
+    4104065
+  ],
+  "pred_r_loss": [
+    0.01942252740263939
+  ],
+  "pred_r_loss_T": [
+    4104065
+  ],
+  "q_taken_mean": [
+    0.11178060565629287
+  ],
+  "q_taken_mean_T": [
+    4104065
+  ],
+  "return_mean": [
+    13.654054054054054
+  ],
+  "return_mean_T": [
+    4101948
+  ],
+  "return_std": [
+    0.0
+  ],
+  "return_std_T": [
+    4101948
+  ],
+  "role_loss": [
+    16.26974105834961
+  ],
+  "role_loss_T": [
+    4104065
+  ],
+  "role_q_taken_mean": [
+    0.11931551675491243
+  ],
+  "role_q_taken_mean_T": [
+    4104065
+  ],
+  "target_mean": [
+    -0.03156809447070045
+  ],
+  "target_mean_T": [
+    4104065
+  ],
+  "td_error_abs": [
+    3.871454535590278
+  ],
+  "td_error_abs_T": [
+    4104065
+  ],
+  "test_battle_won_mean": [
+    0.1875
+  ],
+  "test_battle_won_mean_T": [
+    4101948
+  ],
+  "test_ep_length_mean": [
+    63.90625
+  ],
+  "test_ep_length_mean_T": [
+    4101948
+  ],
+  "test_return_mean": [
+    16.208445945945947
+  ],
+  "test_return_mean_T": [
+    4101948
+  ],
+  "test_return_std": [
+    1.9811017925524042
+  ],
+  "test_return_std_T": [
+    4101948
+  ]
+}
