@@ -1,0 +1,139 @@
+{
+  "artifacts": [],
+  "command": "my_main",
+  "experiment": {
+    "base_dir": "/workspace/RODE-plus/src",
+    "dependencies": [
+      "numpy==1.26.4",
+      "pyyaml==6.0.3",
+      "sacred==0.8.5",
+      "torch==2.4.1+cu124"
+    ],
+    "mainfile": "main.py",
+    "name": "pymarl",
+    "repositories": [],
+    "sources": [
+      [
+        "main.py",
+        "_sources/main_12e2a6b8b177f73cc62e411a8224f22f.py"
+      ],
+      [
+        "run.py",
+        "_sources/run_0b7a5d365bbe9d1535d6fd851f703ed4.py"
+      ],
+      [
+        "utils/logging.py",
+        "_sources/logging_9b4bf82fb0aa0ae6e713d9dd7b370b09.py"
+      ]
+    ]
+  },
+  "fail_trace": [
+    "Traceback (most recent call last):\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_socket.py\", line 115, in recv\n    bytes_ = _recv()\n             ^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_socket.py\", line 94, in _recv\n    return sock.recv(bufsize)\n           ^^^^^^^^^^^^^^^^^^\n",
+    "TimeoutError: timed out\n",
+    "\nDuring handling of the above exception, another exception occurred:\n\n",
+    "Traceback (most recent call last):\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/protocol.py\", line 62, in catch_websocket_connection_errors\n    yield\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/protocol.py\", line 179, in _read\n    response_str = self._sock.recv()\n                   ^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_core.py\", line 388, in recv\n    opcode, data = self.recv_data()\n                   ^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_core.py\", line 416, in recv_data\n    opcode, frame = self.recv_data_frame(control_frame)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_core.py\", line 437, in recv_data_frame\n    frame = self.recv_frame()\n            ^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_core.py\", line 478, in recv_frame\n    return self.frame_buffer.recv_frame()\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_abnf.py\", line 363, in recv_frame\n    self.recv_header()\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_abnf.py\", line 319, in recv_header\n    header = self.recv_strict(2)\n             ^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_abnf.py\", line 398, in recv_strict\n    bytes_ = self.recv(min(16384, shortage))\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_core.py\", line 563, in _recv\n    return recv(self.sock, bufsize)\n           ^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/websocket/_socket.py\", line 117, in recv\n    raise WebSocketTimeoutException(\"Connection timed out\")\n",
+    "websocket._exceptions.WebSocketTimeoutException: Connection timed out\n",
+    "\nDuring handling of the above exception, another exception occurred:\n\n",
+    "Traceback (most recent call last):\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/protocol.py\", line 147, in send\n    res = self.send_req(req)\n          ^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/protocol.py\", line 127, in send_req\n    return self.read()\n           ^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/stopwatch.py\", line 205, in _stopwatch\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/protocol.py\", line 98, in read\n    response = self._read()\n               ^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/protocol.py\", line 178, in _read\n    with catch_websocket_connection_errors():\n",
+    "  File \"/usr/lib/python3.11/contextlib.py\", line 158, in __exit__\n    self.gen.throw(typ, value, traceback)\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/protocol.py\", line 67, in catch_websocket_connection_errors\n    raise ConnectionError(\"Websocket timed out.\")\n",
+    "pysc2.lib.protocol.ConnectionError: Websocket timed out.\n",
+    "\nDuring handling of the above exception, another exception occurred:\n\n",
+    "Traceback (most recent call last):\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/sacred/config/captured_function.py\", line 42, in captured_function\n    result = wrapped(*args, **kwargs)\n             ^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/src/main.py\", line 38, in my_main\n    run(_run, config, _log)\n",
+    "  File \"/workspace/RODE-plus/src/run.py\", line 59, in run\n    run_sequential(args=args, logger=logger)\n",
+    "  File \"/workspace/RODE-plus/src/run.py\", line 207, in run_sequential\n    episode_batch = runner.run(test_mode=False)\n                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/src/runners/episode_runner.py\", line 57, in run\n    self.reset()\n",
+    "  File \"/workspace/RODE-plus/src/runners/episode_runner.py\", line 53, in reset\n    self.env.reset()\n",
+    "  File \"/workspace/RODE-plus/src/envs/starcraft2/starcraft2.py\", line 348, in reset\n    self._launch()\n",
+    "  File \"/workspace/RODE-plus/src/envs/starcraft2/starcraft2.py\", line 315, in _launch\n    self._controller.join_game(join)\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/remote_controller.py\", line 95, in _valid_status\n    return func(self, *args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/remote_controller.py\", line 70, in _check_error\n    return check_error(func(*args, **kwargs), error_enum)\n                       ^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/stopwatch.py\", line 205, in _stopwatch\n    return func(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/remote_controller.py\", line 205, in join_game\n    return self._client.send(join_game=req_join_game)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n",
+    "  File \"/workspace/RODE-plus/.venv/lib/python3.11/site-packages/pysc2/lib/protocol.py\", line 149, in send\n    raise ConnectionError(\"Error during %s: %s\" % (name, e))\n",
+    "pysc2.lib.protocol.ConnectionError: Error during join_game: Websocket timed out.\n"
+  ],
+  "heartbeat": "2026-05-07T16:54:07.034437",
+  "host": {
+    "ENV": {},
+    "cpu": "AMD EPYC 7352 24-Core Processor",
+    "gpus": {
+      "driver_version": "550.127.05",
+      "gpus": [
+        {
+          "model": "NVIDIA RTX A4500",
+          "persistence_mode": true,
+          "total_memory": 20470
+        }
+      ]
+    },
+    "hostname": "147454c4b609",
+    "os": [
+      "Linux",
+      "Linux-5.15.0-94-generic-x86_64-with-glibc2.35"
+    ],
+    "python_version": "3.11.10"
+  },
+  "meta": {
+    "command": "my_main",
+    "config_updates": {
+      "seed": 3,
+      "torch_num_threads": 1
+    },
+    "named_configs": [],
+    "options": {
+      "--beat-interval": null,
+      "--capture": null,
+      "--comment": null,
+      "--debug": false,
+      "--enforce_clean": false,
+      "--file_storage": null,
+      "--force": false,
+      "--help": false,
+      "--id": null,
+      "--loglevel": null,
+      "--mongo_db": null,
+      "--name": null,
+      "--pdb": false,
+      "--print-config": false,
+      "--priority": null,
+      "--queue": false,
+      "--s3": null,
+      "--sql": null,
+      "--tiny_db": null,
+      "--unobserved": false,
+      "COMMAND": null,
+      "UPDATE": [
+        "seed=3",
+        "torch_num_threads=1"
+      ],
+      "help": false,
+      "with": true
+    }
+  },
+  "resources": [],
+  "result": null,
+  "start_time": "2026-05-07T16:47:43.286483",
+  "status": "FAILED",
+  "stop_time": "2026-05-07T16:54:07.067787"
+}

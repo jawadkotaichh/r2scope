@@ -335,7 +335,7 @@ def plot_summary_by_map(summaries, out_file):
         )
 
     ax.set_title("Median time to first win by map", fontsize=11)
-    ax.set_ylabel("Timestep (million env steps)", fontsize=10)
+    ax.set_ylabel("T (mill)", fontsize=10)
     ax.set_xticks(x)
     ax.set_xticklabels(
         [result_plot.display_map_name(map_name) for map_name in map_names],
