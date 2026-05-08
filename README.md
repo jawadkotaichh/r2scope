@@ -1,141 +1,165 @@
-__Modifications to the SMAC Environments: In the SMAC framework, an attacking action is tied to a specific enemy unit. However, when the environment is reset at each episode, the same action ID may correspond to different enemies. This variability alters the semantics of actions across different episodes, making it difficult to learn consistent and meaningful action representations. Therefore, we sorted enemies in the SMAC environment file.__
+# R2SCOPE
 
-# RODE: Learning Roles to Decompose Multi-Agent Tasks
+This repository builds on **RODE: Learning Roles to Decompose Multi-Agent Tasks** for cooperative multi-agent reinforcement learning on the StarCraft Multi-Agent Challenge (SMAC).
 
-RODE ([ArXiv Link](https://arxiv.org/pdf/2010.01523.pdf)) is a scalable role-based multi-agent learning method which effectively discovers roles based on joint action space decomposition according to action effects. It establishes a new state of the art on the StarCraft multi-agent benchmark.
+RODE discovers roles by decomposing the joint action space according to action effects. This codebase keeps the original RODE training stack, which is based on [PyMARL](https://github.com/oxwhirl/pymarl) and [SMAC](https://github.com/oxwhirl/smac), and adds an R2SCOPE variant through the `rode_ices` algorithm config.
 
-This implementation is written in PyTorch and is based on [PyMARL](https://github.com/oxwhirl/pymarl) and [SMAC](https://github.com/oxwhirl/smac).
+R2SCOPE adds an ICES-style scaffold and auxiliary explorer on top of RODE. The explorer changes training-time primitive action sampling while preserving RODE's role-scoped action constraints. The main comparison in this repo is therefore:
 
-The results of RODE on the SMAC benchmark can be found [here](https://drive.google.com/file/d/1iZUoZO2x-rNBIxhfxn9txhsc4pVReU38/view?usp=sharing).
+- `rode`: the RODE baseline.
+- `rode_ices`: R2SCOPE.
 
-## Installation instructions
+The SMAC environment has also been modified so enemy units are sorted before attack-action IDs are assigned. In vanilla SMAC, the same attack action ID can refer to different enemy units after environment resets, which makes action representations less stable.
 
-Build the Dockerfile using 
-```shell
+## Repository Layout
+
+- `src/`: training code, algorithms, controllers, learners, modules, and configs.
+- `src/config/algs/rode.yaml`: RODE baseline config.
+- `src/config/algs/rode_ices.yaml`: R2SCOPE config.
+- `src/config/maps/`: map-specific overrides.
+- `src/modules/ices/`: ICES scaffold and explorer modules.
+- `run_parallel.py`: launches many independent training runs with a concurrency limit.
+- `install_sc2.sh`: installs StarCraft II and SMAC maps into `3rdparty/`.
+- `rode-results/`: collected experiment outputs and plotting scripts.
+- `rode-results/plots/`: generated figures and plot manifests.
+
+## Setup
+
+The easiest supported setup is Docker:
+
+```bash
 cd docker
 bash build.sh
 ```
 
-Set up StarCraft II and SMAC:
-```shell
+Then install StarCraft II and the SMAC maps:
+
+```bash
 bash install_sc2.sh
 ```
 
-This will download SC2 into the 3rdparty folder and copy the maps necessary to run over.
+The installer downloads StarCraft II into `3rdparty/StarCraftII` and copies the maps needed by SMAC.
 
-The requirements.txt file can be used to install the necessary packages into a virtual environment (not recomended).
+You can also install the Python dependencies directly:
 
-## Octopus setup
-
-The `octopus/` folder contains Slurm job scripts for running the experiments on AUB Octopus.
-
-Each job script currently:
-
-- loads the Octopus Python and CMake modules
-- recreates a per-job virtual environment such as `.venv1`
-- installs the Python requirements and nightly PyTorch
-- installs StarCraft II and SMAC if they are missing
-- launches `run_parallel.py` with the maps and seeds assigned to that job
-
-### Submit a job
-
-From the repository root on Octopus:
-
-```shell
-sbatch octopus/rode1.sh
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-The other prepared jobs can be submitted in the same way:
+Direct virtualenv installs are more sensitive to PyTorch, SMAC, and StarCraft II version issues than the Docker path.
 
-```shell
-sbatch octopus/rode2.sh
-sbatch octopus/rode3.sh
-sbatch octopus/rode4.sh
-sbatch octopus/rode5.sh
-sbatch octopus/rode6.sh
+## Running Experiments
+
+Run one RODE experiment:
+
+```bash
+python src/main.py --alg=rode --env=sc2 --map=sc2_2s3z with seed=0 t_max=2050000
 ```
 
-### Logs and status
+Run one R2SCOPE experiment:
 
-Slurm writes the batch log to:
-
-```shell
-slurm-<jobid>.out
+```bash
+python src/main.py --alg=rode_ices --env=sc2 --map=sc2_2s3z with seed=0 t_max=2050000
 ```
 
-Useful commands:
+Run several maps/seeds in parallel:
 
-```shell
-squeue -u $USER
-scontrol show job <jobid>
-cat slurm-<jobid>.out
+```bash
+python run_parallel.py \
+  --alg rode rode_ices \
+  --map sc2_2s3z sc2_3s5z_vs_3s6z \
+  --seed 0 1 2 3 \
+  --max-parallel 4 \
+  --extra t_max=2050000
 ```
 
-The parallel launcher also writes one log per run under:
+Each child process gets its own SC2 instance, replay buffer, Sacred folder, and result directory.
 
-```shell
-results/_launcher/
+## Results
+
+Training runs write to deterministic folders under `results/`:
+
+```text
+results/<algorithm>_seed<seed>_<env>_<map>/
 ```
 
 For example:
 
-```shell
-cat results/_launcher/rode_seed0_sc2_sc2_27m_vs_30m.log
+```text
+results/rode_ices_seed0_sc2_2s3z/
 ```
 
-### Virtual environments on Octopus
+Important files inside each run:
 
-The job scripts create hidden virtual environments in the repository root, such as `.venv1`, `.venv2`, and so on. Because they are hidden directories, `ls` will not show them unless you use:
+- `sacred/<id>/config.json`: full resolved config.
+- `sacred/<id>/info.json`: logged metrics used by the plotting scripts.
+- `sacred/<id>/cout.txt`: captured console output.
+- `models/<timestep>/`: saved checkpoints.
+- `tb/`: TensorBoard event files.
+- `replay/`: saved SC2 replays, when replay saving is enabled.
 
-```shell
-ls -a
+The `rode-results/` directory contains collected runs and analysis outputs. The plotting scripts there expect run folders to live directly under `rode-results/`.
+
+## Plotting
+
+Regenerate the main score, return, and win-rate plots:
+
+```bash
+python rode-results/plot.py
 ```
 
-### Line endings
+Regenerate time-to-first-win plots:
 
-Shell scripts must use Unix line endings on Octopus. This repository uses `.gitattributes` to keep `*.sh` files on `LF`. If a script was copied manually and Slurm reports DOS line break errors, convert it with:
-
-```shell
-sed -i 's/\r$//' install_sc2.sh octopus/*.sh
+```bash
+python rode-results/time_to_first_win.py
 ```
 
-### Notes
+Regenerate compact R2SCOPE diagnostics:
 
-- The Octopus jobs currently pin `setuptools<82` because `sacred==0.8.5` still imports `pkg_resources`.
-- The requirements include `dm-tree==0.1.8` so Octopus can install a wheel instead of trying to build a newer `dm-tree` with a newer CMake than the cluster provides.
-- `sc2_27m_vs_30m` uses a smaller replay buffer override because the default RODE buffer is too large for that map on Octopus RAM.
-
-### Auto-resume
-
-If an Octopus job times out after saving checkpoints, you can resubmit the
-same job and continue from the latest saved model with:
-
-```shell
-sbatch --export=ALL,AUTO_RESUME=1 octopus/rode1.sh
+```bash
+python rode-results/plot_ices_diagnostics.py
 ```
 
-## Run an experiment 
+Generated figures are written under:
 
-```shell
-python3 src/main.py --config=rode --env-config=sc2 with env_args.map_name=corridor n_role_clusters=3 role_interval=5 t_max=5050000
+```text
+rode-results/plots/
 ```
 
-To change the annealing time of epsilon, set `epsilon_anneal_time_exp`.
+Useful plot folders:
 
-All results will be stored in the `Results` folder.
+- `rode-results/plots/<map>/`: main RODE vs R2SCOPE curves for each map.
+- `rode-results/plots/time_to_first_win/`: per-map and summary time-to-first-win plots.
+- `rode-results/plots/ices_diagnostics_compact/`: compact diagnostics dashboards for R2SCOPE.
+- `rode-results/plots/roles/`: role/action-space visualizations, when generated.
 
-## Saving and loading learnt models
+The current compact diagnostics dashboards group maps by difficulty and include:
 
-### Saving models
+- test win rate
+- explorer usage
+- intrinsic mean/std
+- explorer entropy
 
-You can save the learnt models to disk by setting `save_model = True`, which is set to `False` by default. The frequency of saving models can be adjusted using `save_model_interval` configuration. Models will be saved in the result directory, under the folder called *models*. The directory corresponding each run will contain models saved throughout the experiment, each within a folder corresponding to the number of timesteps passed since starting the learning process.
+## Resuming And Evaluating
 
-### Loading models
+If a run already has checkpoints, resume it from the latest local checkpoint with:
 
-Learnt models can be loaded using the `checkpoint_path` parameter, after which the learning will proceed from the corresponding timestep. 
+```bash
+python src/main.py --alg=rode_ices --env=sc2 --map=sc2_2s3z with seed=0 auto_resume=True
+```
 
-## Watching StarCraft II replays
+You can also load a specific checkpoint directory:
 
-`save_replay` option allows saving replays of models which are loaded using `checkpoint_path`. Once the model is successfully loaded, `test_nepisode` number of episodes are run on the test mode and a .SC2Replay file is saved in the Replay directory of StarCraft II. Please make sure to use the episode runner if you wish to save a replay, i.e., `runner=episode`. The name of the saved replay file starts with the given `env_args.save_replay_prefix` (map_name if empty), followed by the current timestamp. 
+```bash
+python src/main.py --alg=rode_ices --env=sc2 --map=sc2_2s3z with checkpoint_path=results/rode_ices_seed0_sc2_2s3z/models load_step=2050000 evaluate=True
+```
 
-**Note:** Replays cannot be watched using the Linux version of StarCraft II. Please use either the Mac or Windows version of the StarCraft II client.
+To save replays during evaluation, add:
+
+```bash
+save_replay=True runner=episode
+```
+
+Linux StarCraft II can save replays, but viewing `.SC2Replay` files usually requires the Windows or macOS StarCraft II client.
